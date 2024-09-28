@@ -1,0 +1,77 @@
+.conteudo{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    
+
+    .campos-informedados{
+        height: 250px;
+        width: 60%;
+        flex-direction: row;
+        border: 0px;
+        margin-top: 50px;
+
+        .campo-um-input{
+            border-width: 1px;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 40px;
+            margin-top: 10px;
+        }
+
+        .linha{
+            border-width: 1px;
+            display: flex;
+            width: 100%;
+            margin-top: 10px;
+            justify-content: space-between;
+
+            
+            input{
+                font-size: 16px;
+                margin-left: 5px;
+                
+                padding-left: 10px;
+            }
+            input:focus{
+                outline: none;
+            }
+            input::placeholder{
+                transform: translateY(-10px);
+                margin-left: 5px;
+            }
+            input:focus::placeholder{
+                color: transparent;
+            }
+        }
+        .campo{
+            padding: 0;
+            margin-top: 10px;
+            height: 40px;
+            width: 45%;
+        }
+        .botao{
+            border: 0;
+            width: 100%; 
+            background-color: #CE8EFE;
+            margin-top: 20px;
+            height: 40px;
+        }
+        .botao:hover{
+            animation-name: botao-hover;
+            animation-duration: 0.2s;
+            animation-iteration-count: 1;
+            animation-fill-mode: forwards;
+        }
+        
+        @keyframes botao-hover {
+            0%{
+                background-color: #CE8EFE;
+            }
+            100%{
+                background-color: #ae33ff;
+            }
+        }
+    }
+}

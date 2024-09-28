@@ -7,6 +7,7 @@ import AgendaInstalacao from './components/cadastro-passos/Agendainstalacao';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-   <AgendaInstalacao/>
+    <AgendaInstalacao/>
+
   </React.StrictMode>
 );
