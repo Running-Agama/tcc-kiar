@@ -1,13 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import InformeDados from './components/cadastro-passos/Informedados';
-import AgendaInstalacao from './components/cadastro-passos/Agendainstalacao';
+
+import Rotas from './routes';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <AgendaInstalacao/>
-
+    <Rotas/>
   </React.StrictMode>
 );

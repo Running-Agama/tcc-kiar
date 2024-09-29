@@ -39,7 +39,7 @@
             }
             input::placeholder{
                 transform: translateY(-10px);
-                margin-left: 5px;
+                transform: translateX(-10px);
             }
             input:focus::placeholder{
                 color: transparent;

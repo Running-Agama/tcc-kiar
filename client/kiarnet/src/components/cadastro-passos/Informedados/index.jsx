@@ -26,7 +26,7 @@ export default function InformeDados() {
                     <input type="text" className="campo" placeholder="Data de nascimento:" />
                 </div>
 
-                <button className='botao'>Avançar</button>
+                
             </div>
             
         </div>
