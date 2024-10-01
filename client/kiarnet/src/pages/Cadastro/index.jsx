@@ -1,6 +1,7 @@
+import { useState } from 'react';
 export default function Cadastro(){
     const [passo, setPasso] = useState(0)
-    
+
     return(
 
     <div className="">
