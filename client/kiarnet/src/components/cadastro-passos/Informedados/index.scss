@@ -12,7 +12,6 @@
         margin-top: 50px;
 
         .campo-um-input{
-            border-width: 1px;
             margin: 0;
             padding: 0;
             width: 100%;
@@ -26,6 +25,7 @@
             width: 100%;
             margin-top: 10px;
             justify-content: space-between;
+            outline: none;
 
             
             input{
@@ -50,28 +50,8 @@
             margin-top: 10px;
             height: 40px;
             width: 45%;
+            outline: 0;
         }
-        .botao{
-            border: 0;
-            width: 100%; 
-            background-color: #CE8EFE;
-            margin-top: 20px;
-            height: 40px;
-        }
-        .botao:hover{
-            animation-name: botao-hover;
-            animation-duration: 0.2s;
-            animation-iteration-count: 1;
-            animation-fill-mode: forwards;
-        }
-        
-        @keyframes botao-hover {
-            0%{
-                background-color: #CE8EFE;
-            }
-            100%{
-                background-color: #ae33ff;
-            }
-        }
+       
     }
 }

@@ -99,7 +99,7 @@ export default function AgendaInstalacao() {
 
                     
                 </div>
-                <button className='botao'>Avançar</button>
+                
             </div>
 
         </div>

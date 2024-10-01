@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+*{
+    font-family: 'Roboto';
+
+}
+
+.conteudo{
+    .barra-progresso{
+        display: flex;
+        justify-content: center;
+    }
+    .botao{
+        border: 0;
+        width: 70%; 
+        background-color: #CE8EFE;
+        margin-top: 20px;
+        height: 40px;
+    }
+    .botao:hover{
+        animation-name: botao-hover;
+        animation-duration: 0.2s;
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards;
+    }
+    
+    @keyframes botao-hover {
+        0%{
+            background-color: #CE8EFE;
+        }
+        100%{
+            background-color: #ae33ff;
+        }
+    }
+}
