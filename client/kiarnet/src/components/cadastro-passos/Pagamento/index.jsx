@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import './index.scss'
-import InformeDados from '../Informedados'
 import BancoConta from '../../inserir-dados-bancarios'
 
 export default function Pagamento() {
@@ -16,7 +15,7 @@ export default function Pagamento() {
                 <button>03</button>
                 <button>03</button>
             </div>
-
+ 
             <div className="campos-informedados">
                 <p>Informe seu email para envio da fatura:</p>
 
@@ -45,9 +44,10 @@ export default function Pagamento() {
 
                 </div>
                 <div className="debito-automatico">
-                    {escolhaDebito == true ? <BancoConta/> : <p>ta false</p>}
+                    {escolhaDebito === true ? <BancoConta/> : <p>ta false</p>}
                 </div>
-
+                
+                {tipoResidencia}
 
                 <p>Confirme seu endereço:</p>
 

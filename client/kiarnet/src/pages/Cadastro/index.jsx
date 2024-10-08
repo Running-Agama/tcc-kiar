@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import InformeDados from '../../components/cadastro-passos/Informedados';
-import AgendaInstalacao from '../../components/cadastro-passos/Pagamento';
 import './index.scss'
 import Barraprogresso from '../../components/Barraprogresso';
 import Pagamento from '../../components/cadastro-passos/Pagamento';
