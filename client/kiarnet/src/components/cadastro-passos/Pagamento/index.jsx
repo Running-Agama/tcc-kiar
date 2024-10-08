@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import './index.scss'
 import InformeDados from '../Informedados'
+import BancoConta from '../../inserir-dados-bancarios'
 
-export default function AgendaInstalacao() {
+export default function Pagamento() {
     const [escolhaDebito, setEscolhaDebito] = useState(false)
     const [tipoResidencia, setTipoResidencia] = useState('')
 
@@ -24,7 +25,6 @@ export default function AgendaInstalacao() {
 
 
                 <p>Deseja cadastrar sua conta em débito automatico?</p>
-                <p>Ver como colocar os labels abaixo dos botoes depois</p>
                 <div className="campo">
 
                     <div className="campo-input-radio">
@@ -44,7 +44,10 @@ export default function AgendaInstalacao() {
 
 
                 </div>
-                {escolhaDebito == true ? <InformeDados /> : <p>ta false</p>}
+                <div className="debito-automatico">
+                    {escolhaDebito == true ? <BancoConta/> : <p>ta false</p>}
+                </div>
+
 
                 <p>Confirme seu endereço:</p>
 

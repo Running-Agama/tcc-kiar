@@ -2,10 +2,10 @@
     display: flex;
     flex-direction: column;
     justify-items: center;
-
+    margin: 0 20px;
 
     .opcoes-data{
-        width: 130px;
+        border: solid;
         display: flex;
         gap: 20px;
         flex-wrap: wrap;
@@ -30,6 +30,13 @@
             color: transparent;
         }
 
+        .debito-automatico{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            border: solid;
+            width: 100%;
+        }
         .campo-um-input{
             border-width: 1px;
             margin: 0;
