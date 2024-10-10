@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 export default function Notfound(){
     const navigate = useNavigate()
     return (
-        <div className="mae">
+        <div className="conteudo-notfound">
             
         <div className="meio">
             <h1 className='num'>404</h1>
