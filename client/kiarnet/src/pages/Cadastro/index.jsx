@@ -23,7 +23,7 @@ export function Cadastro(){
     const [diaVencimento, setDiaVencimento] = useState(0)
     const [cep, setCep] = useState(0)
     const [dadosEndereco, setDadosEndereco] = useState({})
-
+    const [numeroEndereco, setNumeroEndereco] = useState(0)
     function proximoPasso(){
 
     }
@@ -53,7 +53,8 @@ export function Cadastro(){
             emailFatura, setEmailFatura,
             diaVencimento, setDiaVencimento,
             cep, setCep,
-            dadosEndereco, setDadosEndereco
+            dadosEndereco, setDadosEndereco,
+            numeroEndereco, setNumeroEndereco
             ]
             }>
             <div className="campo-passos">

@@ -1,7 +1,5 @@
 import endpoints from "./controller/clienteController.js";
 
-
-export default function adicionarRotas(servidor){
-
-    servidor.use(endpoints)
+export default function adicionarRotas(app){
+    app.use(endpoints)
 }

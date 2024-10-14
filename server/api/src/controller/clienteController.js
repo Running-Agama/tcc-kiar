@@ -1,37 +1,17 @@
-import express, { Router } from 'express'
-import listarClientesService from '../service/listarClientesService.js'
-import { adicionarClientesService } from '../service/adicionarClientesService.js'
-import { deletarCliente } from '../service/deletarClienteService.js'
-const endpoints = Router()
+import express from 'express'
+import CryptoJS from 'crypto-js'
+const endpoints = express.Router()
 
-endpoints.get('/clientes/listar', async (req,res)=>{
-    try {
-        const resposta = await listarClientesService()
-
-        res.send(resposta[0])
-    } catch (error) {
-        console.log(error)
-    }
-})
-
-endpoints.post('/clientes/adicionar', async (req,resp) =>{
+endpoints.post('/cliente', (req,res)=>{
     try {
         const corpo = req.body
-        const resposta = await adicionarClientesService(corpo)
-
-        resp.status(201).send(resposta)
-    } catch (error) {
-        console.log(error);
-    }
-})
-
-endpoints.delete('/clientes/delete', async (req, resp) => {
-    try {
-        const resposta = await deletarClienteService(corpo)
+        res.send({resposta: corpo})
+       corpo.cpf = CryptoJS.SHA256(corpo.cpf)
+        console.log(corpo)
+         res.send({resposta: corpo})
 
     } catch (error) {
-        console.log(error);
+        res.send(error)
     }
 })
-
 export default endpoints

@@ -7,14 +7,7 @@ import { contextoCadastro } from '../../../pages/Cadastro'
 import { useDetectClickOutside } from 'react-detect-click-outside';
 import axios from 'axios'
 export default function Pagamento() {
-    const mouseLeave = useDetectClickOutside({onTriggered: verificarEmail})
-
-
-    function verificarEmail(){
-       // if(!emailFatura === confirmarEmail){
-    //estudar envio de formularios com erro bonitinho
-
-    }
+    
     const [confirmarEmail, setConfirmarEmail] = useState('')
 
 
@@ -25,7 +18,8 @@ export default function Pagamento() {
     tipoResidencia, setTipoResidencia,
     emailFatura, setEmailFatura,
     diaVencimento, setDiaVencimento,
-    nomeCompleto, setNomeCompleto
+    nomeCompleto, setNomeCompleto,
+    numeroEndereco, setNumeroEndereco
    ]
     = useContext(contextoCadastro)
    
@@ -108,7 +102,7 @@ export default function Pagamento() {
                     </div>
                     <div className="linha-info-endereco">
                         <p>Número:</p>
-                        <p>depois arruma a parada do numero</p>
+                        <p>{numeroEndereco}</p>
                     </div>
 
                    

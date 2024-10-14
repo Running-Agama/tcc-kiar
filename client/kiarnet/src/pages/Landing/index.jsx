@@ -13,7 +13,7 @@ export default function Landing() {
                         <li><a href="#planos">Planos</a></li>
                         <li><a href="#contato">Contato</a></li>
                         <li><a href="#login">Login</a></li>
-                        <li><a href="#signup" class="signup">Sign up</a></li>
+                        <li><a href="/cadastro" class="signup">Assinar</a></li>
                     </ul>
                 </nav>
             </header>
