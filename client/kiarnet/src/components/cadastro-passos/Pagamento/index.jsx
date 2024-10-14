@@ -1,26 +1,62 @@
-import { useState } from 'react'
+
+
+import { useContext, useEffect, useState } from 'react'
 import './index.scss'
 import BancoConta from '../../inserir-dados-bancarios'
-
+import { contextoCadastro } from '../../../pages/Cadastro'
+import { useDetectClickOutside } from 'react-detect-click-outside';
+import axios from 'axios'
 export default function Pagamento() {
-    const [escolhaDebito, setEscolhaDebito] = useState(false)
-    const [tipoResidencia, setTipoResidencia] = useState('')
+    const mouseLeave = useDetectClickOutside({onTriggered: verificarEmail})
 
+
+    function verificarEmail(){
+       // if(!emailFatura === confirmarEmail){
+    //estudar envio de formularios com erro bonitinho
+
+    }
+    const [confirmarEmail, setConfirmarEmail] = useState('')
+
+
+   const [
+    cep, setCep,
+    dadosEndereco, setDadosEndereco,
+    escolhaDebito, setEscolhaDebito,
+    tipoResidencia, setTipoResidencia,
+    emailFatura, setEmailFatura,
+    diaVencimento, setDiaVencimento,
+    nomeCompleto, setNomeCompleto
+   ]
+    = useContext(contextoCadastro)
+   
+
+    async function consultaCEP(){
+
+       const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/ `)
+       setDadosEndereco(response.data)
+       console.log(dadosEndereco)
+    }
+
+    useEffect(()=>{
+        consultaCEP()
+    },[])
     return (
+
+     
         <div className="conteudo">
             <p>Escolha a data de vencimento:</p>
             <div className="opcoes-data">
-                <button>03</button>
-                <button>03</button>
-                <button>03</button>
-                <button>03</button>
+                <button onClick={()=>setDiaVencimento(24)}>24</button>
+                <button onClick={()=>setDiaVencimento(18)}>18</button>
+                <button onClick={()=>setDiaVencimento(12)}>12</button>
+                <button onClick={()=>setDiaVencimento(6)}>06</button>
             </div>
  
             <div className="campos-informedados">
                 <p>Informe seu email para envio da fatura:</p>
 
-                <input type="text" className="campo-um-input" placeholder="email para envio da fatura" />
-                <input type="text" className="campo-um-input" placeholder="Confirme o email" />
+                <input type="text" className="campo-um-input" placeholder="email para envio da fatura" onChange={(e)=>setEmailFatura(e.target.value)} />
+                <input type="text" className="campo-um-input" placeholder="Confirme o email" onChange={(e)=>setConfirmarEmail(e.target.value)} />
 
 
                 <p>Deseja cadastrar sua conta em débito automatico?</p>
@@ -44,37 +80,35 @@ export default function Pagamento() {
 
                 </div>
                 <div className="debito-automatico">
-                    {escolhaDebito === true ? <BancoConta/> : <p>ta false</p>}
+                    {escolhaDebito === true && <BancoConta/>}
                 </div>
-                
-                {tipoResidencia}
-
+            
                 <p>Confirme seu endereço:</p>
 
                 <div className="info-endereco">
                     <div className="linha-info-endereco">
                         <p className='nome-linha'>CEP:</p>
-                        <p>02121-000</p>
+                        <p>{dadosEndereco.cep}</p>
                     </div>
                     <div className="linha-info-endereco">
                         <p>Bairro:</p>
-                        <p>Bairro do Limoeiro</p>
+                        <p>{dadosEndereco.bairro}</p>
                     </div>
                     <div className="linha-info-endereco">
                         <p className='nome-linha'>Cidade:</p>
-                        <p>Sampa</p>
+                        <p>{dadosEndereco.localidade}</p>
                     </div>
                     <div className="linha-info-endereco">
                         <p className='nome-linha'>Estado:</p>
-                        <p>SAMPA MEOOO</p>
+                        <p>{dadosEndereco.uf}</p>
                     </div>
                     <div className="linha-info-endereco">
                         <p className='nome-linha'>Endereço/Rua:</p>
-                        <p>Rua Mariano Procópio</p>
+                        <p>{dadosEndereco.logradouro}</p>
                     </div>
                     <div className="linha-info-endereco">
                         <p>Número:</p>
-                        <p>17</p>
+                        <p>depois arruma a parada do numero</p>
                     </div>
 
                    
@@ -95,7 +129,7 @@ export default function Pagamento() {
                             </div>
                         </div>
 
-                        <input type="text" className='complemento' placeholder='Complemento (opcional)' maxlength="120" />
+                        <input type="text" className='complemento' placeholder='Complemento (opcional)' maxLength="120" />
                     </div>
 
 

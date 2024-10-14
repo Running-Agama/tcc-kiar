@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './index.scss'
 
-const bancos = ['Banco A', 'Banco B', 'Banco C', 'Banco D', 'Banco E', 'Banco F'];
+const bancos = ['Caixa', 'Itaú', 'Nubank', 'Original', 'Banco do Brasil', 'Neon', 'Santander', 'Safra'];
 const tiposDeConta = ['Jurídica', 'Física', 'Pessoal'];
 
 const BancoConta = () => {

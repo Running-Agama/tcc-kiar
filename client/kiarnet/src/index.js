@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import {Route, BrowserRouter,Routes} from 'react-router-dom'
 
 import Notfound from './pages/NotFound';
-import Cadastro from './pages/Cadastro';
+import {Cadastro} from './pages/Cadastro'
 import Landing from './pages/Landing';
 
 

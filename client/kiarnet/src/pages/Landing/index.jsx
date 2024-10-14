@@ -9,9 +9,10 @@ export default function Landing() {
                     <li><a href="#home">Home</a></li>
                     <li><a href="#sobre">Sobre nós</a></li>
                     <li><a href="#planos">Planos</a></li>
+                    <li><a href="/ajuda"/>Ajuda</li>
                     <li><a href="#contato">Contato</a></li>
                     <li><a href="#login">Login</a></li>
-                    <li><a href="#signup" class="signup">Sign up</a></li>
+                    <li><a href="/cadastro" class="signup">Cadastro</a></li>
                 </ul>
             </nav>
 
