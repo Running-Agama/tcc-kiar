@@ -1,0 +1,60 @@
+body,
+html {
+    background-color: #CAA1E9;
+}
+
+.pagina-login {
+
+    .box {
+        background-color: #fff;
+        border-radius: 5px;
+        text-align: start;
+        margin: 20% 30%;
+        padding: 2% 5%;
+        max-width: 40%;
+
+        h1 {
+            font-size: 90%;
+        }
+
+        section {
+            text-align: start;
+            padding: 10% 3%;
+
+            input {
+                padding: 2%;
+                font-size: 90%;
+                border: 2px solid #e2e2e2;
+                border-radius: 5px;
+                background-color: #fff;
+            }
+
+            .cpf {
+                margin-top: 2%;
+            }
+
+            .senha {
+                margin-top: 5%;
+            }
+        }
+
+        footer {
+            display: flex;
+            text-align: start;
+            justify-content: space-between;
+            margin: 3%;
+            margin-top: 5%;
+
+            .entrar {
+                background-color: #9333EA;
+                padding: 1.5% 4%;
+                border-radius: 5px;
+                color: #fff;
+            }
+
+            .semSenha {
+                color: #9333EA;
+            }
+        }
+    }
+}

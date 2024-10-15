@@ -1,0 +1,47 @@
+.navbar {
+    background-color: var(--primary-color);
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+
+    .logo {
+        font-size: 2rem;
+        font-weight: bold;
+        color: var(--secondary-color);
+    }
+
+    .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 20px;
+
+        a {
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 50px;
+            transition: background-color var(--transition-speed), transform var(--transition-speed);
+
+            &:hover {
+                background-color: var(--secondary-color);
+                transform: scale(1.1);
+            }
+        }
+
+        .signup {
+            background-color: var(--secondary-color);
+            color: #fff;
+            padding: 10px 20px;
+
+            &:hover {
+                background-color: #fff;
+                color: var(--primary-color);
+            }
+        }
+    }
+}
