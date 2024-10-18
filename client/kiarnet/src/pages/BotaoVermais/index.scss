@@ -1,0 +1,98 @@
+:root {
+    --primary-color: #0a0a0a;
+    --secondary-color: #c97cd8;
+    --accent-color: #d8b4e0;
+    --text-color: #333;
+    --background-color: #f9f9f9;
+    --font-family: 'Roboto', sans-serif;
+    --transition-speed: 0.3s ease;
+    --border-radius: 8px;
+}
+
+body, html {
+    font-family: var(--font-family);
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.header {
+    text-align: center;
+    padding: 60px 5%;
+    background-color: var(--secondary-color);
+    color: white;
+
+    h1 {
+        font-size: 3rem;
+        margin-bottom: 20px;
+    }
+
+    p {
+        font-size: 1.25rem;
+    }
+}
+
+.benefits-section {
+    padding: 60px 5%;
+    text-align: center;
+
+    h2 {
+        font-size: 2.5rem;
+        margin-bottom: 40px;
+    }
+
+    .benefit {
+        background: white;
+        padding: 30px;
+        border-radius: var(--border-radius);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        margin: 20px 0;
+
+        h3 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+    }
+}
+
+.testimonials-section {
+    background-color: var(--accent-color);
+    padding: 60px 5%;
+    text-align: center;
+
+    h2 {
+        font-size: 2.5rem;
+        margin-bottom: 40px;
+    }
+
+    .testimonial {
+        background: white;
+        padding: 20px;
+        border-radius: var(--border-radius);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        margin: 20px auto;
+        max-width: 600px;
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        span {
+            font-style: italic;
+            color: var(--text-color);
+        }
+    }
+}
+
+.footer {
+    text-align: center;
+    padding: 20px 0;
+    background-color: var(--primary-color);
+    color: white;
+}

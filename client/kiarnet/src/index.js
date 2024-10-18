@@ -10,6 +10,7 @@ import Duvidas from './pages/Duvidas';
 import SobreNós from './pages/SobreNós';
 import Contato from './pages/Contato';
 import BotaoComecar from './pages/BotaoComecar';
+import BotaoVermais from './pages/BotaoVermais';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -24,6 +25,7 @@ root.render(
                <Route path='/sobre' element={<SobreNós/>}/>
                <Route path='/Contato' element={<Contato/>}/>
                <Route path='/BotaoComecar' element={<BotaoComecar/>}/>
+               <Route path='/BotaoVermais' element={<BotaoVermais/>}/>
           </Routes>
      </BrowserRouter>
 
