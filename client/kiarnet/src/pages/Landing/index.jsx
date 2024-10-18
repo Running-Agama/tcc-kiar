@@ -12,7 +12,7 @@ export default function Landing() {
                     <h1>O MELHOR PROVEDOR <br/>DE INTERNET PARA <br/>SUA CASA</h1>
                         <p>Experimente a diferença! Temos planos <br/> flexíveis e atendimento personalizado. <br/> Entre em contato e transforme sua <br/> navegação!</p>
                             <div class="buttons">
-                                <button class="btn-primary">Começar</button>
+                              <a href="/BotaoComecar">  <button class="btn-primary">Começar</button></a>
                                 <button class="btn-secondary">Ver mais</button>
                             </div>
                         </div>

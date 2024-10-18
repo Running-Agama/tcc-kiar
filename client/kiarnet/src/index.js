@@ -9,6 +9,7 @@ import Login from './pages/login';
 import Duvidas from './pages/Duvidas';
 import SobreNós from './pages/SobreNós';
 import Contato from './pages/Contato';
+import BotaoComecar from './pages/BotaoComecar';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -22,6 +23,7 @@ root.render(
                <Route path='/duvidas' element={<Duvidas/>}/>
                <Route path='/sobre' element={<SobreNós/>}/>
                <Route path='/Contato' element={<Contato/>}/>
+               <Route path='/BotaoComecar' element={<BotaoComecar/>}/>
           </Routes>
      </BrowserRouter>
 
