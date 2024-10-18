@@ -7,7 +7,7 @@ function Cabecalho() {
             <nav class="navbar">
                 <div class="logo">Kiarnet</div>
                 <ul class="nav-links">
-                    <li><a href="#home">Home</a></li>
+                    <li><a href="/">Home</a></li>
                     <li><a href="#sobre">Sobre nós</a></li>
                     <li><a href="#planos">Planos</a></li>
                     <li><a href="#contato">Contato</a></li>
