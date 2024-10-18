@@ -10,7 +10,7 @@ function Cabecalho() {
                     <li><a href="/">Home</a></li>
                     <li><a href="/sobre">Sobre nós</a></li>
                     <li><a href="#planos">Planos</a></li>
-                    <li><a href="#contato">Contato</a></li>
+                    <li><a href="/Contato">Contato</a></li>
                     <li><a href="/login">Login</a></li>
                     <li><a href="/Cadastro" class="signup">Sign up</a></li>
                 </ul>
