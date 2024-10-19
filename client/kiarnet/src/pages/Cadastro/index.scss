@@ -1,131 +1,238 @@
-.conteudo {
+.conteudo{
     display: flex;
-    flex-direction: column;
     align-items: center;
-    background: linear-gradient(135deg, #9333EA, #CAA1E9);
-    color: #fff;
-    padding: 20px;
-    min-height: 100vh;
+    flex-direction: column;
+    .barra-progresso{
 
-    .barra-progresso {
-        position: sticky;
+         display: flex;
+         justify-content: center;
+        
+    }
+    .campos-informedados{
+
         width: 100%;
-        top: 10px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        flex-direction: row;
+        border: 0px;
+        margin-top: 50px;
 
-        .btn-navegacao {
-            background: transparent;
-            border: none;
-            color: #fff;
-            cursor: pointer;
-            font-size: 1.2rem;
-            transition: color 0.3s;
+        .campo-um-input{
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 40px;
+            margin-top: 10px;
+        }
 
-            &:hover {
-                color: #D1BBF7;
+        .linha{
+            border-width: 1px;
+            display: flex;
+            width: 100%;
+            margin-top: 10px;
+            justify-content: space-between;
+            outline: none;
+
+            
+            input{
+                font-size: 16px;
+                margin-left: 5px;
+                
+                padding-left: 10px;
             }
+            input:focus{
+                outline: none;
+            }
+            input::placeholder{
+                transform: translateY(-10px);
+                transform: translateX(-10px);
+            }
+            input:focus::placeholder{
+                color: transparent;
+            }
+        }
+        .campo{
+            padding: 0;
+            margin-top: 10px;
+            height: 40px;
+            width: 45%;
+            outline: 0;
+        }
+       
+    }
+    .botao{
+        border: 0;
+        width: 100%; 
+        background-color: #CE8EFE;
+        margin-top: 20px;
+        height: 40px;
+    }
+    .botao:hover{
+        animation-name: botao-hover;
+        animation-duration: 0.2s;
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards;
+    }
+    
+    @keyframes botao-hover {
+        0%{
+            background-color: #CE8EFE;
+        }
+        100%{
+            background-color: #ae33ff;
         }
     }
 
-    .campo-passos {
+}
+.conteudo-passo2{
         display: flex;
         flex-direction: column;
-        width: 100%;
-        max-width: 600px;
-        margin-top: 20px;
-
-        .conteudo-passo {
+        justify-items: center;
+        align-items: center;
+        margin: 0 20px;
+    
+        .opcoes-data{
+            border: solid;
             display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .campos-informedados{
+            display: flex;
+            height: fit-content;
+            width: 100%;
             flex-direction: column;
             align-items: center;
-            margin: 20px 0;
+            border: 0px;
+            margin-top: 50px;
+            
 
-            h1 {
-                font-size: 1.8rem;
-                margin-bottom: 20px;
+            .campo-email{
+                input::placeholder{
+                    transform: translateX(5px);
+                }
+                
             }
-
-            .campos-informedados {
-                width: 100%;
+            input:focus{
+                outline: none;
+            }
+            input::placeholder{
+                transform: translateY(-10px);
+               padding-left: 5px;
+            }
+            input:focus::placeholder{
+                color: transparent;
+            }
+    
+            .debito-automatico{
                 display: flex;
-                flex-direction: column;
+                flex-direction: row;
+                justify-content: center;
+                width: 100%;
+            }
+            .campo-um-input{
+                border-width: 1px;
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                height: 40px;
+                margin-top: 10px;
 
-                .linha {
+            }
+            .campo{
+                display: flex;
+                justify-content: center;
+                padding: 0;
+                margin-top: 10px;
+                height: 40px;
+                width: 45%;
+            }
+    
+            .campo-input-radio{
+                display: flex;
+                gap: 40px;
+       
+                justify-content: space-around;
+                .input-radio{
                     display: flex;
                     flex-direction: column;
-                    margin-top: 10px;
-
-                    input {
-                        padding: 10px;
-                        font-size: 1rem;
-                        border: none;
-                        border-radius: 5px;
-                        transition: background 0.3s;
-
-                        &:focus {
-                            background: rgba(255, 255, 255, 0.2);
-                        }
-                    }
-                }
-                .error {
-                    color: #ff4d4d;
-                    font-size: 0.9rem;
-                    margin-top: 5px;
+                    gap: 4px;
                 }
             }
-
-            .opcoes-data {
-                display: flex;
-                justify-content: space-between;
+    
+            .info-endereco{     
+                      
                 width: 100%;
-                margin: 20px 0;
-
-                button {
-                    background: rgba(255, 255, 255, 0.2);
-                    border: none;
-                    padding: 10px 20px;
-                    border-radius: 5px;
-                    cursor: pointer;
-                    transition: background 0.3s;
-
-                    &:hover {
-                        background: rgba(255, 255, 255, 0.3);
+                
+                .linha-info-endereco{
+                    padding: 0;
+                    margin-top: 5px;
+                    border: 1px solid; 
+                    background-color: #D0D0D0;
+                    height: 60px;
+                    gap: 0;
+                    .nome-linha{
+                        background-color: #D0D0D0;
+                        font-size: 14px;
+                        opacity: 60%;
                     }
+                    p{
+                        margin: 0;
+                        margin-left: 5px;
+                        margin-top: 5px;
+                    }
+    
                 }
+     
             }
+    
         }
-
-        .botao {
-            background-color: #CE8EFE;
-            border: none;
-            padding: 10px 20px;
-            margin-top: 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-
-            &:hover {
-                background-color: #ae33ff;
-            }
-        }
-
-        .opcoes-instalacao {
+        .campo-tipo-residencia{
+            gap: 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            .complemento{
+                
+                width: 100%;
+                height: 40px;
+            }   
+        }
+    
+    }
 
-            .opcao-instalacao {
-                margin: 10px 0;
+.conteudo-passo3{
+    margin-top: 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80%;
+
+    margin: 0 20px;
+
+        .opcoes-instalacao{
+            margin-top: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+    
+            .opcao-instalacao{
                 display: flex;
                 flex-direction: column;
-
-                input {
+                align-items: center;
+                width: 100%;
+                input{
+                    height: 40px;
                     padding: 10px;
-                    border-radius: 5px;
                 }
             }
+        
+        .botao{
+            border: 0;
+            width: 100%; 
+            background-color: #CE8EFE;
+            margin-top: 20px;
+            height: 40px;
         }
     }
+
 }
