@@ -2,7 +2,6 @@ import {useState } from 'react';
 import './index.scss'
 import Barraprogresso from '../../components/Barraprogresso';
 import {useForm} from 'react-hook-form'
-import { json } from 'express';
 
 export function Cadastro() {
     const [passo, setPasso] = useState(0)
@@ -143,8 +142,6 @@ export function Cadastro() {
 
      </div>
  </div>
-
- <input type="submit"/>
  <button className='botao' disabled={!isValid} onClick={()=>setPasso(passo + 1)}>proximo</button>
 </div>
                     }
