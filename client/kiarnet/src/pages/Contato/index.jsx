@@ -1,3 +1,4 @@
+import Cabecalho from '../../components/cabecalhoA';
 import './index.scss';
 import { useNavigate } from 'react-router-dom';
 
@@ -5,7 +6,11 @@ export default function Contato() {
     const navigate = useNavigate();
 
     return (
+        <div className="conteudo-contato">
+            <Cabecalho/>
+        
         <div className="contatoContainer">
+            
             <header className="headerContato">
                 <h1>Entre em Contato com a KiarNet</h1>
                 <p>Estamos aqui para responder suas dúvidas e ouvir suas sugestões!</p>
@@ -39,6 +44,7 @@ export default function Contato() {
             <div className="btnVoltarHome">
                 <button onClick={() => navigate('/')}>Voltar à Home</button>
             </div>
+        </div>
         </div>
     );
 }

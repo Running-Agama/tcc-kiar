@@ -1,3 +1,4 @@
+import Cabecalho from '../../components/cabecalhoA';
 import './index.scss';
 import { useNavigate } from 'react-router-dom';
 
@@ -5,7 +6,11 @@ export default function SobreNos() {
     const navigate = useNavigate();
 
     return (
-        <div className="conteudoSobre">
+        
+        <div className="conteudo-sobre">
+            <Cabecalho/>
+            <div className="conteudoSobre">
+            
             <header className="headerSobre">
                 <h1>Sobre a KiarNet</h1>
                 <h2>Conheça mais sobre a nossa empresa e a nossa missão</h2>
@@ -35,5 +40,7 @@ export default function SobreNos() {
                 <button onClick={() => navigate('/')}>Voltar à Home</button>
             </div>
         </div>
+        </div>
+
     );
 }
