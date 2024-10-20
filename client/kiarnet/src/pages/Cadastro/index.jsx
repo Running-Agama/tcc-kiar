@@ -6,15 +6,21 @@ import axios from 'axios'
 export function Cadastro() {
 
     const [passo, setPasso] = useState(0)
-    const { handleSubmit, watch, register, formState: { errors, isValid } } = useForm({
+    const [cep, setCep] = useState('')
+    const [emailFatura, setEmailFatura] = useState('')
+    const [confirmacaoEmailFatura, setConfirmacaoEmailFatura] = useState('')
+    const [dadosEndereco, setDadosEndereco] = useState({})
+    const { handleSubmit, watch, register, setError, formState: { errors, isValid } } = useForm({
         reValidateMode: 'onChange',
         mode: 'onChange'
     })
     function proximoPasso() {
-
+        if(passo < 4){
+            setPasso(passo + 1)
+        }
     }
     function passoAnterior() {
-        if (!passo >= 0) {
+        if (passo > 0) {
             setPasso(passo - 1)
         }
     }
@@ -23,10 +29,17 @@ export function Cadastro() {
         console.log(data);
     };
 
+    
+   
+    async function consultarCEP(){
+        const resposta = await axios.get(`https://viacep.com.br/ws/${cep}/json/`)
+        const data = response.data
+
+        setDadosEndereco(data)
+
+    }
+
     return (
-
-
-
         <div className="conteudo">
             <div className="barra-progresso" style={{ position: 'sticky', width: '100%', top: '10px' }}>
                 <Barraprogresso progresso={(33 * passo)} />
@@ -65,6 +78,7 @@ export function Cadastro() {
                                                 message: "Formato de CEP inválido"
                                             }
                                         })}
+                                        onChange={(e)=>setCep(e.target.value)}
                                     />
                                     {errors.cep && <p style={{ fontSize: '10px', color: 'red', position: 'absolute', marginTop: '50px' }}>{errors.cep.message}</p>}
                                 </div>
@@ -140,7 +154,7 @@ export function Cadastro() {
 
 
                                         />
-                                        {errors.datanascimento && <p style={{ fontSize: '10px', color: 'red' }}>{errors.datanascimento.message}</p>}
+                                        {errors.datanascimento && <p style={{ fontSize: '10px', color: 'red', position: 'absolute', marginTop: '50px' }}>{errors.datanascimento.message}</p>}
                                     </div>
 
                                 </div>
@@ -150,7 +164,7 @@ export function Cadastro() {
                     }
                     {
                         passo === 1 &&
-                    
+                        
                         <div className="conteudo-passo2">
 
                             <p>Escolha a data de vencimento:</p>
@@ -165,16 +179,22 @@ export function Cadastro() {
                                 <p>Informe seu email para envio da fatura:</p>
 
                                 <div className="campo-email">
-                                    <input type="email" className="campo-um-input" placeholder="email para envio da fatura" {...register('emailfatura', {
+                                    <input type="email" className="campo-um-input" placeholder="email para envio da fatura" 
+                                    {...register('emailfatura', {
                                         required: "Email de fatura é obrigatorio"
-                                    })} />
-                                    <input type="text" className="campo-um-input" placeholder="Confirme o email" />
-                                    {errors.emailfatura && <p>Caneta</p>}
+                                    })} 
+                                    onChange={(e)=>setEmailFatura(e.target.value)}
+                                    />
+
+                                    {errors.emailfatura && <p style={{position: 'absolute', fontSize: '10px', color: 'red' }}>{errors.emailfatura.message}</p>}
+                                    
+                                    <input type="email" className="campo-um-input" placeholder="Confirme o email" style={{marginTop: '15px'}}  onChange={(e)=>setConfirmacaoEmailFatura(e.target.value)}/>
+                                    
                                 </div>
 
 
 
-                                <p>Deseja cadastrar sua conta em débito automatico?</p>
+                                <p style={{marginTop: '20px'}}>Deseja cadastrar sua conta em débito automatico?</p>
                                 <div className="campo">
 
                                     <div className="campo-input-radio">
@@ -192,7 +212,7 @@ export function Cadastro() {
                                     </div>
                                 </div>
 
-                                <p>Confirme seu endereço:</p>
+                                <p style={{marginTop:'10px'}}>Confirme seu endereço:</p>
 
                                 <div className="info-endereco">
                                     <div className="linha-info-endereco">
@@ -224,17 +244,17 @@ export function Cadastro() {
                                         <p>Selecione o tipo da sua residência:</p>
                                         <div className="campo-input-radio">
                                             <div className="input-radio">
-                                                <input type="radio" name="selecao-residencia" id="selecao-residencia-casa" />
+                                                <input type="radio" name="selecao-residencia" id="selecao-residencia-casa" {...register('tiporesidencia')}/>
                                                 <label htmlFor="selecao-residencia-casa">Casa</label>
                                             </div>
 
                                             <div className="input-radio">
-                                                <input type="radio" name="selecao-residencia" id="selecao-residencia-apartamento" />
+                                                <input type="radio" name="selecao-residencia" id="selecao-residencia-apartamento"  {...register('tiporesidencia')}/>
                                                 <label htmlFor="selecao-residencia-apartamento">Apartamento</label>
                                             </div>
                                         </div>
 
-                                        <input type="text" className='complemento' placeholder='Complemento (opcional)' maxLength="120" />
+                                        <input type="text" className='complemento' placeholder='Complemento (opcional)' maxLength="120" {...register('complemento')}/>
                                     </div>
 
                                     <button className='botao' disabled={!isValid} onClick={() => setPasso(passo + 1)}>proximo</button>
@@ -248,18 +268,19 @@ export function Cadastro() {
                     }
                     {
                         passo === 2 &&
-                        <div className="conteudo-passo3">
+                        <div className="conteudo-passo3" >
+
                             <h1>Selecione as datas de instalação</h1>
 
                             <div className="opcoes-instalacao">
                                 <div className="opcao-instalacao">
                                     <p>primeira opção</p>
-                                    <input type="date" name="" id="" />
+                                    <input type="date" name="" id=""  min={new Date()} {...register('primeiraopcaoinstalacao')}/>
                                 </div>
 
                                 <div className="opcao-instalacao" style={{ marginTop: "30px" }}>
                                     <p>Segunda opção</p>
-                                    <input type="date" name="" id="" />
+                                    <input type="date" name="" id="" min={new Date()} {...register('segundaopcaoinstalacao')} />
                                 </div>
                             </div>
 
@@ -269,7 +290,7 @@ export function Cadastro() {
                         </div>
 
                     }
-                    {JSON.stringify(watch(), null, 2)}
+                   
                 </form>
 
             </div>
