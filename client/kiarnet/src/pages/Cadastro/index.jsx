@@ -10,15 +10,14 @@ export function Cadastro() {
     const [emailFatura, setEmailFatura] = useState('')
     const [confirmacaoEmailFatura, setConfirmacaoEmailFatura] = useState('')
     const [dadosEndereco, setDadosEndereco] = useState({})
+    const [carregando, setCarregando] = useState(false)
+    const [numeroEndereco, setNumeroEndereco] = useState('')
+
     const { handleSubmit, watch, register, setError, formState: { errors, isValid } } = useForm({
         reValidateMode: 'onChange',
         mode: 'onChange'
     })
-    function proximoPasso() {
-        if(passo < 4){
-            setPasso(passo + 1)
-        }
-    }
+
     function passoAnterior() {
         if (passo > 0) {
             setPasso(passo - 1)
@@ -26,18 +25,24 @@ export function Cadastro() {
     }
 
     const onSubmit = (data) => {
-        console.log(data);
+        //console.log(data);
     };
 
-    
-   
-    async function consultarCEP(){
-        const resposta = await axios.get(`https://viacep.com.br/ws/${cep}/json/`)
-        const data = response.data
+    async function passo2(){
+        //A consulta é tão rapida que não precisa desse carregando, ta aqui porque é bonitinho e to com preguiça de tirar
+        setCarregando(true)
 
+        const resposta = await axios.get(`https://viacep.com.br/ws/${cep}/json/`)
+        const data = resposta.data
         setDadosEndereco(data)
+        
+        setCarregando(false)
+        setPasso(passo + 1)
+
+        console.log(data)
 
     }
+   
 
     return (
         <div className="conteudo">
@@ -134,6 +139,7 @@ export function Cadastro() {
                                         {...register('numeroEndereco', {
                                             required: "O número do endereço é obrigatório"
                                         })}
+                                        onChange={(e)=>setNumeroEndereco(e.target.value)}
 
                                     />
                                     {errors.numeroEndereco && <p style={{ fontSize: '10px', color: 'red', position: 'absolute', marginTop: '50px' }} >{errors.numeroEndereco.message}</p>}
@@ -159,7 +165,12 @@ export function Cadastro() {
 
                                 </div>
                             </div>
-                            <button className='botao' disabled={!isValid} onClick={() => setPasso(passo + 1)}>proximo</button>
+                            <button 
+                                className='botao' 
+                                disabled={!isValid} 
+                                onClick={async()=>passo2()}>
+                                    {!carregando ? <p>Proximo passo</p> : <p>Aguarde...</p>} 
+                                </button>
                         </div>
                     }
                     {
@@ -213,35 +224,37 @@ export function Cadastro() {
                                 </div>
 
                                 <p style={{marginTop:'10px'}}>Confirme seu endereço:</p>
-
+                                        <p>pesquisar sobre usefieldarray depois</p>
                                 <div className="info-endereco">
                                     <div className="linha-info-endereco">
                                         <p className='nome-linha'>CEP:</p>
-                                        <p></p>
+                                        <p>{dadosEndereco.cep}</p>
                                     </div>
                                     <div className="linha-info-endereco">
                                         <p>Bairro:</p>
-                                        <p></p>
+                                        <p>{dadosEndereco.bairro}</p>
                                     </div>
                                     <div className="linha-info-endereco">
                                         <p className='nome-linha'>Cidade:</p>
-                                        <p></p>
+                                        <p>{dadosEndereco.localidade}</p>
                                     </div>
                                     <div className="linha-info-endereco">
                                         <p className='nome-linha'>Estado:</p>
-                                        <p></p>
+                                        <p>{dadosEndereco.uf}</p>
                                     </div>
                                     <div className="linha-info-endereco">
                                         <p className='nome-linha'>Endereço/Rua:</p>
-                                        <p></p>
+                                        <p>{dadosEndereco.logradouro}</p>
                                     </div>
-                                    <div className="linha-info-endereco">
+                                    <div 
+                                    className="linha-info-endereco">
                                         <p>Número:</p>
-                                        <p></p>
+                                        <p>{numeroEndereco}</p>
                                     </div>
 
                                     <div className="campo-tipo-residencia">
                                         <p>Selecione o tipo da sua residência:</p>
+                                        <p>Essa parte ta quebrada</p>
                                         <div className="campo-input-radio">
                                             <div className="input-radio">
                                                 <input type="radio" name="selecao-residencia" id="selecao-residencia-casa" {...register('tiporesidencia')}/>
@@ -290,6 +303,9 @@ export function Cadastro() {
                         </div>
 
                     }
+                    <pre style={{position: 'absolute'}}>
+                    {JSON.stringify(watch(), null, 2)}
+                    </pre>
                    
                 </form>
 
