@@ -1,0 +1,122 @@
+.pagina-plano {
+    nav {
+        text-align: center;
+        margin-bottom: 20px;
+
+        h1 {
+            font-size: 2.5em;
+            animation: fadeIn 0.5s ease-in; // Animação para o título
+        }
+
+        h2 {
+            font-size: 1.5em;
+            margin-top: 10px;
+            animation: fadeIn 0.5s ease-in 0.2s; // Animação para o subtítulo
+        }
+    }
+
+    section {
+        margin-top: 5%;
+        display: flex;
+        justify-content: center;
+        gap: 20px; // Espaçamento entre os cartões
+
+        .mega1, .mega2, .mega3 {
+            background-color: #fff; 
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 300px;
+            opacity: 0; // Começa invisível
+            animation: fadeIn 0.5s forwards; // Animação de entrada
+            animation-delay: 0.3s; // Atraso para animação
+
+            h1 {
+                font-size: 2em;
+            }
+
+            p {
+                color: #666; // Texto cinza
+                margin: 10px 0;
+            }
+
+            .true-false {
+                display: flex;
+                flex-direction: column;
+                align-items: sa;
+                margin: 20px 0;
+
+                .tf1, .tf2, .tf3 {
+                    display: flex;
+                    align-items: center;
+                    margin: 5px 0;
+
+                    img {
+                        width: 24px;
+                        height: 24px;
+                        margin-right: 10px;
+                    }
+
+                    p {
+                        color: #333; // Texto escuro
+                    }
+                }
+            }
+
+            .botao {
+                background-color: #8e44ad; // Botão roxo
+                color: white;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s, transform 0.2s; // Adicionando animação ao hover
+
+                h1 {
+                    margin: 0;
+                    font-size: 1.2em;
+                }
+
+                &:hover {
+                    background-color: #732d91; // Roxo escuro ao passar o mouse
+                    transform: scale(1.05); // Efeito de aumento ao passar o mouse
+                }
+            }
+        }
+    }
+    .ft-warp {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        gap: 50px;
+    }
+    
+    .ft {
+        margin-top: 15%;
+        background-color: var(--primary-color);
+        color: #fff;
+        padding: 60px 0 0;
+        text-align: center;
+        width: 100%;
+    
+        .final-footer {
+            background-color: #000000;
+            padding: 20px 0; 
+            color: #ffffff;
+            margin-top: 10px; 
+        }
+    }
+}
+
+// Animações
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px); // Desloca para baixo ao entrar
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+                                        
