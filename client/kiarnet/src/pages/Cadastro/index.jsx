@@ -34,8 +34,12 @@ export function Cadastro() {
 
 
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+
+    console.log(typeof(data))
     console.log(data);
+    const buseta = await axios.post('http://localhost:3053/cliente', data)
+    console.log(buseta)
   };
 
   const { insert } = useFieldArray({
@@ -49,7 +53,6 @@ export function Cadastro() {
     const resposta = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
     const data = resposta.data;
     setDadosEndereco(data);
-
     setCarregando(false);
     setPasso(passo + 1);
 
@@ -63,6 +66,7 @@ export function Cadastro() {
       estado: dadosEndereco.uf,
       rua: dadosEndereco.logradouro
     })
+
     setPasso(passo + 1)
   }
 
@@ -238,8 +242,7 @@ export function Cadastro() {
                       className="campo"
                       placeholder="Data de nascimento:"
                       {...register("datanascimento", {
-                        required: "A data de nascimento é obrigatória",
-                        valueAsDate: true,
+                        required: "A data de nascimento é obrigatória"
                       })}
                       max={
                         new Date(
@@ -269,6 +272,7 @@ export function Cadastro() {
                 className="botao"
                 disabled={!isValid}
                 onClick={async () => passo2()}
+                type="button"
               >
                 {!carregando ? <p>Proximo passo</p> : <p>Aguarde...</p>}
               </button>
@@ -421,6 +425,7 @@ export function Cadastro() {
                   <button
                     className="botao"
                     disabled={!isValid}
+                    type="button"
                     onClick={()=>passo3()}>
                     Proximo passo
                   </button>
@@ -458,7 +463,7 @@ export function Cadastro() {
 
               <button 
               className="botao"
-              onClick={()=>onSubmit(register)}>
+              type="submit">
                   Concluir cadastro
               </button>
             </div>
