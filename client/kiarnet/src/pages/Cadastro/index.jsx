@@ -32,8 +32,10 @@ export function Cadastro() {
     }
   }
 
+
+
   const onSubmit = (data) => {
-    //console.log(data);
+    console.log(data);
   };
 
   const { insert } = useFieldArray({
@@ -53,11 +55,22 @@ export function Cadastro() {
 
   }
 
+  function passo3(){
+    insert(0,{
+      cep: dadosEndereco.cep,
+      bairro: dadosEndereco.bairro,
+      cidade: dadosEndereco.localidade,
+      estado: dadosEndereco.uf,
+      rua: dadosEndereco.logradouro
+    })
+    setPasso(passo + 1)
+  }
+
   return (
     <div className="conteudo">
       <div
         className="barra-progresso"
-        style={{ position: "sticky", width: "100%", top: "10px" }}
+        style={{ position: "sticky", width: "100%", top: "10px", height: "50px" }}
       >
         <Barraprogresso progresso={33 * passo} />
         <button onClick={passoAnterior}>Voltar</button>
@@ -316,8 +329,9 @@ export function Cadastro() {
                         type="radio"
                         name="selecao-debito"
                         id="selecao-debito-sim"
-                        {...register("opcaodebito", {
-                          required: true,
+                        value="sim"
+                        {...register("opcaodebito",{
+                          
                         })}
                       ></input>
                       <label htmlFor="selecao-debito-sim">Sim</label>
@@ -328,6 +342,11 @@ export function Cadastro() {
                         type="radio"
                         name="selecao-debito"
                         id="selecao-debito-nao"
+                        value="nao"
+                        {...register("opcaodebito",{
+                          
+                        })}
+        
                       ></input>
                       <label htmlFor="selecao-debito-nao">Não</label>
                     </div>
@@ -364,13 +383,13 @@ export function Cadastro() {
 
                   <div className="campo-tipo-residencia">
                     <p>Selecione o tipo da sua residência:</p>
-                    <p>Essa parte ta quebrada</p>
                     <div className="campo-input-radio">
                       <div className="input-radio">
                         <input
                           type="radio"
                           name="selecao-residencia"
                           id="selecao-residencia-casa"
+                          value="Casa"
                           {...register("tiporesidencia")}
                         />
                         <label htmlFor="selecao-residencia-casa">Casa</label>
@@ -382,6 +401,7 @@ export function Cadastro() {
                           name="selecao-residencia"
                           id="selecao-residencia-apartamento"
                           {...register("tiporesidencia")}
+                          value="Apartamento"
                         />
                         <label htmlFor="selecao-residencia-apartamento">
                           Apartamento
@@ -393,7 +413,7 @@ export function Cadastro() {
                       type="text"
                       className="complemento"
                       placeholder="Complemento (opcional)"
-                      maxLength="120"
+                      maxLength="60"
                       {...register("complemento")}
                     />
                   </div>
@@ -401,26 +421,11 @@ export function Cadastro() {
                   <button
                     className="botao"
                     disabled={!isValid}
-                    onClick={() => setPasso(passo + 1)}
-                  >
-                    proximo
+                    onClick={()=>passo3()}>
+                    Proximo passo
                   </button>
                 </div>
               </div>
-              <button
-                onClick={() => {
-                  insert(0, {
-                    cep: dadosEndereco.cep,
-                    bairro: dadosEndereco.bairro,
-                    cidade: dadosEndereco.localidade,
-                    estado: dadosEndereco.uf,
-                    rua: dadosEndereco.logradouro,
-                    numero: numeroEndereco,
-                  });
-                }}
-              >
-                Confirmar
-              </button>
             </div>
           )}
           {passo === 2 && (
@@ -451,7 +456,11 @@ export function Cadastro() {
                 </div>
               </div>
 
-              <button className="botao">Finalizar cadastro</button>
+              <button 
+              className="botao"
+              onClick={()=>onSubmit(register)}>
+                  Concluir cadastro
+              </button>
             </div>
           )}
           <pre style={{ position: "absolute" }}>
