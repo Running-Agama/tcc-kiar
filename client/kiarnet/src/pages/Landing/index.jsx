@@ -54,7 +54,7 @@ export default function Landing() {
                                                     <div class="ft-warp2">
                                                         <h2>Support</h2>
                                                         <p>Contatos</p>
-
+                                                        <a href="/duvidas">Duvidas</a>
                                                     </div>
                                                     <div class="ft-warp3">
                                                         <h2>Legal</h2>
