@@ -3,9 +3,12 @@
     align-items: center;
     flex-direction: column;
     .barra-progresso{
-
+         position: sticky;
+         width: 100%;
+         top: 10px;
          display: flex;
          justify-content: center;
+         align-items: center;
         
     }
     .campos-informedados{

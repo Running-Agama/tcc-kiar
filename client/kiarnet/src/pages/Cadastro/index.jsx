@@ -1,10 +1,12 @@
-//TODO: Arrumar inputs type radio do segundo passo, talvez uma função basica já resolva
+
 
 import { useState } from "react";
 import "./index.scss";
 import Barraprogresso from "../../components/Barraprogresso";
 import { useForm, useFieldArray } from "react-hook-form";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
+
 export function Cadastro() {
   const [passo, setPasso] = useState(0);
   const [cep, setCep] = useState("");
@@ -14,6 +16,8 @@ export function Cadastro() {
   const [carregando, setCarregando] = useState(false);
   const [numeroEndereco, setNumeroEndereco] = useState("");
 
+  const dados = useLocation()
+
   const {
     handleSubmit,
     control,
@@ -22,6 +26,9 @@ export function Cadastro() {
     setError,
     formState: { errors, isValid },
   } = useForm({
+    defaultValues: {
+      plano: dados.state.plano
+    },
     reValidateMode: "onChange",
     mode: "onChange",
   });
@@ -38,7 +45,7 @@ export function Cadastro() {
 
     console.log(typeof(data))
     console.log(data);
-    const buseta = await axios.post('http://localhost:3053/cliente', data)
+    const buseta = await axios.post('https://solid-space-computing-machine-ww5vg4qp5vx39xx9-3005.app.github.dev/', data)
     console.log(buseta)
   };
 
@@ -53,6 +60,7 @@ export function Cadastro() {
     const resposta = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
     const data = resposta.data;
     setDadosEndereco(data);
+
     setCarregando(false);
     setPasso(passo + 1);
 

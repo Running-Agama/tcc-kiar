@@ -12,7 +12,7 @@ function Cabecalho() {
                     <li><a href="/planos">Planos</a></li>
                     <li><a href="/Contato">Contato</a></li>
                     <li><a href="/login">Login</a></li>
-                    <li><a href="/Cadastro" class="signup">Sign up</a></li>
+                    <li><a href="/planos" class="signup">Cadastrar</a></li>
                 </ul>
             </nav>
         </header>

@@ -1,9 +1,10 @@
 import React from 'react';
 import './index.scss';
-
+import Cabecalho from '../../components/cabecalhoA';
 export default function MoreInfo() {
     return (
         <div className="more-info-page">
+            <Cabecalho />
             <header className="header">
                 <h1>Mais Sobre a Kiar Net</h1>
                 <p>Descubra todos os benefícios e serviços que oferecemos para transformar sua navegação.</p>

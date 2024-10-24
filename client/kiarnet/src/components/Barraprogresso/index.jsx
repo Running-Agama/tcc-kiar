@@ -7,7 +7,8 @@ export default function Barraprogresso(props){
       <ProgressBar
         percent={props.progresso}
         width={'75%'}
-        filledBackground="linear-gradient(to right, #fefb72, #f0bb31)"
+        height={'25px'}
+        filledBackground="linear-gradient(to right, #7959c2, #8d68e3)"
       >
       </ProgressBar>
     );

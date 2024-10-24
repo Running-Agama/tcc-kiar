@@ -1,9 +1,9 @@
 import './index.scss'
-
+import { useNavigate } from 'react-router-dom'
 import Cabecalho from '../../components/cabecalhoA'
 
-export default function tecnico() {
-
+export default function Planos() {
+    const navigate = useNavigate()
     return (
         <div className="pagina-plano">
             <Cabecalho />
@@ -31,8 +31,12 @@ export default function tecnico() {
                             <p>Inclui plataformas</p>
                         </div>
                     </div>
-                    <div className="botao">
-                    <h1><a href="/cadastro">Assine Agora</a></h1>
+                    <div className="botao" onClick={()=>navigate('/cadastro', {
+                        state: {
+                            plano: 'Basico'
+                        }
+                    })}>
+                        Assine agora
                     </div>
                 </div>
                 <div className="mega2">
@@ -53,9 +57,15 @@ export default function tecnico() {
                             <p>Inclui plataformas</p>
                         </div>
                     </div>
-                    <div className="botao">
-                        <h1><a href="/cadastro">Assine Agora</a></h1>
+
+                    <div className="botao" onClick={()=>navigate('/cadastro', {
+                        state: {
+                            plano: 'Medio'
+                        }
+                    })}>
+                        Assine agora
                     </div>
+
                 </div>
                 <div className="mega3">
                     <h1>300 MEGA</h1>
@@ -75,8 +85,12 @@ export default function tecnico() {
                             <p>Inclui plataformas</p>
                         </div>
                     </div>
-                    <div className="botao">
-                        <h1><a href="/cadastro">Assine Agora</a></h1>
+                    <div className="botao" onClick={()=>navigate('/cadastro', {
+                        state: {
+                            plano: 'Avançado'
+                        }
+                    })}>
+                        Assine agora
                     </div>
                 </div>
             </section>
