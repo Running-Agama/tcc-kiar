@@ -39,7 +39,19 @@ export function Cadastro() {
     }
   }
 
+  async function verificarCEP(){
+    const resposta = await axios.get(`https://viacep.com.br/ws/${cep}/json/`)
+    const data = resposta.data
 
+    console.log(data)
+    
+    if(data.uf !== "SP"){
+      setError('cep', {
+        type: "manual",
+        message: "O CEP não é de SP"
+      })
+    }
+  }
 
   const onSubmit = async (data) => {
 
@@ -130,6 +142,7 @@ export function Cadastro() {
                       },
                     })}
                     onChange={(e) => setCep(e.target.value)}
+                    onBlur={verificarCEP}
                   />
                   {errors.cep && (
                     <p
