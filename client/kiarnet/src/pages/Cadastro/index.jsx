@@ -10,7 +10,7 @@ import { useLocation } from "react-router-dom";
 export function Cadastro() {
   const [passo, setPasso] = useState(0);
   const [cep, setCep] = useState("");
-  const [emailFatura, setEmailFatura] = useState("");
+  const [emailFatura, setEmailFatura] = useState('')
   const [confirmacaoEmailFatura, setConfirmacaoEmailFatura] = useState("");
   const [dadosEndereco, setDadosEndereco] = useState({});
   const [carregando, setCarregando] = useState(false);
@@ -19,6 +19,8 @@ export function Cadastro() {
   const dados = useLocation()
 
   const {
+    setValue,
+    clearErrors,
     handleSubmit,
     control,
     watch,
@@ -45,11 +47,43 @@ export function Cadastro() {
 
     console.log(data)
     
-    if(data.uf !== "SP"){
+    if(data.erro == 'true'){
+      setError('cep',{
+        type: "manual",
+        message: "Erro ao requisitar CEP, verifique se está correto"
+      })
+    }
+
+    
+    else if(data.uf !== "SP"){
       setError('cep', {
         type: "manual",
         message: "O CEP não é de SP"
       })
+    }
+
+    else if(data.regiao !== "Sudeste" && data.regiao !== "Sul"){
+      setError('cep',{
+        type: "manual",
+        message: "Por enquanto cobrimos apenas as regiões Sul e Sudeste"
+      })
+    }
+
+    else{
+      clearErrors('cep')
+      setValue('cep',data.cep)
+    }
+  }
+
+  function verificarEmailConfirmacao(){
+    if(emailFatura !== confirmacaoEmailFatura){
+      setError('emailfatura',{
+        type: "manual",
+        message: "Os emails não coinscidem!"
+      })
+    }
+    else{
+      clearErrors('emailfatura')
     }
   }
 
@@ -57,8 +91,8 @@ export function Cadastro() {
 
     console.log(typeof(data))
     console.log(data);
-    const buseta = await axios.post('https://solid-space-computing-machine-ww5vg4qp5vx39xx9-3005.app.github.dev/', data)
-    console.log(buseta)
+    const envio = await axios.post(process.env.API_URL, data)
+    console.log(envio)
   };
 
   const { insert } = useFieldArray({
@@ -341,6 +375,7 @@ export function Cadastro() {
                     placeholder="Confirme o email"
                     style={{ marginTop: "15px" }}
                     onChange={(e) => setConfirmacaoEmailFatura(e.target.value)}
+                    onBlur={verificarEmailConfirmacao}
                   />
                 </div>
 
