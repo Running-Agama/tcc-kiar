@@ -1,5 +1,3 @@
-
-
 import { useState } from "react";
 import "./index.scss";
 import Barraprogresso from "../../components/Barraprogresso";
@@ -10,13 +8,13 @@ import { useLocation } from "react-router-dom";
 export function Cadastro() {
   const [passo, setPasso] = useState(0);
   const [cep, setCep] = useState("");
-  const [emailFatura, setEmailFatura] = useState('')
+  const [emailFatura, setEmailFatura] = useState("");
   const [confirmacaoEmailFatura, setConfirmacaoEmailFatura] = useState("");
   const [dadosEndereco, setDadosEndereco] = useState({});
   const [carregando, setCarregando] = useState(false);
   const [numeroEndereco, setNumeroEndereco] = useState("");
 
-  const dados = useLocation()
+  const dados = useLocation();
 
   const {
     setValue,
@@ -29,7 +27,7 @@ export function Cadastro() {
     formState: { errors, isValid },
   } = useForm({
     defaultValues: {
-      plano: dados.state.plano
+      plano: dados.state.plano,
     },
     reValidateMode: "onChange",
     mode: "onChange",
@@ -41,58 +39,49 @@ export function Cadastro() {
     }
   }
 
-  async function verificarCEP(){
-    const resposta = await axios.get(`https://viacep.com.br/ws/${cep}/json/`)
-    const data = resposta.data
+  async function verificarCEP() {
+    const resposta = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+    const data = resposta.data;
 
-    console.log(data)
-    
-    if(data.erro == 'true'){
-      setError('cep',{
+    console.log(data);
+
+    if (data.erro === "true") {
+      setError("cep", {
         type: "manual",
-        message: "Erro ao requisitar CEP, verifique se está correto"
-      })
-    }
-
-    
-    else if(data.uf !== "SP"){
-      setError('cep', {
+        message: "Erro ao requisitar CEP, verifique se está correto",
+      });
+    } else if (data.uf !== "SP") {
+      setError("cep", {
         type: "manual",
-        message: "O CEP não é de SP"
-      })
-    }
-
-    else if(data.regiao !== "Sudeste" && data.regiao !== "Sul"){
-      setError('cep',{
+        message: "O CEP não é de SP",
+      });
+    } else if (data.regiao !== "Sudeste" && data.regiao !== "Sul") {
+      setError("cep", {
         type: "manual",
-        message: "Por enquanto cobrimos apenas as regiões Sul e Sudeste"
-      })
-    }
-
-    else{
-      clearErrors('cep')
-      setValue('cep',data.cep)
+        message: "Por enquanto cobrimos apenas as regiões Sul e Sudeste",
+      });
+    } else {
+      clearErrors("cep");
+      setValue("cep", data.cep);
     }
   }
 
-  function verificarEmailConfirmacao(){
-    if(emailFatura !== confirmacaoEmailFatura){
-      setError('emailfatura',{
+  function verificarEmailConfirmacao() {
+    if (emailFatura !== confirmacaoEmailFatura) {
+      setError("emailfatura", {
         type: "manual",
-        message: "Os emails não coinscidem!"
-      })
-    }
-    else{
-      clearErrors('emailfatura')
+        message: "Os emails não coinscidem!",
+      });
+    } else {
+      clearErrors("emailfatura");
     }
   }
 
   const onSubmit = async (data) => {
-
-    console.log(typeof(data))
+    console.log(typeof data);
     console.log(data);
-    const envio = await axios.post(process.env.API_URL, data)
-    console.log(envio)
+    const envio = await axios.post(process.env.API_URL, data);
+    console.log(envio);
   };
 
   const { insert } = useFieldArray({
@@ -109,28 +98,32 @@ export function Cadastro() {
 
     setCarregando(false);
     setPasso(passo + 1);
-
   }
 
-  function passo3(){
-    insert(0,{
+  function passo3() {
+    insert(0, {
       cep: dadosEndereco.cep,
       bairro: dadosEndereco.bairro,
       cidade: dadosEndereco.localidade,
       estado: dadosEndereco.uf,
-      rua: dadosEndereco.logradouro
-    })
+      rua: dadosEndereco.logradouro,
+    });
 
-    setPasso(passo + 1)
+    setPasso(passo + 1);
   }
 
   return (
     <div className="conteudo">
       <div
         className="barra-progresso"
-        style={{ position: "sticky", width: "100%", top: "10px", height: "50px" }}
+        style={{
+          position: "sticky",
+          width: "100%",
+          top: "10px",
+          height: "50px",
+        }}
       >
-        <Barraprogresso progresso={33 * passo} />
+        <Barraprogresso progresso={50 * passo} />
         <button onClick={passoAnterior}>Voltar</button>
       </div>
 
@@ -297,7 +290,7 @@ export function Cadastro() {
                       className="campo"
                       placeholder="Data de nascimento:"
                       {...register("datanascimento", {
-                        required: "A data de nascimento é obrigatória"
+                        required: "A data de nascimento é obrigatória",
                       })}
                       max={
                         new Date(
@@ -390,9 +383,7 @@ export function Cadastro() {
                         name="selecao-debito"
                         id="selecao-debito-sim"
                         value="sim"
-                        {...register("opcaodebito",{
-                          
-                        })}
+                        {...register("opcaodebito", {})}
                       ></input>
                       <label htmlFor="selecao-debito-sim">Sim</label>
                     </div>
@@ -403,10 +394,7 @@ export function Cadastro() {
                         name="selecao-debito"
                         id="selecao-debito-nao"
                         value="nao"
-                        {...register("opcaodebito",{
-                          
-                        })}
-        
+                        {...register("opcaodebito", {})}
                       ></input>
                       <label htmlFor="selecao-debito-nao">Não</label>
                     </div>
@@ -482,7 +470,8 @@ export function Cadastro() {
                     className="botao"
                     disabled={!isValid}
                     type="button"
-                    onClick={()=>passo3()}>
+                    onClick={() => passo3()}
+                  >
                     Proximo passo
                   </button>
                 </div>
@@ -517,10 +506,8 @@ export function Cadastro() {
                 </div>
               </div>
 
-              <button 
-              className="botao"
-              type="submit">
-                  Concluir cadastro
+              <button className="botao" type="submit">
+                Concluir cadastro
               </button>
             </div>
           )}
