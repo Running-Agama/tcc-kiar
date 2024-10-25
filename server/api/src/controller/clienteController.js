@@ -4,15 +4,13 @@ import registrarClienteService from '../clientes/registrarClienteService.js'
 
 const endpoints = express.Router()
 
-endpoints.post('/cliente', async (req,res)=>{
+endpoints.post('/cliente/cadastro', async (req,res)=>{
     try {
-        
         const corpo = req.body
         const cpfcrypt = CryptoJS.HmacSHA256(corpo.cpf, "senha")
         const novocpf = String(cpfcrypt)
-        
         corpo.cpf = novocpf
-        
+
         await registrarClienteService(corpo)
          res.send({resposta: corpo})
 

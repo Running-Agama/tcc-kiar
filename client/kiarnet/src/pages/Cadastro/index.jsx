@@ -89,6 +89,7 @@ export function Cadastro() {
   const onSubmit = async (data) => {
     console.log(typeof data);
     console.log(data);
+    await axios.post('http://localhost:1111/cliente/cadastro', data)
   };
 
   const { insert, remove } = useFieldArray({
@@ -287,7 +288,7 @@ export function Cadastro() {
                     type="number"
                     className="campo"
                     placeholder="Número"
-                    {...register("numeroEndereco", {
+                    {...register("numeroendereco", {
                       required: "O número do endereço é obrigatório",
                     })}
                     onChange={(e) => setNumeroEndereco(e.target.value)}
@@ -472,9 +473,6 @@ export function Cadastro() {
                           <option value="juridica">Jurídica</option>
                         </select>
                       </div>
-                      <button onClick={()=>insert('dadosbancarios',{
-                        oi: "ooooi"
-                      })}>Confirmar</button>
                     </div>
                 }
 
