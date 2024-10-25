@@ -11,7 +11,7 @@ export default function Landing() {
 
             <section class="hero-section">
                 <div class="hero-content">
-                    <h1>O MELHOR PROVEDOR <br/>DE INTERNET PARA <br/>SUA CASA</h1>
+                    <h1><h1 style={{color: 'black'}}>O MELHOR</h1> PROVEDOR DE INTERNET PARA SUA CASA</h1>
                         <p>Experimente a diferença! Temos planos <br/> flexíveis e atendimento personalizado. <br/> Entre em contato e transforme sua <br/> navegação!</p>
                             <div class="buttons">
                               <a href="/planos">  <button class="btn-primary">Começar</button></a>
