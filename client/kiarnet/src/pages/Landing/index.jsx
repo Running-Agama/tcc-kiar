@@ -1,7 +1,9 @@
 
 import Cabecalho from '../../components/cabecalhoA'
 import './index.scss'
+
 export default function Landing() {
+
     return (
         <div className="conteudo-landing">
 

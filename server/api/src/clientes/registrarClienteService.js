@@ -1,8 +1,4 @@
-
+import clientesRepository from "../repository/clientes/clientesRepository.js"
 export default async function registrarClienteService(corpo){
-    console.log(corpo)
-    console.log('recebi isso oh')
-
-    await cadastrarCliente()
-
+    await clientesRepository.cadastrarCliente(corpo)
 }
