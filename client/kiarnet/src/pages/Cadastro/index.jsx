@@ -4,7 +4,13 @@ import Barraprogresso from "../../components/Barraprogresso";
 import { useForm, useFieldArray } from "react-hook-form";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+import iconeVoltar from '../../images/icons/iconeVoltar/iconeVoltar.svg'
+import BankDataForm from "../../components/dadosBancarios";
 
+//verificar cep quebrando ao tirar o mouse sem nenhum campo, deve ser facil de resolver
+//opcao debito null
+
+//ao apertar voltar, dadosendereco tem que ser removido
 export function Cadastro() {
   const [passo, setPasso] = useState(0);
   const [cep, setCep] = useState("");
@@ -13,6 +19,7 @@ export function Cadastro() {
   const [dadosEndereco, setDadosEndereco] = useState({});
   const [carregando, setCarregando] = useState(false);
   const [numeroEndereco, setNumeroEndereco] = useState("");
+  const [opcoesDebito, setOpcoesDebito] = useState(false)
 
   const dados = useLocation();
 
@@ -40,6 +47,8 @@ export function Cadastro() {
   }
 
   async function verificarCEP() {
+
+
     const resposta = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
     const data = resposta.data;
 
@@ -80,11 +89,9 @@ export function Cadastro() {
   const onSubmit = async (data) => {
     console.log(typeof data);
     console.log(data);
-    const envio = await axios.post(process.env.API_URL, data);
-    console.log(envio);
   };
 
-  const { insert } = useFieldArray({
+  const { insert, remove } = useFieldArray({
     control,
     name: "dadosendereco",
   });
@@ -112,8 +119,21 @@ export function Cadastro() {
     setPasso(passo + 1);
   }
 
+  function handleVoltar() {
+    if (passo > 1) {
+      if (passo === 2) {
+        remove('dadosendereco', 0)
+        remove('dadosbancarios',0)
+      }
+
+      setPasso(passo - 1)
+    }
+
+  }
+
   return (
     <div className="conteudo">
+
       <div
         className="barra-progresso"
         style={{
@@ -123,8 +143,9 @@ export function Cadastro() {
           height: "50px",
         }}
       >
+        <button className="botao-voltar" onClick={handleVoltar}><img src={iconeVoltar} alt="" /></button>
         <Barraprogresso progresso={50 * passo} />
-        <button onClick={passoAnterior}>Voltar</button>
+
       </div>
 
       <div className="campo-passos">
@@ -330,10 +351,16 @@ export function Cadastro() {
             <div className="conteudo-passo2">
               <p>Escolha a data de vencimento:</p>
               <div className="opcoes-data">
-                <button>24</button>
-                <button>18</button>
-                <button>12</button>
-                <button>06</button>
+                <select name="" id="" {...register('datavencimento',{
+                  required: true,
+                  message: "A data de vencimento é obgiratória"
+                })}>
+                  <option value="24">24</option>
+                  <option value="17">17</option>
+                  <option value="10">10</option>
+                  <option value="3">3</option>
+                </select>
+
               </div>
 
               <div className="campos-informedados">
@@ -348,6 +375,7 @@ export function Cadastro() {
                       required: "Email de fatura é obrigatorio",
                     })}
                     onChange={(e) => setEmailFatura(e.target.value)}
+
                   />
 
                   {errors.emailfatura && (
@@ -384,6 +412,7 @@ export function Cadastro() {
                         id="selecao-debito-sim"
                         value="sim"
                         {...register("opcaodebito", {})}
+                        onClick={() => setOpcoesDebito(true)}
                       ></input>
                       <label htmlFor="selecao-debito-sim">Sim</label>
                     </div>
@@ -395,11 +424,59 @@ export function Cadastro() {
                         id="selecao-debito-nao"
                         value="nao"
                         {...register("opcaodebito", {})}
+                        onClick={()=>setOpcoesDebito(false)}
+
                       ></input>
                       <label htmlFor="selecao-debito-nao">Não</label>
                     </div>
                   </div>
                 </div>
+
+                {opcoesDebito == true &&
+                    <div className="bank-data-form" style={{width: "100%", display: "flex", flexDirection: "column"}}>
+                      <div className="form-group">
+                        <label htmlFor="bank">Escolha o Banco:</label>
+                        <select id="bank" {...register('dadosbancarios.banco',{
+                          required: true
+                        })}>
+                          <option value="Nubank">Nubank</option>
+                          <option value="Caixa">Caixa</option>
+                          <option value="Original">Original</option>
+                          <option value="Bradesco">Bradesco</option>
+                          <option value="Banco do Brasil">Banco do Brasil</option>
+                          <option value="Santander">Santander</option>
+                          <option value="Inter">Inter</option>
+                          <option value="Itaú">Itaú</option>
+                        </select>
+                      </div>
+                      <div className="form-group">
+                        <label htmlFor="numeroAgencia">Numero da agência:</label>
+                        <input type="text" {...register("dadosbancarios.numeroagencia",{
+                          required: true
+                        })}/>
+                      </div>
+                      <div className="form-group">
+
+                        <div className="form-group">
+                          <label htmlFor="numeroConta">Numero da conta com digito</label>
+                          <input type="text" {...register('dadosbancarios.numeroconta', {
+                            required: true
+                          })}/>
+                        </div>
+                        <label htmlFor="accountType">Tipo de Conta:</label>
+                        <select id="accountType" {...register('dadosbancarios.tipoconta',{
+                          required: true
+                        })}>
+                          <option value="corrente">Corrente</option>
+                          <option value="fisica">Física</option>
+                          <option value="juridica">Jurídica</option>
+                        </select>
+                      </div>
+                      <button onClick={()=>insert('dadosbancarios',{
+                        oi: "ooooi"
+                      })}>Confirmar</button>
+                    </div>
+                }
 
                 <p style={{ marginTop: "10px" }}>Confirme seu endereço:</p>
                 <p>pesquisar sobre usefieldarray depois</p>
