@@ -1,0 +1,12 @@
+.conteudo-crm{
+    display: flex;
+    flex-direction: column;
+
+    .dados-crm{
+        display: flex;
+        flex-direction: row;
+        .opcoes-esquerda{
+            background-color: red;
+        }
+    }
+}
