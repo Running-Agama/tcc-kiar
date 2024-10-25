@@ -5,7 +5,6 @@ import { useForm, useFieldArray } from "react-hook-form";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import iconeVoltar from '../../images/icons/iconeVoltar/iconeVoltar.svg'
-import BankDataForm from "../../components/dadosBancarios";
 
 //verificar cep quebrando ao tirar o mouse sem nenhum campo, deve ser facil de resolver
 //opcao debito null
@@ -40,11 +39,6 @@ export function Cadastro() {
     mode: "onChange",
   });
 
-  function passoAnterior() {
-    if (passo > 0) {
-      setPasso(passo - 1);
-    }
-  }
 
   async function verificarCEP() {
 
@@ -433,7 +427,7 @@ export function Cadastro() {
                   </div>
                 </div>
 
-                {opcoesDebito == true &&
+                {opcoesDebito === true &&
                     <div className="bank-data-form" style={{width: "100%", display: "flex", flexDirection: "column"}}>
                       <div className="form-group">
                         <label htmlFor="bank">Escolha o Banco:</label>
