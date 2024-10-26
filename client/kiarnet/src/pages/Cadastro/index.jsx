@@ -9,7 +9,6 @@ import iconeVoltar from '../../images/icons/iconeVoltar/iconeVoltar.svg'
 //verificar cep quebrando ao tirar o mouse sem nenhum campo, deve ser facil de resolver
 //opcao debito null
 
-//ao apertar voltar, dadosendereco tem que ser removido
 export function Cadastro() {
   const [passo, setPasso] = useState(0);
   const [cep, setCep] = useState("");
@@ -47,7 +46,7 @@ export function Cadastro() {
     const data = resposta.data;
 
     console.log(data);
-
+    
     if (data.erro === "true") {
       setError("cep", {
         type: "manual",
@@ -73,7 +72,7 @@ export function Cadastro() {
     if (emailFatura !== confirmacaoEmailFatura) {
       setError("emailfatura", {
         type: "manual",
-        message: "Os emails não coinscidem!",
+        message: "Os emails não coincidem!",
       });
     } else {
       clearErrors("emailfatura");
@@ -91,7 +90,7 @@ export function Cadastro() {
     name: "dadosendereco",
   });
 
-  async function passo2() {
+  async function transicaoPasso2() {
     setCarregando(true);
 
     const resposta = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
@@ -102,7 +101,7 @@ export function Cadastro() {
     setPasso(passo + 1);
   }
 
-  function passo3() {
+  function transicaoPasso3() {
     insert(0, {
       cep: dadosEndereco.cep,
       bairro: dadosEndereco.bairro,
@@ -124,6 +123,11 @@ export function Cadastro() {
       setPasso(passo - 1)
     }
 
+  }
+
+  function handleDebitoAutomaticoNao(){
+    remove('dadosbancarios',0)
+    setOpcoesDebito(false)
   }
 
   return (
@@ -154,9 +158,11 @@ export function Cadastro() {
                     type="text"
                     placeholder="Nome completo"
                     className="campo-um-input"
+                   
                     {...register("nome", {
                       required: "O nome completo é obrigatório",
                     })}
+                    
                   />
                   {errors.nome && (
                     <p
@@ -177,6 +183,7 @@ export function Cadastro() {
                     type="text"
                     placeholder="CEP:"
                     className="campo-um-input"
+                    maxLength={'8'}
                     {...register("cep", {
                       required: "CEP obrigatório",
                       pattern: {
@@ -209,6 +216,7 @@ export function Cadastro() {
                     {...register("celular", {
                       required: "O celular é obrigatório",
                     })}
+                    maxLength={"11"}
                   />
                   {errors.celular && (
                     <p
@@ -259,10 +267,12 @@ export function Cadastro() {
                     type="text"
                     className="campo-um-input"
                     placeholder="CPF:"
+                    maxLength={"11"}
                     {...register("cpf", {
                       required: "O CPF é obrigatório",
                     })}
                   />
+                  
                   {errors.cpf && (
                     <p
                       style={{
@@ -335,7 +345,7 @@ export function Cadastro() {
               <button
                 className="botao"
                 disabled={!isValid}
-                onClick={async () => passo2()}
+                onClick={async () => transicaoPasso2()}
                 type="button"
               >
                 {!carregando ? <p>Proximo passo</p> : <p>Aguarde...</p>}
@@ -419,7 +429,7 @@ export function Cadastro() {
                         id="selecao-debito-nao"
                         value="nao"
                         {...register("opcaodebito", {})}
-                        onClick={()=>setOpcoesDebito(false)}
+                        onClick={()=>handleDebitoAutomaticoNao}
 
                       ></input>
                       <label htmlFor="selecao-debito-nao">Não</label>
@@ -539,7 +549,7 @@ export function Cadastro() {
                     className="botao"
                     disabled={!isValid}
                     type="button"
-                    onClick={() => passo3()}
+                    onClick={() => transicaoPasso3()}
                   >
                     Proximo passo
                   </button>

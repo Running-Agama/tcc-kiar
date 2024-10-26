@@ -1,100 +1,63 @@
 create database kiarnett;
 use kiarnett;
--- debito automatico nos detalhes dos usuarios
--- trocar usuario para clientes
-CREATE TABLE usuarios (
+-- debito automatico nos detalhes dos clientes
+
+CREATE TABLE tb_clientes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nm_completo VARCHAR(255) NOT NULL,
-    celular VARCHAR(15) NOT NULL,
-    telefone_opcional VARCHAR(15),
-    email VARCHAR(255) NOT NULL,
-    cpf VARCHAR(14) NOT NULL,
+    ds_celular VARCHAR(15) NOT NULL,
+    ds_telefone VARCHAR(15),
+    ds_email VARCHAR(255) NOT NULL,
+    ds_cpf VARCHAR(14) NOT NULL,
     dt_nascimento DATE NOT NULL,
-    debito_automatico varchar(3)
+    ds_debito_automatico BOOLEAN
 );
 
-CREATE TABLE faturas (
+CREATE TABLE tb_faturas (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    usuario_id int,
-    email_fatura VARCHAR(255) NOT NULL,
-    tipo_residencia VARCHAR(100) NOT NULL,
-    dia_fatura int NOT NULL,
-    foreign key (usuario_id) references usuarios(id)
+    cliente_id INT,
+    ds_email_fatura VARCHAR(255) NOT NULL,
+    ds_tipo_residencia VARCHAR(10) NOT NULL,
+    ds_dia_vencimento INT NOT NULL,
+    FOREIGN KEY (cliente_id) REFERENCES clientes(id)
 );
 
-CREATE TABLE dados_bancarios (
+CREATE TABLE tb_dados_bancarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    usuario_id int,
-    fatura_id int,
+    cliente_id INT,
+    fatura_id INT,
     nm_banco VARCHAR(100) NOT NULL,
-    tipo_conta VARCHAR(50) NOT NULL,
+    ds_tipo_conta VARCHAR(50) NOT NULL,
     nr_agencia INT(4) NOT NULL,
     nr_conta VARCHAR(10) NOT NULL,
-    foreign key (usuario_id) references usuarios(id),
-    foreign key (fatura_id) references faturas(id)
+    FOREIGN KEY (cliente_id) REFERENCES clientes(id),
+    FOREIGN KEY (fatura_id) REFERENCES faturas(id)
 );
 
-CREATE TABLE endereco (
+CREATE TABLE tb_endereco (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    usuario_id int,
+    cliente_id int,
     bairro VARCHAR(100) NOT NULL,
     nm_rua VARCHAR(255) NOT NULL,
     nr_casa VARCHAR(10) NOT NULL,
     complemento VARCHAR(255),
-    foreign key (usuario_id) references usuarios(id)
+    FOREIGN KEY (cliente_id) REFERENCES clientes(id)
 );
 
-create table tecnico(
-id int auto_increment primary key,
-nm_tecnico varchar(100) not null,
-dt_nascimento date not null,
-cpf varchar(14) not null
+CREATE TABLE tb_tecnico(
+    id INT auto_increment PRIMARY KEY,
+    nm_tecnico VARCHAR(100) NOT NULL,
+    dt_nascimento DATE NOT NULL,
+    ds_cpf VARCHAR(14) NOT NULL
 );
 
-CREATE TABLE instalacao (
+CREATE TABLE tb_instalacao (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    endereco_id int,
-    tecnico_id int,
+    endereco_id INT,
+    tecnico_id INT,
     dt_instalacao DATE NOT NULL,
     horario VARCHAR(10) NOT NULL,
-    foreign key (endereco_id) references endereco(id),
-    foreign key (tecnico_id) references tecnico(id)
+    FOREIGN KEY (endereco_id) REFERENCES endereco(id),
+    FOREIGN KEY (tecnico_id) REFERENCES tecnico(id)
 );
 
-
-insert into usuarios(
-	nm_completo, 
-	celular, 
-	email, 
-	telefone_opcional,
-	cpf, 
-	dt_nascimento
- )
-values('nome completo', 1104212, 0, 'ccc@gmail.com', 11111, "1991-11-30");
-
-insert into endereco(
-	usuario_id,  
-    bairro, 
-    nm_rua, 
-    nr_casa, 
-    complemento
-    )
-values(1, 'Bairro', 'rua', 1, 'complemento');
-
-insert into faturas(
-usuario_id, 
-email_fatura, 
-tipo_residencia, dia_fatura)
-values(1, 'email@email.com', 'casa', 2);
-
-insert into dados_bancarios(
-	usuario_id,
-    fatura_id,
-    nm_banco,
-    tipo_conta,
-    nr_agencia,
-    nr_conta
-)
-values(1, 1,'Banco','Tipo',12,1222);
-
-select * from usuarios
