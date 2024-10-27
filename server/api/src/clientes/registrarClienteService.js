@@ -1,4 +1,6 @@
 import clientesRepository from "../repository/clientes/clientesRepository.js"
 export default async function registrarClienteService(corpo){
-    await clientesRepository.cadastrarCliente(corpo)
+    const resposta = await clientesRepository.cadastrarCliente(corpo)
+
+    return resposta
 }

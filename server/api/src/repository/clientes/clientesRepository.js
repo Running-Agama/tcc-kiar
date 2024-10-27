@@ -7,8 +7,6 @@ let resposta
 
 async function cadastrarCliente(corpo){
 
-    try{
-
         comando = `
         INSERT INTO tb_cliente(
             nm_completo, 
@@ -16,9 +14,11 @@ async function cadastrarCliente(corpo){
             ds_email, 
             ds_telefone,
             ds_cpf, 
-            dt_nascimento
+            dt_nascimento,
+            ds_debito_automatico,
+            dt_adicao
          )
-        VALUES(?,?,?,?,?,?);`
+        VALUES(?,?,?,?,?, ?,?,  SYSDATE());`
 
         //faz o registro do usuario primeiro, pega o insertId e faz registro do resto
         //certeza que em breve isso aí vai me dar problema
@@ -29,17 +29,18 @@ async function cadastrarCliente(corpo){
             corpo.email,
             corpo.telefone,
             corpo.cpf,
-            corpo.datanascimento
+            corpo.datanascimento,
+            corpo.opcaodebito
         ])
         const insertId = resposta[0].insertId
 
         comando = `
             INSERT INTO tb_endereco(
-                cliente_id,
-                bairro,
+                id_cliente,
+                ds_bairro,
                 nm_rua,
                 nr_casa,
-                complemento
+                ds_complemento
             )
             VALUES(?,?,?,?,?);
             `
@@ -49,9 +50,10 @@ async function cadastrarCliente(corpo){
             corpo.complemento
         ])
 
-        comando = `
+        if(corpo.dadosbancarios){
+            comando = `
             INSERT INTO tb_dados_bancarios(
-                cliente_id,
+                id_cliente,
                 nm_banco,
                 ds_tipo_conta,
                 nr_agencia,
@@ -65,17 +67,59 @@ async function cadastrarCliente(corpo){
             corpo.dadosbancarios.numeroagencia,
             corpo.dadosbancarios.numeroconta
         ])
+        }   
 
 
-        console.log(resposta)
+        comando = `
+            INSERT INTO tb_instalacao(
+                id_cliente,
+                ds_instalacao,
+                dt_primeira_opcao,
+                dt_segunda_opcao
+            )
+            VALUES(?,?,?, ?)`
+        resposta = await con.query(comando,[
+            insertId, 
+            'Pendente',
+            corpo.primeiraopcaoinstalacao, 
+            corpo.segundaopcaoinstalacao])
+
+        comando = `
+        INSERT INTO tb_faturas(
+            id_cliente,
+            ds_plano,
+            ds_email_fatura,
+            ds_tipo_residencia,
+            ds_dia_vencimento)
+        VALUES(?,?,?,?,?)`
+
+        resposta = await con.query(comando,[
+            insertId,
+            corpo.plano,
+            corpo.emailfatura,
+            corpo.tiporesidencia,
+            corpo.datavencimento
+        ])
+
+        //pegando dados para a pagina final
+        comando = `
+        SELECT 
+            id_cliente, dt_adicao, ds_plano, nm_rua, nr_casa, ds_bairro
+        FROM 
+            tb_cliente
+        JOIN 
+            tb_endereco USING(id_cliente)
+        JOIN 
+            tb_faturas USING (id_cliente)
+        WHERE id_cliente = ?`
+
+        console.log(insertId)
+        resposta = await con.query(comando, [insertId])
+        console.log(resposta[0])
+        return resposta[0]
 
 
-    }
-
-    catch(err){
-
-        console.log('erro', err)
-    }
+    
 }
 
 export default {cadastrarCliente}

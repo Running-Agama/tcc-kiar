@@ -19,11 +19,12 @@ export function Cadastro() {
   const [numeroEndereco, setNumeroEndereco] = useState("");
   const [opcoesDebito, setOpcoesDebito] = useState(false)
 
-  const urlAPI = 'https://kiarnet-api.onrender.com'
+  const urlAPI = 'http://localhost:3053'
 
   const dados = useLocation();
 
   const {
+    unregister,
     setValue,
     clearErrors,
     handleSubmit,
@@ -34,7 +35,7 @@ export function Cadastro() {
     formState: { errors, isValid },
   } = useForm({
     defaultValues: {
-      plano: dados.state.plano,
+      plano: dados.state.plano
     },
     reValidateMode: "onChange",
     mode: "onChange",
@@ -82,12 +83,15 @@ export function Cadastro() {
   }
 
   const onSubmit = async (data) => {
-    console.log(typeof data);
-    console.log(data);
+    setCarregando(true)
 
     console.log(`${urlAPI}/cliente/cadastro`, data);
     
-    await axios.post(`${urlAPI}/cliente/cadastro`, data)
+    const resposta = await axios.post(`${urlAPI}/cliente/cadastro`, data)
+
+    console.log(resposta.data)
+    // redirecionar pra pagina final com todos os dados
+    setCarregando(false)
   };
 
   const { insert, remove } = useFieldArray({
@@ -119,10 +123,10 @@ export function Cadastro() {
   }
 
   function handleVoltar() {
-    if (passo > 1) {
+    if (passo >= 0) {
       if (passo === 2) {
         remove('dadosendereco', 0)
-        remove('dadosbancarios',0)
+        remove('dadosbancarios',null)
       }
 
       setPasso(passo - 1)
@@ -131,7 +135,7 @@ export function Cadastro() {
   }
 
   function handleDebitoAutomaticoNao(){
-    remove('dadosbancarios', 0)
+    unregister('dadosbancarios')
     setOpcoesDebito(false)
   }
 
@@ -420,7 +424,7 @@ export function Cadastro() {
                         type="radio"
                         name="selecao-debito"
                         id="selecao-debito-sim"
-                        value="true"
+                        value="1"
                         {...register("opcaodebito", {})}
                         onClick={() => setOpcoesDebito(true)}
                       ></input>
@@ -432,9 +436,9 @@ export function Cadastro() {
                         type="radio"
                         name="selecao-debito"
                         id="selecao-debito-nao"
-                        value="nao"
-                        {...register("opcaodebito", {})}
-                        onClick={handleDebitoAutomaticoNao}
+                        value="0"
+                        {...register("opcaodebito",{})}
+                        onClick={()=>handleDebitoAutomaticoNao()}
 
                       ></input>
                       <label htmlFor="selecao-debito-nao">Não</label>
@@ -481,6 +485,8 @@ export function Cadastro() {
                           <option value="fisica">Física</option>
                           <option value="juridica">Jurídica</option>
                         </select>
+
+                        
                       </div>
                     </div>
                 }
@@ -596,7 +602,7 @@ export function Cadastro() {
               </div>
 
               <button className="botao" type="submit">
-                Concluir cadastro
+               {carregando ? <p>Aguarde..</p> : <p>Concluir cadastro</p>}
               </button>
             </div>
           )}

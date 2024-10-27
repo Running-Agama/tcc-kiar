@@ -15,11 +15,12 @@ endpoints.get('/', async(req,res)=>{
 endpoints.post('/cliente/cadastro', async (req,res)=>{
     try {
         const corpo = req.body
-
         const resposta = await registrarClienteService(corpo)
 
+        res.status(200).send(resposta[0])
+
     } catch (error) {
-        res.send(error)
+        res.status(401).send(error)
     }
 })
 export default endpoints
