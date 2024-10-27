@@ -19,6 +19,8 @@ export function Cadastro() {
   const [numeroEndereco, setNumeroEndereco] = useState("");
   const [opcoesDebito, setOpcoesDebito] = useState(false)
 
+  const urlAPI = 'http://localhost:3053'
+
   const dados = useLocation();
 
   const {
@@ -82,7 +84,10 @@ export function Cadastro() {
   const onSubmit = async (data) => {
     console.log(typeof data);
     console.log(data);
-    await axios.post('http://localhost:1111/cliente/cadastro', data)
+
+    console.log(`${urlAPI}/cliente/cadastro`, data);
+    
+    await axios.post(`${urlAPI}/cliente/cadastro`, data)
   };
 
   const { insert, remove } = useFieldArray({
@@ -126,7 +131,7 @@ export function Cadastro() {
   }
 
   function handleDebitoAutomaticoNao(){
-    remove('dadosbancarios',0)
+    remove('dadosbancarios', 0)
     setOpcoesDebito(false)
   }
 
@@ -415,7 +420,7 @@ export function Cadastro() {
                         type="radio"
                         name="selecao-debito"
                         id="selecao-debito-sim"
-                        value="sim"
+                        value="true"
                         {...register("opcaodebito", {})}
                         onClick={() => setOpcoesDebito(true)}
                       ></input>
@@ -429,7 +434,7 @@ export function Cadastro() {
                         id="selecao-debito-nao"
                         value="nao"
                         {...register("opcaodebito", {})}
-                        onClick={()=>handleDebitoAutomaticoNao}
+                        onClick={handleDebitoAutomaticoNao}
 
                       ></input>
                       <label htmlFor="selecao-debito-nao">Não</label>
@@ -517,9 +522,14 @@ export function Cadastro() {
                           name="selecao-residencia"
                           id="selecao-residencia-casa"
                           value="Casa"
-                          {...register("tiporesidencia")}
+                          {...register("tiporesidencia",                             {
+                            required: "Por favor, escolha o tipo de residência"
+                          })
+
+                          }
                         />
                         <label htmlFor="selecao-residencia-casa">Casa</label>
+                        {errors.tiporesidencia && <p>{errors.tiporesidencia}</p>}
                       </div>
 
                       <div className="input-radio">
