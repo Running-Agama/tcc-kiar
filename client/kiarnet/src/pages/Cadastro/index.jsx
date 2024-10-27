@@ -19,7 +19,7 @@ export function Cadastro() {
   const [numeroEndereco, setNumeroEndereco] = useState("");
   const [opcoesDebito, setOpcoesDebito] = useState(false)
 
-  const urlAPI = 'http://localhost:3053'
+  const urlAPI = 'https://kiarnet-api.onrender.com'
 
   const dados = useLocation();
 
