@@ -5,7 +5,6 @@ import { useForm, useFieldArray } from "react-hook-form";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import iconeVoltar from '../../images/icons/iconeVoltar/iconeVoltar.svg'
-
 //verificar cep quebrando ao tirar o mouse sem nenhum campo, deve ser facil de resolver
 //opcao debito null
 
@@ -19,8 +18,8 @@ export function Cadastro() {
   const [numeroEndereco, setNumeroEndereco] = useState("");
   const [opcoesDebito, setOpcoesDebito] = useState(false)
 
-  const urlAPI = 'http://localhost:3053'
-
+  const urlAPI = 'https://tcc-kiar.onrender.com'
+  
   const dados = useLocation();
 
   const {
@@ -141,7 +140,6 @@ export function Cadastro() {
 
   return (
     <div className="conteudo">
-
       <div
         className="barra-progresso"
         style={{
