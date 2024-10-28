@@ -158,7 +158,7 @@ export function Cadastro() {
         <form onSubmit={handleSubmit(onSubmit)}>
           {passo === 0 && (
             <div className="conteudo">
-              <h1>Informe seus dados</h1>
+              <h1 className="msg-informe">Informe seus dados pessoais</h1>
               <div className="campos-informedados">
                 <div className="linha">
                   <input
@@ -173,12 +173,7 @@ export function Cadastro() {
                   />
                   {errors.nome && (
                     <p
-                      style={{
-                        fontSize: "10px",
-                        color: "red",
-                        position: "absolute",
-                        marginTop: "50px",
-                      }}
+                      className='erro'
                     >
                       {errors.nome.message}
                     </p>
@@ -227,12 +222,7 @@ export function Cadastro() {
                   />
                   {errors.celular && (
                     <p
-                      style={{
-                        fontSize: "10px",
-                        color: "red",
-                        position: "absolute",
-                        marginTop: "50px",
-                      }}
+                      className="erro"
                     >
                       {errors.celular.message}
                     </p>
@@ -257,12 +247,7 @@ export function Cadastro() {
                   />
                   {errors.email && (
                     <p
-                      style={{
-                        fontSize: "10px",
-                        color: "red",
-                        position: "absolute",
-                        marginTop: "50px",
-                      }}
+                      className="erro"
                     >
                       {errors.email.message}
                     </p>
@@ -282,12 +267,7 @@ export function Cadastro() {
                   
                   {errors.cpf && (
                     <p
-                      style={{
-                        fontSize: "10px",
-                        color: "red",
-                        position: "absolute",
-                        marginTop: "50px",
-                      }}
+                      className="erro"
                     >
                       {errors.cpf.message}
                     </p>
@@ -306,21 +286,17 @@ export function Cadastro() {
                   />
                   {errors.numeroEndereco && (
                     <p
-                      style={{
-                        fontSize: "10px",
-                        color: "red",
-                        position: "absolute",
-                        marginTop: "50px",
-                      }}
+                      className="erro"
                     >
                       {errors.numeroEndereco.message}
                     </p>
                   )}
 
-                  <div className="dt" style={{ height: "45px", width: "45%" }}>
+                  <div className="dt">
+                    <p>Data de nascimento</p>
                     <input
                       type="date"
-                      className="campo"
+                      className="campo dtnascimento"
                       placeholder="Data de nascimento:"
                       {...register("datanascimento", {
                         required: "A data de nascimento é obrigatória",
@@ -336,12 +312,7 @@ export function Cadastro() {
                     />
                     {errors.datanascimento && (
                       <p
-                        style={{
-                          fontSize: "10px",
-                          color: "red",
-                          position: "absolute",
-                          marginTop: "50px",
-                        }}
+                        className="erro"
                       >
                         {errors.datanascimento.message}
                       </p>
@@ -361,7 +332,9 @@ export function Cadastro() {
           )}
           {passo === 1 && (
             <div className="conteudo-passo2">
-              <p>Escolha a data de vencimento:</p>
+              <h1 className="msg-informe">Dados de endereço</h1>
+
+              <p>Data de vencimento:</p>
               <div className="opcoes-data">
                 <select name="" id="" {...register('datavencimento',{
                   required: true,
@@ -376,7 +349,7 @@ export function Cadastro() {
               </div>
 
               <div className="campos-informedados">
-                <p>Informe seu email para envio da fatura:</p>
+                <p>Email para envio da fatura:</p>
 
                 <div className="campo-email">
                   <input
@@ -392,11 +365,7 @@ export function Cadastro() {
 
                   {errors.emailfatura && (
                     <p
-                      style={{
-                        position: "absolute",
-                        fontSize: "10px",
-                        color: "red",
-                      }}
+                      className="erro"
                     >
                       {errors.emailfatura.message}
                     </p>
@@ -490,7 +459,7 @@ export function Cadastro() {
                 }
 
                 <p style={{ marginTop: "10px" }}>Confirme seu endereço:</p>
-                <p>pesquisar sobre usefieldarray depois</p>
+
                 <div className="info-endereco">
                   <div className="linha-info-endereco">
                     <p className="nome-linha">CEP:</p>
@@ -573,7 +542,7 @@ export function Cadastro() {
           )}
           {passo === 2 && (
             <div className="conteudo-passo3">
-              <h1>Selecione as datas de instalação</h1>
+              <h1 className="msg-informe">Selecione as datas de instalação</h1>
 
               <div className="opcoes-instalacao">
                 <div className="opcao-instalacao">
