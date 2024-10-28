@@ -8,8 +8,27 @@
     position: sticky;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 8px #00000033;
 
+    .menu{
+        color: white;
+        background-color: #00000033;
+        display: none;
+        padding: 20px;
+        border-radius: 50px;
+        pointer-events: none;
+    }
+
+    .menu-ativo{
+        color: white;
+        background-color: red;
+        display: none;
+        padding: 20px;
+        border-radius: 50px;
+        pointer-events: none;
+
+
+    }
     .logo {
         font-size: 2rem;
         font-weight: bold;
@@ -42,6 +61,21 @@
                 background-color: #fff;
                 color: var(--primary-color);
             }
+        }
+    }
+}
+
+@media (max-width: 839px) {
+    .navbar{
+        padding: 20px 10px;
+        height: 70px;
+        .nav-links{
+            display: none;
+        }
+        .menu{
+            background-color: transparent;
+            font-size: 50px;
+            display: block;
         }
     }
 }

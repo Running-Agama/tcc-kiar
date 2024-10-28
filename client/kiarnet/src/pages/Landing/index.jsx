@@ -4,6 +4,11 @@ import './index.scss'
 
 export default function Landing() {
 
+    
+    function abrirMenu(){
+        
+    }
+
     return (
         <div className="conteudo-landing">
 
