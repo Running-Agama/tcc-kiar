@@ -13,6 +13,7 @@ import BotaoComecar from './pages/BotaoComecar';
 import BotaoVermais from './pages/BotaoVermais';
 import Planos from './pages/planos';
 import CRMnomelongoteste from './pages/CRM';
+import CadastroFinal from './pages/Cadastro-final';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -21,6 +22,7 @@ root.render(
           <Routes>
                <Route path='/' element={<Landing/>}/>
                <Route path='/cadastro' element={<Cadastro/>}/>
+               <Route path='/cadastro/final' element={<CadastroFinal/>}/>
                <Route path='/login' element={<Login/>}/>
                <Route path='/duvidas' element={<Duvidas/>}/>
                <Route path='/sobre' element={<SobreNós/>}/>
@@ -30,6 +32,7 @@ root.render(
                <Route path='/planos' element={<Planos/>}/>
                <Route path='/crm' element={<CRMnomelongoteste/>}/>
                <Route path='*' element={<Notfound/>}/>
+               
           </Routes>
      </BrowserRouter>
 

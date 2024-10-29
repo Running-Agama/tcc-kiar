@@ -3,8 +3,11 @@ import "./index.scss";
 import Barraprogresso from "../../components/Barraprogresso";
 import { useForm, useFieldArray } from "react-hook-form";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import iconeVoltar from '../../images/icons/iconeVoltar/iconeVoltar.svg'
+
+
+
 //verificar cep quebrando ao tirar o mouse sem nenhum campo, deve ser facil de resolver
 //opcao debito null
 
@@ -18,8 +21,8 @@ export function Cadastro() {
   const [numeroEndereco, setNumeroEndereco] = useState("");
   const [opcoesDebito, setOpcoesDebito] = useState(false)
 
-  const urlAPI = 'https://tcc-kiar.onrender.com'
-  
+  const urlAPI = 'https://kiarnet-api.onrender.com'
+  const navegar = useNavigate()
   const dados = useLocation();
 
   const {
@@ -87,10 +90,14 @@ export function Cadastro() {
     console.log(`${urlAPI}/cliente/cadastro`, data);
     
     const resposta = await axios.post(`${urlAPI}/cliente/cadastro`, data)
-
+    if(resposta.error){
+      console.log(resposta.error)
+    }
     console.log(resposta.data)
     // redirecionar pra pagina final com todos os dados
     setCarregando(false)
+
+    navegar('/cadastro/final', {state: resposta.data})
   };
 
   const { insert, remove } = useFieldArray({
