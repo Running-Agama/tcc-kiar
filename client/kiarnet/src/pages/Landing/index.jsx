@@ -16,7 +16,7 @@ export default function Landing() {
 
             <section class="hero-section">
                 <div class="hero-content">
-                    <h1><h1 style={{color: 'black'}}>O MELHOR</h1> PROVEDOR DE INTERNET PARA SUA CASA</h1>
+                    <h1><h1 style={{color: 'black'}}>O MELHOR PROVEDOR</h1> DE INTERNET PARA SUA CASA</h1>
                         <p>Experimente a diferença! Temos planos <br/> flexíveis e atendimento personalizado. <br/> Entre em contato e transforme sua <br/> navegação!</p>
                             <div class="buttons">
                               <a href="/planos">  <button class="btn-primary">Começar</button></a>
@@ -54,9 +54,9 @@ export default function Landing() {
                                                 <div class="ft-warp">
                                                     <div class="ft-warp1">
                                                         <h2>Company</h2>
-                                                        <p>About Us</p>
-                                                        <p>Careers</p>
-                                                        <p>Press</p>
+                                                        <p>Sobre nós</p>
+                                                        <p>Carreiras</p>
+                                                        <p>Imprensa</p>
                                                     </div>
                                                     <div class="ft-warp2">
                                                         <h2>Support</h2>
