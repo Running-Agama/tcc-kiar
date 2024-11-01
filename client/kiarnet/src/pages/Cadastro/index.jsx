@@ -580,9 +580,6 @@ export function Cadastro() {
               </button>
             </div>
           )}
-          <pre style={{ position: "absolute" }}>
-            {JSON.stringify(watch(), null, 2)}
-          </pre>
         </form>
       </div>
     </div>

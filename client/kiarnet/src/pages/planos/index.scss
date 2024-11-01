@@ -119,4 +119,13 @@
         transform: translateY(0);
     }
 }
-                                        
+
+@media (width: 360px) {
+    .pagina-plano{
+        section{
+            align-items: center;
+            flex-direction: column;
+        }
+    }
+
+}
