@@ -12,7 +12,7 @@ export default function Planos() {
                 <h1>Encontre o Plano de Internet Perfeito para Você!</h1>
                 <h2>Navegue na internet com a velocidade e estabilidade que você merece.</h2>
             </nav>
-            <section>
+            <section className=''>
                 <div className="mega1">
                     <h1>60 MEGA</h1>
                     <p>Ideal para navegação e redes sociais.</p>
@@ -33,7 +33,7 @@ export default function Planos() {
                     </div>
                     <div className="botao" onClick={()=>navigate('/cadastro', {
                         state: {
-                            plano: 'Basico'
+                            plano: 'Fibra 60 Mega'
                         }
                     })}>
                         Assine agora
@@ -60,7 +60,7 @@ export default function Planos() {
 
                     <div className="botao" onClick={()=>navigate('/cadastro', {
                         state: {
-                            plano: 'Medio'
+                            plano: 'Fibra 100 Mega'
                         }
                     })}>
                         Assine agora
@@ -121,3 +121,4 @@ export default function Planos() {
         </div>
     )
 }
+
