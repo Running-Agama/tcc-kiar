@@ -122,4 +122,16 @@ async function cadastrarCliente(corpo){
     
 }
 
-export default {cadastrarCliente}
+async function buscarEmail(corpo){
+    comando = `
+        SELECT * FROM tb_cliente
+        WHERE ds_email = ?
+        `
+
+    resposta = await con.query(comando, [corpo.email])
+
+    return resposta[0]
+    
+
+}
+export default {cadastrarCliente, buscarEmail}

@@ -22,7 +22,7 @@ CREATE TABLE tb_faturas (
     ds_email_fatura VARCHAR(255) NOT NULL,
     ds_tipo_residencia VARCHAR(10) NOT NULL,
     ds_dia_vencimento INT NOT NULL,
-    FOREIGN KEY (id_cliente) REFERENCES tb_cliente(id_cliente)
+    FOREIGN KEY (id_cliente) REFERENCES tb_cliente(id_cliente) ON DELETE CASCADE
 );
 
 CREATE TABLE tb_dados_bancarios (
@@ -31,7 +31,7 @@ CREATE TABLE tb_dados_bancarios (
     ds_tipo_conta VARCHAR(50) NOT NULL,
     nr_agencia INT(4) NOT NULL,
     nr_conta VARCHAR(10) NOT NULL,
-    FOREIGN KEY (id_cliente) REFERENCES tb_cliente(id_cliente)
+    FOREIGN KEY (id_cliente) REFERENCES tb_cliente(id_cliente) ON DELETE CASCADE
 );
 
 CREATE TABLE tb_endereco (
@@ -40,7 +40,7 @@ CREATE TABLE tb_endereco (
     nm_rua VARCHAR(255) NOT NULL,
     nr_casa VARCHAR(10) NOT NULL,
     ds_complemento VARCHAR(255),
-    FOREIGN KEY (id_cliente) REFERENCES tb_cliente(id_cliente)
+    FOREIGN KEY (id_cliente) REFERENCES tb_cliente(id_cliente) ON DELETE CASCADE
 );
 
 CREATE TABLE tb_tecnico(
@@ -55,7 +55,7 @@ CREATE TABLE tb_instalacao (
     dt_primeira_opcao DATE NOT NULL,
     dt_segunda_opcao DATE,
     ds_instalacao ENUM('Pendente', 'Concluida'),
-    FOREIGN KEY (id_cliente) REFERENCES tb_cliente(id_cliente)
+    FOREIGN KEY (id_cliente) REFERENCES tb_cliente(id_cliente) ON DELETE CASCADE
 );
 
 

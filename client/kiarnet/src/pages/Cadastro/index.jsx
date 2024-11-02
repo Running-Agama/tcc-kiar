@@ -1,14 +1,12 @@
 import { useState } from "react";
 import "./index.scss";
-import Barraprogresso from "../../components/Barraprogresso";
 import { useForm, useFieldArray } from "react-hook-form";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import iconeVoltar from '../../images/icons/iconeVoltar/iconeVoltar.svg'
+import InputMask from 'react-input-mask'
+import validator from 'validator'
 
-
-
-//verificar cep quebrando ao tirar o mouse sem nenhum campo, deve ser facil de resolver
 //opcao debito null
 
 export function Cadastro() {
@@ -20,8 +18,9 @@ export function Cadastro() {
   const [carregando, setCarregando] = useState(false);
   const [numeroEndereco, setNumeroEndereco] = useState("");
   const [opcoesDebito, setOpcoesDebito] = useState(false)
+  const [email, setEmail] = useState('')
 
-  const urlAPI = 'https://kiarnet-api.onrender.com'
+  const urlAPI = 'http://localhost:3053'
   const navegar = useNavigate()
   const dados = useLocation();
 
@@ -46,38 +45,54 @@ export function Cadastro() {
 
   async function verificarCEP() {
 
-
-    const resposta = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
-    const data = resposta.data;
-
-    console.log(data);
-    
-    if (data.erro === "true") {
+    if(cep.length != 8){
       setError("cep", {
         type: "manual",
-        message: "Erro ao requisitar CEP, verifique se está correto",
-      });
-    } else if (data.uf !== "SP") {
-      setError("cep", {
-        type: "manual",
-        message: "O CEP não é de SP",
-      });
-    } else if (data.regiao !== "Sudeste" && data.regiao !== "Sul") {
-      setError("cep", {
-        type: "manual",
-        message: "Por enquanto cobrimos apenas as regiões Sul e Sudeste",
-      });
-    } else {
-      clearErrors("cep");
-      setValue("cep", data.cep);
+        message: "Formato de CEP invalido, verifique se ele está correto e utiize apenas números"
+      })
     }
+
+    if(cep !== "" && cep.length == 8 ){
+      const resposta = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+      const data = resposta.data;
+  
+      console.log(data);
+      
+      if (data.erro === "true") {
+        setError("cep", {
+          type: "manual",
+          message: "Erro ao requisitar CEP, verifique se está correto",
+        });
+      } 
+      if (data.uf !== "SP") {
+        setError("cep", {
+          type: "manual",
+          message: "O CEP não é de SP",
+        });
+      
+      }
+      else {
+        clearErrors("cep");
+        setValue("cep", data.cep);
+      }
+    }
+
   }
 
   function verificarEmailConfirmacao() {
+
+    //validator identifica se é email ou não, mas não executa o set error
+    if(!validator.isEmail(emailFatura)){
+
+      setError("emailfatura",{
+        type: "manual",
+        message: "Formato de email invalido"
+      })
+    }
     if (emailFatura !== confirmacaoEmailFatura) {
       setError("emailfatura", {
         type: "manual",
-        message: "Os emails não coincidem!",
+        message: "Os emails não coincidem!"
       });
     } else {
       clearErrors("emailfatura");
@@ -108,12 +123,22 @@ export function Cadastro() {
   async function transicaoPasso2() {
     setCarregando(true);
 
-    const resposta = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
-    const data = resposta.data;
-    setDadosEndereco(data);
-
+    const emailRegistrado = await axios.post(`${urlAPI}/cliente/validacao/procura-email`, {email: email})
+    console.log(emailRegistrado)
+    if(emailRegistrado.data.resposta == 'encontrado'){
+      setError('email',{
+        type: "manual",
+        message: "Email já cadastrado"
+      })
+    }
+    else{
+      clearErrors('email')
+      const resposta = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+      const data = resposta.data;
+      setDadosEndereco(data);
+      setPasso(passo + 1);
+    }
     setCarregando(false);
-    setPasso(passo + 1);
   }
 
   function transicaoPasso3() {
@@ -129,7 +154,7 @@ export function Cadastro() {
   }
 
   function handleVoltar() {
-    if (passo >= 0) {
+    if (passo > 0) {
       if (passo === 2) {
         remove('dadosendereco', 0)
         remove('dadosbancarios',null)
@@ -217,15 +242,14 @@ export function Cadastro() {
                 </div>
 
                 <div className="linha">
-                  <input
-                    type="tel"
+                  <InputMask 
+                    mask="(99) 99999-9999" 
+                    placeholder="Celular" 
                     className="campo"
-                    placeholder="Celular"
-                    {...register("celular", {
-                      required: "O celular é obrigatório",
-                    })}
-                    maxLength={"11"}
-                  />
+                    {...register("celular",{
+                      required: "O celular é obrigatório"
+                    })}/>
+
                   {errors.celular && (
                     <p
                       className="erro"
@@ -234,12 +258,13 @@ export function Cadastro() {
                     </p>
                   )}
 
-                  <input
-                    type="tel"
+                  <InputMask
+                    placeholder="Telefone (opcional" 
+                    mask="(99) 99999-9999"
                     className="campo"
-                    placeholder="Telefone (opcional)"
                     {...register("telefone")}
                   />
+
                 </div>
 
                 <div className="linha">
@@ -250,6 +275,7 @@ export function Cadastro() {
                     {...register("email", {
                       required: "O email é obrigatório",
                     })}
+                    onChange={(e)=>setEmail(e.target.value)}
                   />
                   {errors.email && (
                     <p
@@ -261,16 +287,15 @@ export function Cadastro() {
                 </div>
 
                 <div className="linha">
-                  <input
-                    type="text"
+                  <InputMask
                     className="campo-um-input"
+                    mask="999.999.999-99"
                     placeholder="CPF:"
-                    maxLength={"11"}
-                    {...register("cpf", {
-                      required: "O CPF é obrigatório",
+                    {...register("cpf",{
+                      required: "O CPF é obrigatório"
                     })}
                   />
-                  
+
                   {errors.cpf && (
                     <p
                       className="erro"
@@ -398,7 +423,9 @@ export function Cadastro() {
                         name="selecao-debito"
                         id="selecao-debito-sim"
                         value="1"
-                        {...register("opcaodebito", {})}
+                        {...register("opcaodebito", {
+                          required: "Por favor, escolha uma opção"
+                        })}
                         onClick={() => setOpcoesDebito(true)}
                       ></input>
                       <label htmlFor="selecao-debito-sim">Sim</label>
@@ -410,11 +437,13 @@ export function Cadastro() {
                         name="selecao-debito"
                         id="selecao-debito-nao"
                         value="0"
-                        {...register("opcaodebito",{})}
+                        {...register("opcaodebito",{
+                          required: "Por favor, escolha uma opção"
+                        })}
                         onClick={()=>handleDebitoAutomaticoNao()}
-
                       ></input>
                       <label htmlFor="selecao-debito-nao">Não</label>
+                        {errors.opcaodebito && <p>{errors.opcaodebito}</p>}
                     </div>
                   </div>
                 </div>
@@ -581,6 +610,9 @@ export function Cadastro() {
           )}
         </form>
       </div>
+      <pre>
+      {JSON.stringify(watch(), null, 2)}
+      </pre>
     </div>
   );
 }
