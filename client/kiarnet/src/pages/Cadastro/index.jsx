@@ -157,7 +157,6 @@ export function Cadastro() {
         }}
       >
         <button className="botao-voltar" onClick={handleVoltar}><img src={iconeVoltar} alt="" /></button>
-        <Barraprogresso progresso={50 * passo} />
 
       </div>
 

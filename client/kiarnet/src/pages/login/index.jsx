@@ -1,3 +1,4 @@
+import Footer from '../../components/Footer';
 import './index.scss';
 
 export default function Login() {
@@ -17,10 +18,12 @@ export default function Login() {
                             <input id="senhaInput" type="password" placeholder='*********' aria-label="Senha" />
                         </div>
                     </section>
+                    {/*PORQUE CARALHOS ESSA MERDA É UM FOOTER!!!!!!!???????*/ }
                     <footer>
                         <button className='entrar'>Entrar</button>
                         <a className='semSenha' href="">Esqueceu a senha?</a>
                     </footer>
+                    <Footer/>
                 </div>
             </div>
         </div>

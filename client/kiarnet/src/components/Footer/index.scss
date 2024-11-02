@@ -1,0 +1,37 @@
+.footer {
+    text-align: center;
+    padding: 20px 0;
+
+    color: white;
+}
+
+.ft-warp {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 50px;
+}
+
+.ft {
+    background-color: #000000;
+    color: #fff;
+    padding: 60px 0 0;
+    text-align: center;
+    width: 100%;
+
+    .final-footer {
+        background-color: #000000;
+        padding: 20px 0; 
+        color: #ffffff;
+        margin-top: 10px; 
+    }
+}
+@media (max-width: 900px) {
+    .ft{
+        .ft-warp{
+            display: flex;
+            flex-direction: column;
+        }
+
+    }
+}

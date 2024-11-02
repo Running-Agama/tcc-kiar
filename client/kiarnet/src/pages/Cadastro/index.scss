@@ -1,14 +1,8 @@
+
 .conteudo{
     display: flex;
     align-items: center;
     flex-direction: column;
-    .barra-progresso{
-         position: sticky;
-         width: 100%;
-         top: 1px;
-         display: flex;
-         justify-content: center;
-         align-items: center;
          .botao-voltar{
             width: 30px;
          }
@@ -114,7 +108,7 @@
         }
     }
 
-}
+
 
 @media (max-width: 830px) {
     .conteudo{

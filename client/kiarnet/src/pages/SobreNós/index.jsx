@@ -1,4 +1,5 @@
 import Cabecalho from '../../components/cabecalhoA';
+import Footer from '../../components/Footer';
 import './index.scss';
 import { useNavigate } from 'react-router-dom';
 
@@ -35,11 +36,9 @@ export default function SobreNos() {
                     </ul>
                 </section>
             </div>
-
-            <div className="btnVoltarHome">
-                <button onClick={() => navigate('/')}>Voltar à Home</button>
-            </div>
         </div>
+        
+        <Footer/>
         </div>
 
     );

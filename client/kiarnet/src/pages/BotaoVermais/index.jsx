@@ -1,6 +1,7 @@
 import React from 'react';
 import './index.scss';
 import Cabecalho from '../../components/cabecalhoA';
+import Footer from '../../components/Footer';
 export default function MoreInfo() {
     return (
         <div className="more-info-page">
@@ -38,9 +39,7 @@ export default function MoreInfo() {
                 </div>
             </section>
 
-            <footer className="footer">
-                <p>© 2024 Kiarnet. Todos os direitos reservados.</p>
-            </footer>
+            <Footer/>
         </div>
     );
 }
