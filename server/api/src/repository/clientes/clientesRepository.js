@@ -134,4 +134,14 @@ async function buscarEmail(corpo){
     
 
 }
-export default {cadastrarCliente, buscarEmail}
+
+async function buscarCPF(corpo){
+    comando = `
+        SELECT * FROM tb_cliente
+        WHERE ds_cpf = ?
+        `
+    resposta = await con.query(comando, [corpo.cpf])
+
+    return resposta[0]
+}
+export default {cadastrarCliente, buscarEmail, buscarCPF}

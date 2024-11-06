@@ -19,8 +19,8 @@ export function Cadastro() {
   const [numeroEndereco, setNumeroEndereco] = useState("");
   const [opcoesDebito, setOpcoesDebito] = useState(false)
   const [email, setEmail] = useState('')
-
-  const urlAPI = 'http://localhost:3053'
+  const [cpf, setCpf] = useState('')
+  const urlAPI = 'https://kiarnet-api.onrender.com'
   const navegar = useNavigate()
   const dados = useLocation();
 
@@ -41,6 +41,8 @@ export function Cadastro() {
     reValidateMode: "onChange",
     mode: "onChange",
   });
+
+  
 
 
   async function verificarCEP() {
@@ -123,9 +125,18 @@ export function Cadastro() {
   async function transicaoPasso2() {
     setCarregando(true);
 
-    const emailRegistrado = await axios.post(`${urlAPI}/cliente/validacao/procura-email`, {email: email})
-    console.log(emailRegistrado)
-    if(emailRegistrado.data.resposta == 'encontrado'){
+    let request = await axios.get(`${urlAPI}/cliente/validacao/procura-cpf`, {cpf: cpf})
+
+    if(request.data.resposta == 'encontrado'){
+      setError('cpf',{
+        type: 'manual',
+        message: "CPF já cadastrado"
+      })
+    }
+
+     request = await axios.get(`${urlAPI}/cliente/validacao/procura-email`, {email: email})
+
+    if(request.data.resposta == 'encontrado'){
       setError('email',{
         type: "manual",
         message: "Email já cadastrado"
@@ -291,6 +302,7 @@ export function Cadastro() {
                     className="campo-um-input"
                     mask="999.999.999-99"
                     placeholder="CPF:"
+                    onChange={(e)=>setCpf(e.target.value)}
                     {...register("cpf",{
                       required: "O CPF é obrigatório"
                     })}
