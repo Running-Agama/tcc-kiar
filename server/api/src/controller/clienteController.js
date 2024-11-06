@@ -59,7 +59,9 @@ endpoints.get('/cliente/validacao/procura-email', async (req,res)=>{
         if(resposta.length === 0){
             res.status(200).send({resposta: 'não encontrado'})
         }
-        res.status(404).send({resposta:'encontrado'})
+        else{
+            res.status(404).send({resposta:'encontrado'})
+        }
 
     } catch( error){
         console.log('erro na procura por email (procura-email)', error)
