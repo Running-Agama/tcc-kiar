@@ -38,10 +38,10 @@ endpoints.get('/cliente/validacao/procura-cpf', async (req,res)=>{
         const resposta = await clientesRepository.buscarCPF(corpo)
 
         if(resposta.length === 0){
-            res.status(200).send("não encontrado")
+           return res.status(200).send("não encontrado")
         }
 
-        res.status(404).send('encontrado')
+        return res.status(404).send('encontrado')
     }
     catch(error){
         console.log('erro procura cpf', error)
@@ -57,11 +57,11 @@ endpoints.get('/cliente/validacao/procura-email', async (req,res)=>{
         console.log(resposta)
 
         if(resposta.length === 0){
-            res.status(200).send({resposta: 'não encontrado'})
+            return res.status(200).send({resposta: 'não encontrado'})
         }
-        else{
-            res.status(404).send({resposta:'encontrado'})
-        }
+
+        res.status(404).send({resposta:'encontrado'})
+
 
     } catch( error){
         console.log('erro na procura por email (procura-email)', error)
