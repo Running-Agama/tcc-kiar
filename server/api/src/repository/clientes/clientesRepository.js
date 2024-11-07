@@ -136,12 +136,14 @@ async function buscarEmail(corpo){
 }
 
 async function buscarCPF(corpo){
+    console.log(corpo)
     comando = `
         SELECT * FROM tb_cliente
         WHERE ds_cpf = ?
         `
     resposta = await con.query(comando, [corpo.cpf])
 
+    console.log(resposta[0])
     return resposta[0]
 }
 export default {cadastrarCliente, buscarEmail, buscarCPF}
