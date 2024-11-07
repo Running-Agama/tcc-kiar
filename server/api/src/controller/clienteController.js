@@ -16,6 +16,7 @@ endpoints.get('/', async(req,res)=>{
 endpoints.post('/cliente/cadastro', async (req,res)=>{
     try {
         const corpo = req.body
+        
         const resposta = await clientesRepository.cadastrarCliente(corpo)
 
         return res.status(200).send(resposta[0])
@@ -31,7 +32,7 @@ endpoints.post('/cliente/cadastro', async (req,res)=>{
 // validacoes 
 // esse negocio procura email e até que vai, mas ta esquisito
 
-endpoints.get('/cliente/validacao/procura-cpf', async (req,res)=>{
+endpoints.post('/cliente/validacao/procura-cpf', async (req,res)=>{
     try{
         const corpo = req.body
         console.log(corpo)
@@ -44,7 +45,7 @@ endpoints.get('/cliente/validacao/procura-cpf', async (req,res)=>{
            return res.status(200).send({resposta:'encontrado'})
         }
 
-        return res.status(404).send({resposta: "não encontrado"})
+        return res.status(200).send({resposta: "não encontrado"})
     }
     catch(error){
         console.log('erro procura cpf', error)
@@ -52,7 +53,7 @@ endpoints.get('/cliente/validacao/procura-cpf', async (req,res)=>{
     }
 })
 
-endpoints.get('/cliente/validacao/procura-email', async (req,res)=>{
+endpoints.post('/cliente/validacao/procura-email', async (req,res)=>{
     try{
         const corpo = req.body
         const resposta = await clientesRepository.buscarEmail(corpo)
@@ -61,7 +62,7 @@ endpoints.get('/cliente/validacao/procura-email', async (req,res)=>{
             return res.status(200).send({resposta: 'encontrado'})
         }
 
-        return res.status(404).send({resposta:'não encontrado'})
+        return res.status(200).send({resposta:'não encontrado'})
 
 
     } catch( error){

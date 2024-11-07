@@ -143,7 +143,7 @@ async function buscarCPF(corpo){
         `
     resposta = await con.query(comando, [corpo.cpf])
 
-    console.log(resposta[0])
+    console.log(resposta)
     return resposta[0]
 }
 export default {cadastrarCliente, buscarEmail, buscarCPF}

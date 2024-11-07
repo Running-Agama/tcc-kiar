@@ -18,9 +18,11 @@ export function Cadastro() {
   const [carregando, setCarregando] = useState(false);
   const [numeroEndereco, setNumeroEndereco] = useState("");
   const [opcoesDebito, setOpcoesDebito] = useState(false)
+
+  //fazer o mesmo que fez com o cpf com o email
   const [email, setEmail] = useState('')
-  const [cpf, setCpf] = useState('')
-  const urlAPI = 'https://kiarnet-api.onrender.com'
+
+  let urlAPI = 'http://localhost:3053'
   const navegar = useNavigate()
   const dados = useLocation();
 
@@ -125,32 +127,20 @@ export function Cadastro() {
   async function transicaoPasso2() {
     setCarregando(true);
 
-    let request = await axios.get(`${urlAPI}/cliente/validacao/procura-cpf`, {cpf: cpf})
+    console.log(`${urlAPI}/cliente/validacao/procura-cpf`)
+      const respostaCpf = await axios.post(`${urlAPI}/cliente/validacao/procura-cpf`, {cpf: watch().cpf})
 
-    if(request.data.resposta == 'encontrado'){
-      setError('cpf',{
-        type: 'manual',
-        message: "CPF já cadastrado"
-      })
-    }
+      if(respostaCpf.data.resposta === 'encontrado'){
+        setError('cpf',{
+          type: 'manual',
+          message: 'CPF já registrado '
+        })
+      }
 
-     request = await axios.get(`${urlAPI}/cliente/validacao/procura-email`, {email: email})
+      setCarregando(false)
+    }
+    
 
-    if(request.data.resposta == 'encontrado'){
-      setError('email',{
-        type: "manual",
-        message: "Email já cadastrado"
-      })
-    }
-    else{
-      clearErrors('email')
-      const resposta = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
-      const data = resposta.data;
-      setDadosEndereco(data);
-      setPasso(passo + 1);
-    }
-    setCarregando(false);
-  }
 
   function transicaoPasso3() {
     insert(0, {
@@ -302,7 +292,6 @@ export function Cadastro() {
                     className="campo-um-input"
                     mask="999.999.999-99"
                     placeholder="CPF:"
-                    onChange={(e)=>setCpf(e.target.value)}
                     {...register("cpf",{
                       required: "O CPF é obrigatório"
                     })}
