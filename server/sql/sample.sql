@@ -1,11 +1,10 @@
---separar criacao de tabelas de consultas
+
 create database kiarnet;
 use kiarnet;
 
-
 CREATE TABLE tb_cliente (
     id_cliente INT AUTO_INCREMENT PRIMARY KEY,
-    nm_completo VARCHAR(255) NOT NULL,
+    ds_nome VARCHAR(255) NOT NULL,
     ds_celular VARCHAR(15) NOT NULL,
     ds_telefone VARCHAR(15),
     ds_email VARCHAR(255) NOT NULL,
@@ -20,7 +19,7 @@ CREATE TABLE tb_faturas (
 	id_cliente INT,
     ds_plano VARCHAR(20),
     ds_email_fatura VARCHAR(255) NOT NULL,
-    ds_tipo_residencia VARCHAR(10) NOT NULL,
+    ds_tipo_residencia VARCHAR(11) NOT NULL,
     ds_dia_vencimento INT NOT NULL,
     FOREIGN KEY (id_cliente) REFERENCES tb_cliente(id_cliente) ON DELETE CASCADE
 );
@@ -36,6 +35,7 @@ CREATE TABLE tb_dados_bancarios (
 
 CREATE TABLE tb_endereco (
     id_cliente INT PRIMARY KEY,
+    ds_cep VARCHAR(50) NOT NULL,
     ds_bairro VARCHAR(100) NOT NULL,
     nm_rua VARCHAR(255) NOT NULL,
     nr_casa VARCHAR(10) NOT NULL,
@@ -70,6 +70,7 @@ select * from tb_endereco;
 select id_cliente, dt_adicao, ds_plano, nm_rua, nr_casa, ds_bairro
 FROM tb_cliente
 JOIN tb_endereco USING(id_cliente)
-JOIN tb_faturas USING (id_cliente)
+JOIN tb_faturas USING (id_cliente);
 
-
+select ds_nome, ds_cep, ds_cpf from tb_cliente
+join tb_endereco using(id_cliente)

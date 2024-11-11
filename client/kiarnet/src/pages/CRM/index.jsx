@@ -1,16 +1,52 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './index.scss';
-
+import {useForm} from 'react-hook-form'
+import InputMask from 'react-input-mask'
+import CardCrmClientes from '../../components/CardCrmClientes';
+import axios from 'axios';
 export default function Crm() {
+  const {
+    handleSubmit,
+    watch,
+    register
+  } = useForm({
+    defaultValues: {
+      cep: "",
+      nome: ""
+    },
+    reValidateMode: "onChange",
+    mode: "onChange",
+    
+  });
+
+  const urlAPI = 'http://localhost:3053'
+
+  const [listaClientes, setListaClientes] = useState([])
+
+  async function consultarClientes(){
+    const resposta = axios.get(`${urlAPI}/crm/consulta`)
+    const data = resposta.data
+
+     
+  }
+
+
+
+
+  useEffect(()=>{
+    consultarClientes
+  },[])
+
+  const onSubmit = async(data)=>{
+    localStorage.setItem("oi", data)
+      console.log(data)
+    }
   return (
     <div className="conteudo-crm">
+
       <header className="cabecalho-tecnico">
-        <ul>
-            <li><a href="/">Voltar a página inicial</a></li>
-            <li><h1>Área do técnico - {'{nome}'}</h1></li>
-        </ul>
-        
-        
+        <a href="/">Voltar a página inicial</a>
+        <h1>Área do técnico - {'{nome}'}</h1>
       </header>
 
       <main className="area-crm">
@@ -18,38 +54,48 @@ export default function Crm() {
           <div className="client-count">
             <p>Clientes no total</p>
           </div>
-          <div className="filter-section">
+          <form className="filter-section" onSubmit={handleSubmit(onSubmit)}>
             <div className="filter-group">
+              {/* No momento não tem nada relacionado a "pago" no DB, sem sistema de fatura e sem tempo pra implementar*/}
               <label htmlFor="pago">Pago:</label>
               <input type="checkbox" id="pago" />
-            </div>
+            </div>  
             <div className="filter-group">
-              <label htmlFor="cep">CEP</label>
-              <input type="text" id="cep" placeholder="Digite o CEP" />
+              <label htmlFor="cep" >CEP</label>
+              <InputMask
+                  mask="99999-999"
+                  type="text" 
+                  id="cep"  
+                  {...register("cep")}
+                  alwaysShowMask = "yes"
+                  >
+              </InputMask>
             </div>
             <div className="filter-group">
               <label htmlFor="nome">Nome</label>
-              <input type="text" id="nome" placeholder="Digite o nome" />
+              <input 
+              type="text"
+              id="nome" 
+              placeholder="Digite o nome"  
+              {...register("nome")}/>
+
+
+              
             </div>
-            <button>Pesquisar</button>
-          </div>
+            <button type='submit'>Pesquisar</button>
+          </form>
         </aside>
 
         <section className="client-list-section">
           <h2>LISTA DE CLIENTES</h2>
           <div className="client-list">
-              <div className="client-card">
-                <p>
-                  <span className="client-name">nome completo tlgd parsa</span>
-                  <span className="client-info">CEP: xxxxx-xxx</span>
-                  <span className="client-info">CPF: xxxxxxxx-xx</span>
-                  <span className="client-info">MENSALIDADE: PAGA / N PAGA</span>
-                </p>
-              </div>
+            {}
           </div>
         </section>
       </main>
-    </div>
+      <pre>
+      </pre>
+    </div >
   );
 }
 

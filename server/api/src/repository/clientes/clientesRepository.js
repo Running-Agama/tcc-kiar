@@ -9,7 +9,7 @@ async function cadastrarCliente(corpo){
 
         comando = `
         INSERT INTO tb_cliente(
-            nm_completo, 
+            ds_nome, 
             ds_celular, 
             ds_email, 
             ds_telefone,
@@ -18,7 +18,7 @@ async function cadastrarCliente(corpo){
             ds_debito_automatico,
             dt_adicao
          )
-        VALUES(?,?,?,?,?, ?,?,  SYSDATE());`
+        VALUES(?, ?,?,?,?,?, ?, SYSDATE());`
 
         //faz o registro do usuario primeiro, pega o insertId e faz registro do resto
         //certeza que em breve isso aí vai me dar problema
@@ -37,16 +37,20 @@ async function cadastrarCliente(corpo){
         comando = `
             INSERT INTO tb_endereco(
                 id_cliente,
+                ds_cep,
                 ds_bairro,
                 nm_rua,
                 nr_casa,
                 ds_complemento
             )
-            VALUES(?,?,?,?,?);
+            VALUES(?,?, ?,?,?,?);
             `
         resposta = await con.query(comando,[
-            insertId, corpo.dadosendereco[0].bairro,
-            corpo.dadosendereco[0].rua, corpo.numeroendereco,
+            insertId, 
+            corpo.cep,
+            corpo.dadosendereco[0].bairro,
+            corpo.dadosendereco[0].rua, 
+            corpo.numeroendereco,
             corpo.complemento
         ])
 

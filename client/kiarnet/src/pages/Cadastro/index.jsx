@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./index.scss";
 import { useForm, useFieldArray } from "react-hook-form";
 import axios from "axios";
-import { useLocation, useNavigate } from "react-router-dom";
+import { json, useLocation, useNavigate } from "react-router-dom";
 import iconeVoltar from '../../images/icons/iconeVoltar/iconeVoltar.svg'
 import InputMask from 'react-input-mask'
 import validator from 'validator'
@@ -644,6 +644,9 @@ export function Cadastro() {
           )}
         </form>
       </div>
+      <pre>
+        {JSON.stringify(watch(),null, 2)}
+      </pre>
     </div>
   );
 }

@@ -22,7 +22,7 @@ endpoints.post('/cliente/cadastro', async (req,res)=>{
         return res.status(200).send(resposta[0])
 
     } catch (error) {
-        return res.status(400).send(error)
+        return res.status(400).send({erro: error})
     }
 })
 
