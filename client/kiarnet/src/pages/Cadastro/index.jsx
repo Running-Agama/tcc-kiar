@@ -18,7 +18,7 @@ export function Cadastro() {
   const [carregando, setCarregando] = useState(false);
   const [numeroEndereco, setNumeroEndereco] = useState("");
   const [opcoesDebito, setOpcoesDebito] = useState(false)
-
+  const [estadoValidacao, setEstadoValidacao] = useState(false)
   //fazer o mesmo que fez com o cpf com o email
   const [email, setEmail] = useState('')
 
@@ -44,39 +44,37 @@ export function Cadastro() {
     mode: "onChange",
   });
 
-  
+
 
 
   async function verificarCEP() {
 
-    if(cep.length != 8){
+    let resposta
+    let data
+
+    if (cep.length != 8) {
       setError("cep", {
         type: "manual",
         message: "Formato de CEP invalido, verifique se ele está correto e utiize apenas números"
       })
     }
 
-    if(cep !== "" && cep.length == 8 ){
-      const resposta = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
-      const data = resposta.data;
-  
-      console.log(data);
+    if (cep !== "" && cep.length == 8) {
+      resposta = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+      data = resposta.data;
       
+      console.log(data);
+
       if (data.erro === "true") {
         setError("cep", {
           type: "manual",
           message: "Erro ao requisitar CEP, verifique se está correto",
         });
-      } 
-      if (data.uf !== "SP") {
-        setError("cep", {
-          type: "manual",
-          message: "O CEP não é de SP",
-        });
-      
       }
       else {
         clearErrors("cep");
+        console.log(data)
+        setDadosEndereco(data)
         setValue("cep", data.cep);
       }
     }
@@ -86,9 +84,9 @@ export function Cadastro() {
   function verificarEmailConfirmacao() {
 
     //validator identifica se é email ou não, mas não executa o set error
-    if(!validator.isEmail(emailFatura)){
+    if (!validator.isEmail(emailFatura)) {
 
-      setError("emailfatura",{
+      setError("emailfatura", {
         type: "manual",
         message: "Formato de email invalido"
       })
@@ -107,16 +105,16 @@ export function Cadastro() {
     setCarregando(true)
 
     console.log(`${urlAPI}/cliente/cadastro`, data);
-    
+
     const resposta = await axios.post(`${urlAPI}/cliente/cadastro`, data)
-    if(resposta.error){
+    if (resposta.error) {
       console.log(resposta.error)
     }
     console.log(resposta.data)
     // redirecionar pra pagina final com todos os dados
     setCarregando(false)
 
-    navegar('/cadastro/final', {state: resposta.data})
+    navegar('/cadastro/final', { state: resposta.data })
   };
 
   const { insert, remove } = useFieldArray({
@@ -124,22 +122,62 @@ export function Cadastro() {
     name: "dadosendereco",
   });
 
+
   async function transicaoPasso2() {
     setCarregando(true);
+    try {
+      
+      const respostaCpf = await axios.post(`${urlAPI}/cliente/validacao/procura-cpf`, { cpf: watch().cpf });
+      const respostaEmail = await axios.post(`${urlAPI}/cliente/validacao/procura-email`, { email: watch().email });
+      const respostaCelular = await axios.post(`${urlAPI}/cliente/validacao/procura-celular`, {celular: watch().celular});
 
-    console.log(`${urlAPI}/cliente/validacao/procura-cpf`)
-      const respostaCpf = await axios.post(`${urlAPI}/cliente/validacao/procura-cpf`, {cpf: watch().cpf})
+      let cpfValido = true;
+      let emailValido = true;
+      let celularValido = true;
 
-      if(respostaCpf.data.resposta === 'encontrado'){
-        setError('cpf',{
+      if (respostaCpf.data.resposta === 'encontrado') {
+        setError('cpf', {
           type: 'manual',
-          message: 'CPF já registrado '
-        })
+          message: 'CPF já registrado'
+        });
+        cpfValido = false;
+      } else {
+        clearErrors('cpf');
       }
 
-      setCarregando(false)
+      if (respostaEmail.data.resposta === 'encontrado') {
+        setError('email', {
+          type: "manual",
+          message: "Email já registrado"
+        });
+        emailValido = false;
+      } else {
+        clearErrors('email');
+      }
+
+      if(respostaCelular.data.resposta === 'encontrado'){
+        setError('celular',{
+          type: "manual",
+          message: "Celular já cadastrado"
+        });
+        celularValido = false
+      } else {
+        clearErrors('celular')
+      }
+      
+
+
+      if (cpfValido && emailValido && celularValido) {
+        setPasso(passo + 1);
+      }
+  
     }
-    
+    finally {
+      setCarregando(false);
+    }
+  }
+  
+
 
 
   function transicaoPasso3() {
@@ -158,7 +196,7 @@ export function Cadastro() {
     if (passo > 0) {
       if (passo === 2) {
         remove('dadosendereco', 0)
-        remove('dadosbancarios',null)
+        remove('dadosbancarios', null)
       }
 
       setPasso(passo - 1)
@@ -166,7 +204,7 @@ export function Cadastro() {
 
   }
 
-  function handleDebitoAutomaticoNao(){
+  function handleDebitoAutomaticoNao() {
     unregister('dadosbancarios')
     setOpcoesDebito(false)
   }
@@ -197,11 +235,11 @@ export function Cadastro() {
                     type="text"
                     placeholder="Nome completo"
                     className="campo-um-input"
-                   
+
                     {...register("nome", {
                       required: "O nome completo é obrigatório",
                     })}
-                    
+
                   />
                   {errors.nome && (
                     <p
@@ -230,12 +268,7 @@ export function Cadastro() {
                   />
                   {errors.cep && (
                     <p
-                      style={{
-                        fontSize: "10px",
-                        color: "red",
-                        position: "absolute",
-                        marginTop: "50px",
-                      }}
+                      className="erro"
                     >
                       {errors.cep.message}
                     </p>
@@ -243,13 +276,13 @@ export function Cadastro() {
                 </div>
 
                 <div className="linha">
-                  <InputMask 
-                    mask="(99) 99999-9999" 
-                    placeholder="Celular" 
+                  <InputMask
+                    mask="(99) 99999-9999"
+                    placeholder="Celular"
                     className="campo"
-                    {...register("celular",{
+                    {...register("celular", {
                       required: "O celular é obrigatório"
-                    })}/>
+                    })} />
 
                   {errors.celular && (
                     <p
@@ -260,7 +293,7 @@ export function Cadastro() {
                   )}
 
                   <InputMask
-                    placeholder="Telefone (opcional" 
+                    placeholder="Telefone (opcional"
                     mask="(99) 99999-9999"
                     className="campo"
                     {...register("telefone")}
@@ -276,7 +309,7 @@ export function Cadastro() {
                     {...register("email", {
                       required: "O email é obrigatório",
                     })}
-                    onChange={(e)=>setEmail(e.target.value)}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                   {errors.email && (
                     <p
@@ -292,7 +325,7 @@ export function Cadastro() {
                     className="campo-um-input"
                     mask="999.999.999-99"
                     placeholder="CPF:"
-                    {...register("cpf",{
+                    {...register("cpf", {
                       required: "O CPF é obrigatório"
                     })}
                   />
@@ -368,7 +401,7 @@ export function Cadastro() {
 
               <p>Data de vencimento:</p>
               <div className="opcoes-data">
-                <select name="" id="" {...register('datavencimento',{
+                <select name="" id="" {...register('datavencimento', {
                   required: true,
                   message: "A data de vencimento é obgiratória"
                 })}>
@@ -438,60 +471,60 @@ export function Cadastro() {
                         name="selecao-debito"
                         id="selecao-debito-nao"
                         value="0"
-                        {...register("opcaodebito",{
+                        {...register("opcaodebito", {
                           required: "Por favor, escolha uma opção"
                         })}
-                        onClick={()=>handleDebitoAutomaticoNao()}
+                        onClick={() => handleDebitoAutomaticoNao()}
                       ></input>
                       <label htmlFor="selecao-debito-nao">Não</label>
-                        {errors.opcaodebito && <p>{errors.opcaodebito}</p>}
+                      {errors.opcaodebito && <p>{errors.opcaodebito}</p>}
                     </div>
                   </div>
                 </div>
 
                 {opcoesDebito === true &&
-                    <div className="bank-data-form" style={{width: "100%", display: "flex", flexDirection: "column"}}>
-                      <div className="form-group">
-                        <label htmlFor="bank">Escolha o Banco:</label>
-                        <select id="bank" {...register('dadosbancarios.banco',{
-                          required: true
-                        })}>
-                          <option value="Nubank">Nubank</option>
-                          <option value="Caixa">Caixa</option>
-                          <option value="Original">Original</option>
-                          <option value="Bradesco">Bradesco</option>
-                          <option value="Banco do Brasil">Banco do Brasil</option>
-                          <option value="Santander">Santander</option>
-                          <option value="Inter">Inter</option>
-                          <option value="Itaú">Itaú</option>
-                        </select>
-                      </div>
-                      <div className="form-group">
-                        <label htmlFor="numeroAgencia">Numero da agência:</label>
-                        <input type="text" {...register("dadosbancarios.numeroagencia",{
-                          required: true
-                        })}/>
-                      </div>
-                      <div className="form-group">
-
-                        <div className="form-group">
-                          <label htmlFor="numeroConta">Numero da conta com digito</label>
-                          <input type="text" {...register('dadosbancarios.numeroconta', {
-                            required: true
-                          })}/>
-                        </div>
-                        <label htmlFor="accountType">Tipo de Conta:</label>
-                        <select id="accountType" {...register('dadosbancarios.tipoconta',{
-                          required: true
-                        })}>
-                          <option value="corrente">Corrente</option>
-                          <option value="fisica">Física</option>
-                          <option value="juridica">Jurídica</option>
-                        </select>
-
-                        
-                      </div>
+                  <div className="bank-data-form" style={{ width: "100%", display: "flex", flexDirection: "column" }}>
+                    <div className="form-group">
+                      <label htmlFor="bank">Escolha o Banco:</label>
+                      <select id="bank" {...register('dadosbancarios.banco', {
+                        required: true
+                      })}>
+                        <option value="Nubank">Nubank</option>
+                        <option value="Caixa">Caixa</option>
+                        <option value="Original">Original</option>
+                        <option value="Bradesco">Bradesco</option>
+                        <option value="Banco do Brasil">Banco do Brasil</option>
+                        <option value="Santander">Santander</option>
+                        <option value="Inter">Inter</option>
+                        <option value="Itaú">Itaú</option>
+                      </select>
                     </div>
+                    <div className="form-group">
+                      <label htmlFor="numeroAgencia">Numero da agência:</label>
+                      <input type="text" {...register("dadosbancarios.numeroagencia", {
+                        required: true
+                      })} />
+                    </div>
+                    <div className="form-group">
+
+                      <div className="form-group">
+                        <label htmlFor="numeroConta">Numero da conta com digito</label>
+                        <input type="text" {...register('dadosbancarios.numeroconta', {
+                          required: true
+                        })} />
+                      </div>
+                      <label htmlFor="accountType">Tipo de Conta:</label>
+                      <select id="accountType" {...register('dadosbancarios.tipoconta', {
+                        required: true
+                      })}>
+                        <option value="corrente">Corrente</option>
+                        <option value="fisica">Física</option>
+                        <option value="juridica">Jurídica</option>
+                      </select>
+
+
+                    </div>
+                  </div>
                 }
 
                 <p style={{ marginTop: "10px" }}>Confirme seu endereço:</p>
@@ -531,7 +564,7 @@ export function Cadastro() {
                           name="selecao-residencia"
                           id="selecao-residencia-casa"
                           value="Casa"
-                          {...register("tiporesidencia",                             {
+                          {...register("tiporesidencia", {
                             required: "Por favor, escolha o tipo de residência"
                           })
 
@@ -605,15 +638,12 @@ export function Cadastro() {
               </div>
 
               <button className="botao" type="submit">
-               {carregando ? <p>Aguarde..</p> : <p>Concluir cadastro</p>}
+                {carregando ? <p>Aguarde..</p> : <p>Concluir cadastro</p>}
               </button>
             </div>
           )}
         </form>
       </div>
-      <pre>
-      {JSON.stringify(watch(), null, 2)}
-      </pre>
     </div>
   );
 }

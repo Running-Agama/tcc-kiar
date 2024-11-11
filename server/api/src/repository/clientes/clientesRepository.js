@@ -146,4 +146,15 @@ async function buscarCPF(corpo){
     console.log(resposta)
     return resposta[0]
 }
-export default {cadastrarCliente, buscarEmail, buscarCPF}
+
+async function buscarCelular(corpo){
+    console.log(corpo)
+    comando = `
+        SELECT * FROM tb_cliente
+        WHERE ds_celular = ?
+        `
+    resposta = await con.query(comando, [corpo.celular])
+
+    return resposta[0]
+}
+export default {cadastrarCliente, buscarEmail, buscarCPF, buscarCelular}

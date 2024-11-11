@@ -13,6 +13,7 @@ import BotaoVermais from './pages/BotaoVermais';
 import Planos from './pages/planos';
 import CRMnomelongoteste from './pages/CRM';
 import CadastroFinal from './pages/Cadastro-final';
+import Crm from './pages/CRM';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -29,7 +30,7 @@ root.render(
                <Route path='/BotaoComecar' element={<BotaoComecar/>}/>
                <Route path='/BotaoVermais' element={<BotaoVermais/>}/>
                <Route path='/planos' element={<Planos/>}/>
-               <Route path='/crm' element={<CRMnomelongoteste/>}/>
+               <Route path='/crm' element={<Crm/>}/>
                <Route path='*' element={<Notfound/>}/>
                
           </Routes>

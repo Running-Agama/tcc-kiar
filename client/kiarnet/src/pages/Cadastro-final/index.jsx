@@ -16,25 +16,31 @@ export default function CadastroFinal(){
 
         <h1>Detalhes do pedido</h1>
         <div className="conteudo-detalhes-pedido">
-            <div className="card">
-                <h4>Numero do pedido:</h4>
-                <p>{data.id_cliente}</p>
+            <div className="card-linha">
+                <div className="card">
+                    <h4>Numero do pedido:</h4>
+                    <p>{data.id_cliente}</p>
+                </div>
+
+                <div className="card">
+                    <h4>Data do pedido</h4>
+                    <p>{data.dt_adicao}</p>
+                </div>
             </div>
 
-            <div className="card">
-                <h4>Data do pedido</h4>
-                <p>{data.dt_adicao}</p>
+            <div className="linha">          
+                <div className="card">
+                    <h4>Plano selecionado</h4>
+                    <p>{data.ds_plano}</p>
+                </div>
+
+                <div className="card">
+                    <h4>Endereço de instalação</h4>
+                    <p>{data.nm_rua}, {data.nr_casa}, {data.ds_bairro}</p>
+                </div>
             </div>
 
-            <div className="card">
-                <h4>Plano selecionado</h4>
-                <p>{data.ds_plano}</p>
-            </div>
 
-            <div className="card">
-                <h4>Endereço de instalação</h4>
-                <p>{data.nm_rua}, {data.nr_casa}, {data.ds_bairro}</p>
-            </div>
         </div>
     </div>
     )

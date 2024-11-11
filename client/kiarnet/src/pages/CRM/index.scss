@@ -1,12 +1,115 @@
-.conteudo-crm{
+.crm-container {
+    font-family: Arial, sans-serif;
+    color: #333;
+  }
+  
+  .cabecalho-tecnico {
+    justify-content: space-between;
     display: flex;
-    flex-direction: column;
-
-    .dados-crm{
-        display: flex;
-        flex-direction: row;
-        .opcoes-esquerda{
-            background-color: red;
-        }
+    background-color: #d991c3;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+  
+    h1 {
+      font-size: 24px;
+      margin: 0;
     }
-}
+  }
+  
+  .area-crm {
+    display: flex;
+    padding: 20px;
+    background-color: #f4d7f2;
+  }
+  
+  .sidebar {
+    flex: 1;
+    padding: 20px;
+    background-color: #d991c3;
+    margin-right: 20px;
+    border-radius: 10px;
+  
+    .client-count {
+      text-align: center;
+      background-color: #c481b4;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+  
+      p {
+        margin: 0;
+        color: #fff;
+      }
+    }
+  
+    .filter-section {
+      .filter-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        color: #fff;
+  
+        label {
+          margin-right: 10px;
+        }
+  
+        input[type="text"] {
+          width: 100%;
+          padding: 8px;
+          border: none;
+          border-radius: 5px;
+        }
+  
+        input[type="checkbox"] {
+          transform: scale(1.5);
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+  
+  .client-list-section {
+    flex: 3;
+  
+    h2 {
+      text-align: center;
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+  
+    .client-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+  
+      .client-card {
+        background-color: #d991c3;
+        padding: 10px;
+        border-radius: 10px;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 14px;
+  
+        p {
+          display: flex;
+          gap: 15px;
+          margin: 0;
+          width: 100%;
+          justify-content: space-between;
+  
+          .client-name {
+            font-weight: bold;
+          }
+  
+          .client-info {
+            margin-left: auto;
+          }
+        }
+      }
+    }
+  }
+  

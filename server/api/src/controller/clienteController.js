@@ -55,6 +55,7 @@ endpoints.post('/cliente/validacao/procura-cpf', async (req,res)=>{
 
 endpoints.post('/cliente/validacao/procura-email', async (req,res)=>{
     try{
+        
         const corpo = req.body
         const resposta = await clientesRepository.buscarEmail(corpo)
 
@@ -66,6 +67,26 @@ endpoints.post('/cliente/validacao/procura-email', async (req,res)=>{
 
 
     } catch( error){
+        console.log('erro na procura por email (procura-email)', error)
+        return res.status(400).send({erro: error})
+    }
+})
+
+//telefone e celular
+//depois cep e numero casa
+endpoints.post('/cliente/validacao/procura-celular', async(req,res)=>{
+    try {
+
+        const corpo = req.body
+        const resposta = await clientesRepository.buscarCelular(corpo)
+
+        if(resposta.length > 0){
+            return res.status(200).send({resposta: 'encontrado'})
+        }
+
+        return res.status(200).send({resposta:'não encontrado'})
+
+    } catch (error) {
         console.log('erro na procura por email (procura-email)', error)
         return res.status(400).send({erro: error})
     }
