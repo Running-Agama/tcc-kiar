@@ -19,22 +19,23 @@ export default function Crm() {
     
   });
 
-  const urlAPI = 'http://localhost:3053'
+  const urlAPI = 'https://kiarnet-api.onrender.com'
 
   const [listaClientes, setListaClientes] = useState([])
 
   async function consultarClientes(){
-    const resposta = axios.get(`${urlAPI}/crm/consulta`)
+    const resposta = await axios.get(`${urlAPI}/crm/consulta`)
     const data = resposta.data
-
-     
+    console.log(data)
+     setListaClientes(data)
   }
 
-
-
+  async function abrirTelaCliente(){
+    
+  }
 
   useEffect(()=>{
-    consultarClientes
+    consultarClientes()
   },[])
 
   const onSubmit = async(data)=>{
@@ -79,8 +80,6 @@ export default function Crm() {
               placeholder="Digite o nome"  
               {...register("nome")}/>
 
-
-              
             </div>
             <button type='submit'>Pesquisar</button>
           </form>
@@ -89,7 +88,8 @@ export default function Crm() {
         <section className="client-list-section">
           <h2>LISTA DE CLIENTES</h2>
           <div className="client-list">
-            {}
+            {listaClientes.map((cliente)=>
+              <CardCrmClientes nome = {cliente.ds_nome} cep = {cliente.ds_cep} cpf = {cliente.ds_cpf} id = {cliente.id_cliente}/>)}
           </div>
         </section>
       </main>

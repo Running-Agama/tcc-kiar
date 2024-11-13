@@ -1,11 +1,12 @@
 export default function CardCrmClientes(props){
     return(
-        <div className="client-card">
+        <div className="client-card" onClick={()=>alert('oi')}>
             <p>
-                <span className="client-name">Nome: {ds_nome}</span>
-                <span className="client-info">CEP: {props.ds_cep}</span>
-                <span className="client-info">CPF: {props.ds_cpf}</span>
+                <span className="client-name">Nome: {props.nome}</span>
+                <span className="client-info">CEP: {props.cep}</span>
+                <span className="client-info">CPF: {props.cpf}</span>
                 <span className="client-info">MENSALIDADE: PAGA / N PAGA</span>
+                <p>{props.id}</p>
             </p>
       </div>
     )
