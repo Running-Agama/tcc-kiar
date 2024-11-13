@@ -3,7 +3,13 @@ export default function Landing() {
 
     return (
        <div className="mae">
-        <h1>kk</h1>
+        <div className="cabecalho">
+            <img src="" alt="" />
+            <a href="">HOME</a>
+            <a href="">SERVIÇOS</a>
+            <a href="">SOBRE NÓS</a>
+            <a href="">CONTATO</a>
+        </div>
        </div>
     )
 }
