@@ -1,15 +1,15 @@
 import { useState } from "react";
 import "./index.scss";
 import { useForm, useFieldArray } from "react-hook-form";
-import axios from "axios";
-import { json, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import iconeVoltar from '../../images/icons/iconeVoltar/iconeVoltar.svg'
 import InputMask from 'react-input-mask'
 import validator from 'validator'
+import apiURL from '../../service/axios.js'
 
-//opcao debito null
 
 export function Cadastro() {
+  
   const [passo, setPasso] = useState(0);
   const [cep, setCep] = useState("");
   const [emailFatura, setEmailFatura] = useState("");
@@ -18,14 +18,12 @@ export function Cadastro() {
   const [carregando, setCarregando] = useState(false);
   const [numeroEndereco, setNumeroEndereco] = useState("");
   const [opcoesDebito, setOpcoesDebito] = useState(false)
-  const [estadoValidacao, setEstadoValidacao] = useState(false)
   //fazer o mesmo que fez com o cpf com o email
   const [email, setEmail] = useState('')
-
-  let urlAPI = 'http://localhost:3053'
   const navegar = useNavigate()
   const dados = useLocation();
 
+  
   const {
     unregister,
     setValue,
@@ -60,7 +58,7 @@ export function Cadastro() {
     }
 
     if (cep !== "" && cep.length == 8) {
-      resposta = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+      resposta = await apiURL.get(`https://viacep.com.br/ws/${cep}/json/`);
       data = resposta.data;
       
       console.log(data);
@@ -104,9 +102,8 @@ export function Cadastro() {
   const onSubmit = async (data) => {
     setCarregando(true)
 
-    console.log(`${urlAPI}/cliente/cadastro`, data);
 
-    const resposta = await axios.post(`${urlAPI}/cliente/cadastro`, data)
+    const resposta = await apiURL.post(`/cliente/cadastro`, data)
     if (resposta.error) {
       console.log(resposta.error)
     }
@@ -127,9 +124,9 @@ export function Cadastro() {
     setCarregando(true);
     try {
       
-      const respostaCpf = await axios.post(`${urlAPI}/cliente/validacao/procura-cpf`, { cpf: watch().cpf });
-      const respostaEmail = await axios.post(`${urlAPI}/cliente/validacao/procura-email`, { email: watch().email });
-      const respostaCelular = await axios.post(`${urlAPI}/cliente/validacao/procura-celular`, {celular: watch().celular});
+      const respostaCpf = await apiURL.post(`/cliente/validacao/procura-cpf`, { cpf: watch().cpf });
+      const respostaEmail = await apiURL.post(`/cliente/validacao/procura-email`, { email: watch().email });
+      const respostaCelular = await apiURL.post(`/cliente/validacao/procura-celular`, {celular: watch().celular});
 
       let cpfValido = true;
       let emailValido = true;
@@ -644,9 +641,6 @@ export function Cadastro() {
           )}
         </form>
       </div>
-      <pre>
-        {JSON.stringify(watch(),null, 2)}
-      </pre>
     </div>
   );
 }
