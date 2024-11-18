@@ -14,6 +14,7 @@ import Planos from './pages/planos';
 import CRMnomelongoteste from './pages/CRM';
 import CadastroFinal from './pages/Cadastro-final';
 import Crm from './pages/CRM';
+import CrmTelaClienteSelecionado from './components/CrmTelaClienteSelecionado';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -31,6 +32,7 @@ root.render(
                <Route path='/BotaoVermais' element={<BotaoVermais/>}/>
                <Route path='/planos' element={<Planos/>}/>
                <Route path='/crm' element={<Crm/>}/>
+               <Route path='/crm/cliente' element={<CrmTelaClienteSelecionado/>}/>
                <Route path='*' element={<Notfound/>}/>
                
           </Routes>

@@ -1,87 +1,70 @@
 import React, { useEffect, useState } from 'react';
 import './index.scss';
-import { useForm } from 'react-hook-form'
-import InputMask from 'react-input-mask'
+import { useForm } from 'react-hook-form';
+import InputMask from 'react-input-mask';
 import CardCrmClientes from '../../components/CardCrmClientes';
+import CrmTelaClienteSelecionado from '../../components/CrmTelaClienteSelecionado';
 import apiURL from '../../service/axios';
-export default function Crm() {
-  const {
-    handleSubmit,
-    watch,
-    register
-  } = useForm({
-    defaultValues: {
-      cep: "",
-      nome: ""
-    },
-    reValidateMode: "onChange",
-    mode: "onChange",
 
+export default function Crm() {
+  const { handleSubmit, watch, register } = useForm({
+    defaultValues: { cep: '', nome: '' },
+    reValidateMode: 'onChange',
+    mode: 'onChange'
   });
 
-  const [listaClientes, setListaClientes] = useState([])
-  const [listaClientesFiltro, setListaClientesFiltro] = useState([])
-
+  const [listaClientes, setListaClientes] = useState([]);
+  const [listaClientesFiltro, setListaClientesFiltro] = useState([]);
+  const [tamanhoLista, setTamanhoLista] = useState(0);
+  const [modalAberto, setModalAberto] = useState(false);
+  const [clienteSelecionado, setClienteSelecionado] = useState(null);
 
   async function consultarClientes() {
-    const resposta = await apiURL.get(`/crm/consulta`)
-    const data = resposta.data
-    console.log(data)
-
-    //não faço ideia de como cache funciona, mas parece ser por aí
-
-    setListaClientes(data)
-    setListaClientesFiltro(data)
+    const resposta = await apiURL.get(`/crm/consulta`);
+    setListaClientes(resposta.data);
+    setListaClientesFiltro(resposta.data);
+    setTamanhoLista(resposta.data.length);
   }
 
+  const abrirModalCliente = (idCliente) => {
+    console.log('ta aqui')
+    // axios get na api, setClienteSelecionado data
+    const cliente = listaClientes.find((c) => c.id_cliente === idCliente);
+    console.log(cliente);
+    
+    setClienteSelecionado(cliente);
+    setModalAberto(true);
+  };
 
-  //colocando aqui pra não precisar subir só pra achar
-  const cepFiltro = watch().cep
-  const nomeFiltro = watch().nome
+  const fecharModal = () => {
+    setModalAberto(false);
+    setClienteSelecionado(null);
+  };
 
+  const cepFiltro = watch().cep;
+  const nomeFiltro = watch().nome;
 
   useEffect(() => {
-    consultarClientes()
-  }, [])
+    consultarClientes();
+  }, []);
 
   useEffect(() => {
-    console.log(nomeFiltro);
-  
-    if (!cepFiltro && !nomeFiltro) {
+    if (!nomeFiltro && !cepFiltro) {
       setListaClientesFiltro(listaClientes);
+      setTamanhoLista(listaClientes.length);
       return;
     }
-  
-    if (!cepFiltro) {
-      setListaClientesFiltro(
-        listaClientes.filter((cliente) =>
-          cliente.ds_nome.toLowerCase().includes(nomeFiltro.toLowerCase())
-        )
-      );
-      return;
-    }
-  
-    if (!nomeFiltro) {
-      setListaClientesFiltro(
-        listaClientes.filter((cliente) => cliente.ds_cep === cepFiltro)
-      );
-      return;
-    }
-  
-    // Filtro por CEP e nome (busca exata)
-    setListaClientesFiltro(
-      listaClientes.filter(
-        (cliente) =>
-          cliente.ds_cep === cepFiltro &&
-          cliente.ds_nome.toLowerCase().includes(nomeFiltro.toLowerCase())
-      )
+    const filtro = listaClientes.filter(
+      (cliente) =>
+        (!cepFiltro || cliente.ds_cep === cepFiltro) &&
+        (!nomeFiltro || cliente.ds_nome.toLowerCase().includes(nomeFiltro.toLowerCase()))
     );
-    console.log('Filtrando por CEP e nome');
+    setListaClientesFiltro(filtro);
+    setTamanhoLista(filtro.length);
   }, [cepFiltro, nomeFiltro, listaClientes]);
 
   return (
     <div className="conteudo-crm">
-
       <header className="cabecalho-tecnico">
         <a href="/">Voltar a página inicial</a>
         <h1>Área do técnico - {'{nome}'}</h1>
@@ -91,35 +74,26 @@ export default function Crm() {
         <aside className="sidebar">
           <div className="client-count">
             <p>Clientes no total</p>
+            <p>{tamanhoLista}</p>
           </div>
           <form className="filter-section" onSubmit={handleSubmit()}>
             <div className="filter-group">
-              {/* No momento não tem nada relacionado a "pago" no DB, sem sistema de fatura e sem tempo pra implementar*/}
               <label htmlFor="pago">Pago:</label>
               <input type="checkbox" id="pago" />
             </div>
             <div className="filter-group">
-
-            <label htmlFor="cep" >CEP</label>
-
+              <label htmlFor="cep">CEP</label>
               <InputMask
                 mask="99999-999"
                 type="text"
                 id="cep"
-                {...register("cep")}
-                alwaysShowMask="yes"
-              >
-              </InputMask>
-
+                {...register('cep')}
+                alwaysShowMask={true}
+              />
             </div>
             <div className="filter-group">
               <label htmlFor="nome">Nome</label>
-              <input
-                type="text"
-                id="nome"
-                placeholder="Digite o nome"
-                {...register("nome")} />
-
+              <input type="text" id="nome" placeholder="Digite o nome" {...register('nome')} />
             </div>
           </form>
         </aside>
@@ -127,19 +101,23 @@ export default function Crm() {
         <section className="client-list-section">
           <h2>LISTA DE CLIENTES</h2>
           <div className="client-list">
-
-            {listaClientesFiltro.map((cliente) =>
+            {listaClientesFiltro.map((cliente) => (
               <CardCrmClientes
+                key={cliente.id_cliente}
+                idCliente={cliente.id_cliente}
                 nome={cliente.ds_nome}
                 cep={cliente.ds_cep}
                 cpf={cliente.ds_cpf}
-                id={cliente.id_cliente} />
-            )}
-
+                onClick={() => abrirModalCliente(cliente.id_cliente)}
+              />
+            ))}
           </div>
         </section>
       </main>
-    </div >
+
+      {modalAberto && (
+        <CrmTelaClienteSelecionado cliente={clienteSelecionado} fecharModal={fecharModal} />
+      )}
+    </div>
   );
 }
-

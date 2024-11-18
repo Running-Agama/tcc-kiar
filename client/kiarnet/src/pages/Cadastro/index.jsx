@@ -18,12 +18,14 @@ export function Cadastro() {
   const [carregando, setCarregando] = useState(false);
   const [numeroEndereco, setNumeroEndereco] = useState("");
   const [opcoesDebito, setOpcoesDebito] = useState(false)
-  //fazer o mesmo que fez com o cpf com o email
   const [email, setEmail] = useState('')
+
+
+
   const navegar = useNavigate()
   const dados = useLocation();
 
-  
+
   const {
     unregister,
     setValue,
