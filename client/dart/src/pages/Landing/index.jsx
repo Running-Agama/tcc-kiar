@@ -59,10 +59,7 @@ export default function Landing() {
             <div className="comentario">
                 <h1>Registrar interesse</h1>
                 <p>
-                    Utilize o formulário abaixo para entrar em contato conosco. Por favor, seja o mais detalhado e preciso possível.
-                    Inclua seu setor e quaisquer solicitações específicas. Para nos ajudar a conhecê-lo e atendê-lo melhor, agradecemos
-                    por nos fornecer primeiro uma boa descrição de quem você é. Você também pode enviar um e-mail, ligar ou enviar um
-                    WhatsApp para agendar uma consulta.
+                    Faça comentarios dizendo sobre o que achou da sua experiencia <br /> e o que poderiamos melhorar.
                 </p>
                 <div className="conteudo">
                     <label htmlFor="nome">Nome *</label>
