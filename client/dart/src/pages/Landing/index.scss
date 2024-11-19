@@ -21,7 +21,7 @@ html {
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 35px 0;
+        padding: 60px 0;
         width: 100%;
         background-color: #0A1128;
         color: #fff;
@@ -30,20 +30,40 @@ html {
 
     .logo {
         position: absolute;
-        top: 20px;
-        left: 20px;
-        width: 80px;
+        top: 0px;
+        left: 5px;
+        width: 120px;
     }
-    .faixa1 {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        color: #fff;
-        text-align: center;
-        padding-top: 100px; 
-    }
-    
+   
+.faixa1 {
+    position: relative;
+    text-align: center;
+    padding: 40px 20px;
+    color: #fff;
+  }
+  
+ 
+  .faixa1 h1 {
+    position: relative;
+    z-index: 1; 
+  }
+  
+ 
+  .curva-logo {
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%); 
+    width: 120%; 
+    height: auto; 
+    z-index: 0; 
+  }
+  
+  
+  .comecar {
+    margin-top: 20px; 
+  }
+  
     .dart {
         color: #3c90e9;
         font-weight: bold; 
@@ -91,61 +111,39 @@ html {
     }
     
     .sobre h1 {
-        font-size: 2rem;
+        font-size: 1.6rem; 
         line-height: 1.4;
         margin-top: 20px;
     }
     
+    .sobre h2 {
+        font-size: 1.2rem; 
+        margin-top: 10px;
+    }
+    
     .sobre p {
-        font-size: 1.1rem;
-        line-height: 1.8;
-        margin: 20px 0;
-        text-align: justify;
+        font-size: 16px;  
+        font-family: 'Arial', sans-serif;
+        font-weight: 400;  
+        color: #ffffff;
+        margin: 0 0 20px 0;
+        padding: 10px 20px;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
     }
     
-    .sobre-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 20px;
-        margin-top: 40px;
+    
+    .card {
+        flex-basis: calc(50% - 15px);  
     }
-    
-    .sobre-container .texto {
-        flex: 1;  
-        text-align: left;  
-    }
-    
-    .sobre-container .imagem {
-        flex: 1;  
-        display: flex;
-        justify-content: flex-end;  
-    }
-    
-    .sobre-container img {
-        width: 100%;  
-        max-width: 500px;  
-        height: auto;
-        object-fit: cover;
-    }
-    
-    @media (max-width: 768px) {
-        .sobre-container {
-            flex-direction: column;
-            align-items: center;
-        }
-    
-        .sobre-container .texto {
-            text-align: center; 
-        }
-    
-        .sobre-container .imagem {
-            justify-content: center;  
-        }
-    
-        .sobre-container img {
-            width: 80%;  
-        }
+
+    .card p {
+        line-height: 1.6;  
+        color: #fff; 
+        margin-bottom: 10px; 
+        padding: 0px 23px;  
+        text-align: justify;  
     }
     
     
@@ -161,13 +159,18 @@ html {
     .logossobre > div {
         display: flex;
         flex-direction: column;
-        align-items:center;  
+        align-items: center;  
     }
     
     .logossobre img {
-        width: 100px;  
+        width: 100px; 
         height: auto; 
-        margin-bottom: 10px;  
+        margin-bottom: 10px;
+    }
+    
+    
+    .logossobre .clientes-logo {
+        width: 125px; 
     }
     
     .logossobre h1 {
@@ -175,6 +178,7 @@ html {
         color: #fff;  
         text-align: center;  
     }
+    
     
     
     .links {
@@ -423,6 +427,24 @@ html {
     }
       
               
-      
+    @media (max-width: 768px) {
+        .sobre-container {
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        .sobre-container .texto {
+            text-align: center; 
+        }
+    
+        .sobre-container .imagem {
+            justify-content: center;  
+        }
+    
+        .sobre-container img {
+            width: 80%;  
+        }
+    }
+    
 }
 
