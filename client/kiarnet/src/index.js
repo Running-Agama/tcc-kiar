@@ -24,7 +24,7 @@ root.render(
                <Route path='/' element={<Landing/>}/>
                <Route path='/cadastro' element={<Cadastro/>}/>
                <Route path='/cadastro/final' element={<CadastroFinal/>}/>
-               <Route path='/login' element={<Login/>}/>
+               <Route path='/admin/login' element={<Login/>}/>
                <Route path='/duvidas' element={<Duvidas/>}/>
                <Route path='/sobre' element={<SobreNós/>}/>
                <Route path='/Contato' element={<Contato/>}/>

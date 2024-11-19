@@ -9,6 +9,7 @@ function Cabecalho() {
     }
 
     useEffect(() => {
+        //creio que dava pra fazer isso em nem 5 linhas mas sem tempo irmao
         const handleResize = () => {
             if (window.innerWidth <= 839 && aberto) {
                 document.body.classList.add('no-scroll');
@@ -35,7 +36,6 @@ function Cabecalho() {
                     <li><a href="/sobre">Sobre nós</a></li>
                     <li><a href="/planos">Planos</a></li>
                     <li><a href="/Contato">Contato</a></li>
-                    <li><a href="/login">Login</a></li>
                     <li><a href="/planos" className="signup">Cadastrar</a></li>
                 </ul>
             </nav>
