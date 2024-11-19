@@ -14,6 +14,16 @@ crmEndpoints.get('/crm/consulta', async(req,res)=>{
         res.status(400).send({erro: err})
     }
 })
+crmEndpoints.post('/crm/cliente/consulta-individual', async(req,res)=>{
+    try {
+        const id = req.body.idCliente
 
+        const resposta = await crmRepository.consultaDetalhesCliente(id)
+        const data = resposta[0]
+        res.status(200).send(data)
+    } catch (err) {
+        res.status(400).send({erro: err})
+    }
+})
 
 export default crmEndpoints

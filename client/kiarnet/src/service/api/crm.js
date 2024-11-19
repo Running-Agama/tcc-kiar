@@ -1,9 +1,10 @@
-import axios from "axios"
+
 import apiURL from "../axios"
 
 async function abrirCliente(id){
-    apiURL.get('/cliente/consulta-individual', {id: id})
+    console.log(id)
+    const resposta = await apiURL.post('/crm/cliente/consulta-individual', {idCliente: id})
+    return resposta
 }
-
 
 export default abrirCliente

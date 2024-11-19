@@ -4,7 +4,9 @@ import { useForm } from 'react-hook-form';
 import InputMask from 'react-input-mask';
 import CardCrmClientes from '../../components/CardCrmClientes';
 import CrmTelaClienteSelecionado from '../../components/CrmTelaClienteSelecionado';
+import {MoonLoader} from 'react-spinners'
 import apiURL from '../../service/axios';
+import abrirCliente from '../../service/api/crm';
 
 export default function Crm() {
   const { handleSubmit, watch, register } = useForm({
@@ -18,21 +20,27 @@ export default function Crm() {
   const [tamanhoLista, setTamanhoLista] = useState(0);
   const [modalAberto, setModalAberto] = useState(false);
   const [clienteSelecionado, setClienteSelecionado] = useState(null);
-
+  const [carregando, setCarregando] = useState()
+  
   async function consultarClientes() {
+
+    setCarregando(true)
+
     const resposta = await apiURL.get(`/crm/consulta`);
+
     setListaClientes(resposta.data);
     setListaClientesFiltro(resposta.data);
     setTamanhoLista(resposta.data.length);
+
+    setCarregando(false)
+
   }
 
-  const abrirModalCliente = (idCliente) => {
-    console.log('ta aqui')
-    // axios get na api, setClienteSelecionado data
-    const cliente = listaClientes.find((c) => c.id_cliente === idCliente);
-    console.log(cliente);
-    
-    setClienteSelecionado(cliente);
+  async function abrirModalCliente(idCliente){
+
+    const dadosCliente = await abrirCliente(idCliente)
+
+    setClienteSelecionado(dadosCliente.data);
     setModalAberto(true);
   };
 
@@ -101,7 +109,7 @@ export default function Crm() {
         <section className="client-list-section">
           <h2>LISTA DE CLIENTES</h2>
           <div className="client-list">
-            {listaClientesFiltro.map((cliente) => (
+            {!carregando ? listaClientesFiltro.map((cliente) => (
               <CardCrmClientes
                 key={cliente.id_cliente}
                 idCliente={cliente.id_cliente}
@@ -110,7 +118,9 @@ export default function Crm() {
                 cpf={cliente.ds_cpf}
                 onClick={() => abrirModalCliente(cliente.id_cliente)}
               />
-            ))}
+            ))  
+            : <MoonLoader cssOverride={{alignSelf: 'center'}}/>}
+
           </div>
         </section>
       </main>

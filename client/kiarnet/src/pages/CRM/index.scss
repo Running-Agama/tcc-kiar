@@ -1,7 +1,7 @@
 .conteudo-crm {
     font-family: Arial, sans-serif;
     color: #333;
-    height: max-content;
+    height: 80%;
   }
   
   .cabecalho-tecnico {
@@ -22,8 +22,7 @@
   .area-crm {
     display: flex;
     padding: 20px;
-    background-color: #f4d7f2;
-    height: 100%;
+    height: 40%;
   }
   
   .sidebar {
@@ -50,7 +49,7 @@
       display: flex;
       flex-direction: column;
       
-      height: 500px;
+      height: 70%;
       .filter-group {
         display: flex;
         flex-direction: column;

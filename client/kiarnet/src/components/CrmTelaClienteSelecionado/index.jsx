@@ -22,23 +22,23 @@ function CrmTelaClienteSelecionado({ cliente, fecharModal }) {
             </div>
             <div className="field">
               <label>Rua</label>
-              <span>{cliente.rua || 'Rua Mariano Procópio'}</span>
+              <span>{cliente.nm_rua || 'Rua Mariano Procópio'}</span>
             </div>
             <div className="field">
               <label>Número</label>
-              <span>{cliente.numero || 'XXXX'}</span>
+              <span>{cliente.nr_casa || 'XXXX'}</span>
             </div>
             <div className="field">
               <label>Bairro</label>
-              <span>{cliente.bairro || 'Bairro do limoeiro'}</span>
+              <span>{cliente.ds_bairro || 'Bairro do limoeiro'}</span>
             </div>
             <div className="field">
               <label>Tipo</label>
-              <span>{cliente.tipo || 'CASA'}</span>
+              <span>{cliente.ds_tipo_residencia || 'CASA'}</span>
             </div>
             <div className="field">
               <label>Complemento</label>
-              <span>{cliente.complemento || '-'}</span>
+              <span>{cliente.ds_complemento || '-'}</span>
             </div>
           </div>
 
@@ -46,7 +46,7 @@ function CrmTelaClienteSelecionado({ cliente, fecharModal }) {
             <h2>Informações pessoais</h2>
             <div className="field">
               <label>Email</label>
-              <span>{cliente.email || 'email@host.com'}</span>
+              <span>{cliente.ds_email || 'email@host.com'}</span>
             </div>
             <div className="field">
               <label>CPF</label>
@@ -54,15 +54,15 @@ function CrmTelaClienteSelecionado({ cliente, fecharModal }) {
             </div>
             <div className="field">
               <label>Telefone</label>
-              <span>{cliente.telefone || 'XXXXXXXX-XX'}</span>
+              <span>{cliente.ds_telefone || 'XXXXXXXX-XX'}</span>
             </div>
             <div className="field">
               <label>Data de nascimento</label>
-              <span>{cliente.data_nascimento || 'XXXXXXXX'}</span>
+              <span>{cliente.dt_nascimento || 'XXXXXXXX'}</span>
             </div>
             <div className="field">
               <label>Celular</label>
-              <span>{cliente.celular || 'XXXXXXXX-XX'}</span>
+              <span>{cliente.ds_celular || 'XXXXXXXX-XX'}</span>
             </div>
           </div>
 
@@ -70,19 +70,19 @@ function CrmTelaClienteSelecionado({ cliente, fecharModal }) {
             <h2>Informações serviço</h2>
             <div className="field">
               <label>Plano</label>
-              <span>{cliente.plano || '100MB'}</span>
+              <span>{cliente.ds_plano || '100MB'}</span>
             </div>
             <div className="field">
               <label>Valor</label>
-              <span>{cliente.valor || '50'}</span>
+              <span>{cliente.valor || 'XX'}</span>
             </div>
             <div className="field">
               <label>Data assinatura</label>
-              <span>{cliente.data_assinatura || '00/00/0000'}</span>
+              <span>{cliente.dt_adicao || '00/00/0000'}</span>
             </div>
             <div className="field">
               <label>Dia de vencimento</label>
-              <span>{cliente.dia_vencimento || '21'}</span>
+              <span>{cliente.ds_dia_vencimento || '21'}</span>
             </div>
             <div className="field">
               <label>Mensalidade atual paga</label>

@@ -9,6 +9,7 @@ app.use(express.json())
 adicionarRotas(app)
 
 const porta = process.env.API_PORTA
+
 app.listen(porta, ()=>{
     console.log('aberto na porta ' + process.env.API_PORTA)
 })  
