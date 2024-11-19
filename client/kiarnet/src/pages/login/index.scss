@@ -1,14 +1,10 @@
-html,
-body {
-    background: radial-gradient(circle at top left, #9333EA, #CAA1E9);
-}
 
 .pagina-login-container {
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-
+    background: radial-gradient(circle at top left, #9333EA, #CAA1E9);
     background-attachment: fixed;
     animation: backgroundMove 10s infinite alternate ease-in-out;
     font-family: 'Arial', sans-serif;
