@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const apiURL = axios.create({
-    baseURL: "http://localhost:3053"
+    baseURL: "https://kiarnet-api.onrender.com"
 })
 
 export default apiURL
