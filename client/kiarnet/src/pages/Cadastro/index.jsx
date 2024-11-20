@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./index.scss";
 import { useForm, useFieldArray } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -7,9 +7,8 @@ import InputMask from 'react-input-mask'
 import validator from 'validator'
 import apiURL from '../../service/axios.js'
 
-
 export function Cadastro() {
-  
+
   const [passo, setPasso] = useState(0);
   const [cep, setCep] = useState("");
   const [emailFatura, setEmailFatura] = useState("");
@@ -17,14 +16,17 @@ export function Cadastro() {
   const [dadosEndereco, setDadosEndereco] = useState({});
   const [carregando, setCarregando] = useState(false);
   const [numeroEndereco, setNumeroEndereco] = useState("");
-  const [opcoesDebito, setOpcoesDebito] = useState(false)
-  const [email, setEmail] = useState('')
+  const [opcoesDebito, setOpcoesDebito] = useState(false);
+  const [email, setEmail] = useState("");
 
-
-
-  const navegar = useNavigate()
+  const navegar = useNavigate();
   const dados = useLocation();
 
+  useEffect(() => {
+    if (!dados.state?.plano) {
+      navegar("/");
+    }
+  }, [dados, navegar]);
 
   const {
     unregister,
@@ -38,7 +40,7 @@ export function Cadastro() {
     formState: { errors, isValid },
   } = useForm({
     defaultValues: {
-      plano: dados.state.plano
+      plano: dados.state?.plano 
     },
     reValidateMode: "onChange",
     mode: "onChange",

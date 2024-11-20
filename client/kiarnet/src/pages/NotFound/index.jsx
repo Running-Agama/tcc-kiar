@@ -1,22 +1,20 @@
-import './index.scss'
-import { useNavigate } from "react-router-dom";
+import React from "react";
+import "./index.scss";
+export default function NotFound (){
+  return (
+    <div className="notfound">
+      <div className="notfound__content">
+        <div className="notfound__number">404</div>
+        <h1 className="notfound__title">Página não encontrada</h1>
+        <p className="notfound__message">
+          Desculpe, a página que você está procurando não existe.
+        </p>
+        <a href="/" className="notfound__button">
+          Go Home
+        </a>
+      </div>
+      <footer className="notfound__footer">© 2024 KiarNet</footer>
+    </div>
+  );
+};
 
-
-export default function Notfound(){
-    const navigate = useNavigate()
-    return (
-        <div className="conteudo-notfound">
-            
-        <div className="meio">
-            <h1 className='num'>404</h1>
-            <p className='titulo'>Página não encontrada</p>
-            <p className='subt'>O link que você seguiu pode estar quebrado, ou a página pode ter sido removida.</p>
-            <button onClick={navigate('/')}>Voltar ao inicio</button>
-
-            
-   
-        </div>
-        <p className='footer'>© 2024 KiarNet. Todos os direitos reservados.</p>
-        </div>
-    )
-}

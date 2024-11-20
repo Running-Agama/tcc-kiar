@@ -8,6 +8,7 @@ import {MoonLoader} from 'react-spinners'
 import apiURL from '../../service/axios';
 import abrirCliente from '../../service/crm/crm';
 import { useLocation, useNavigate} from 'react-router-dom';
+import LoadingDetalhesUsuario from '../../components/LoadingDetalhesUsuario';
 
 export default function Crm() {
   const { handleSubmit, watch, register } = useForm({
@@ -23,6 +24,7 @@ export default function Crm() {
   const [clienteSelecionado, setClienteSelecionado] = useState(null);
   const [carregando, setCarregando] = useState()
   const [verificandoToken, setVerificandoToken] = useState(null)
+  const [carregandoModal, setCarregandoModal] = useState(null)
   const navegar = useNavigate()
   async function consultarClientes() {
 
@@ -39,10 +41,13 @@ export default function Crm() {
   }
 
   async function abrirModalCliente(idCliente){
-
+    setCarregandoModal(true)
     const dadosCliente = await abrirCliente(idCliente)
 
     setClienteSelecionado(dadosCliente.data);
+
+    setCarregandoModal(false)
+
     setModalAberto(true);
   };
 
@@ -59,9 +64,11 @@ export default function Crm() {
     
     setVerificandoToken(true)
 
-    if(!token){
+    if(!token || token === undefined){
       navegar('/')
     }
+
+
 
     setVerificandoToken(false)
     consultarClientes();
@@ -143,7 +150,9 @@ export default function Crm() {
       </main>
       </div>}
 
-
+      {carregandoModal && (
+        <LoadingDetalhesUsuario/>
+      )}
       {modalAberto && (
         <CrmTelaClienteSelecionado cliente={clienteSelecionado} fecharModal={fecharModal} />
       )}

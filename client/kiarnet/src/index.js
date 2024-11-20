@@ -28,8 +28,7 @@ root.render(
                <Route path='/duvidas' element={<Duvidas/>}/>
                <Route path='/sobre' element={<SobreNós/>}/>
                <Route path='/Contato' element={<Contato/>}/>
-               <Route path='/BotaoComecar' element={<BotaoComecar/>}/>
-               <Route path='/BotaoVermais' element={<BotaoVermais/>}/>
+               <Route path='/vermais' element={<BotaoVermais/>}/>
                <Route path='/planos' element={<Planos/>}/>
                <Route path='/crm' element={<Crm/>}/>
                <Route path='/crm/cliente' element={<CrmTelaClienteSelecionado/>}/>

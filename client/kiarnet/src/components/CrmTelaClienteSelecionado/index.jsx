@@ -6,10 +6,12 @@ function CrmTelaClienteSelecionado({ cliente, fecharModal }) {
 
   return (
     <div className="modal-overlay">
+
       <div className="container">
-        <button className="close-modal" onClick={fecharModal}>
+
+      <p className="close-modal" onClick={fecharModal}>
           Fechar
-        </button>
+        </p>
         <header className="header">
           <h1>{cliente.ds_nome || 'NOME COMPLETO'}</h1>
         </header>

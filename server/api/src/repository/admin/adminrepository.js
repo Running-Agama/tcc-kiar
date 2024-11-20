@@ -14,7 +14,7 @@ async function loginAdm(corpo){
             ds_senha = ?
         `
     resposta = await con.query(comando, [corpo.cpf, corpo.senha])
-    console.log(resposta)
     return resposta[0]
 }
+
 export default loginAdm

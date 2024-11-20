@@ -6,7 +6,7 @@ let comando
 let resposta
 
 async function cadastrarCliente(corpo){
-
+        console.log(corpo)
         comando = `
         INSERT INTO tb_cliente(
             ds_nome, 
@@ -117,9 +117,8 @@ async function cadastrarCliente(corpo){
             tb_faturas USING (id_cliente)
         WHERE id_cliente = ?`
 
-        console.log(insertId)
         resposta = await con.query(comando, [insertId])
-        console.log(resposta[0])
+
         return resposta[0]
 
 
@@ -140,19 +139,17 @@ async function buscarEmail(corpo){
 }
 
 async function buscarCPF(corpo){
-    console.log(corpo)
+
     comando = `
         SELECT * FROM tb_cliente
         WHERE ds_cpf = ?
         `
     resposta = await con.query(comando, [corpo.cpf])
 
-    console.log(resposta)
     return resposta[0]
 }
 
 async function buscarCelular(corpo){
-    console.log(corpo)
     comando = `
         SELECT * FROM tb_cliente
         WHERE ds_celular = ?

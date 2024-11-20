@@ -15,7 +15,7 @@ export default function Landing() {
                     <p>Experimente a diferença! Temos planos <br /> flexíveis e atendimento personalizado. <br /> Entre em contato e transforme sua <br /> navegação!</p>
                     <div class="buttons">
                         <a href="/planos">  <button class="btn-primary">Começar</button></a>
-                        <a href="/BotaoVermais">  <button class="btn-secondary">Ver mais</button></a>
+                        <a href="/vermais">  <button class="btn-secondary">Ver mais</button></a>
                     </div>
                 </div>
             </section>

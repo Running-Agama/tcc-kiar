@@ -25,7 +25,7 @@ async function consultarClientes(){
 async function consultaDetalhesCliente(id){
     comando = `
         SELECT 
-            ds_nome
+            ds_nome,
             ds_cep, 
             nm_rua, 
             nr_casa, 
@@ -55,7 +55,6 @@ async function consultaDetalhesCliente(id){
             id_cliente = ?
     `
     resposta = await con.query(comando,[id])
-    console.log(resposta)
 
     return resposta[0]
 }
