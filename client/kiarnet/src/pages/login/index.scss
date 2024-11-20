@@ -81,7 +81,11 @@
             }
         }
 
-
+            .botoes-entrar{
+                display: flex;
+                justify-content: space-around;
+                align-content: center;
+            }
             .entrar {
                 background: linear-gradient(135deg, #9333EA, #4A148C);
                 padding: 0.8rem 2rem;
@@ -97,23 +101,9 @@
                     transform: translateY(-4px);
                 }
 
-                &:active {
-                    transform: translateY(0);
-                }
             }
 
-            .semSenha {
-                color: #9333EA;
-                font-weight: bold;
-                text-decoration: none;
-                margin-top: 1rem;
-                transition: color 0.3s ease;
 
-                &:hover {
-                    color: #4A148C;
-                    text-decoration: underline;
-                }
-            }
         }
     }
 

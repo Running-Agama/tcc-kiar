@@ -47,8 +47,22 @@ CREATE TABLE tb_tecnico(
     id INT auto_increment PRIMARY KEY,
     nm_tecnico VARCHAR(100) NOT NULL,
     dt_nascimento DATE NOT NULL,
+    ds_senha VARCHAR(100) NOT NULL,
     ds_cpf VARCHAR(14) NOT NULL
 );
+
+INSERT INTO tb_tecnico(
+    nm_tecnico,
+    dt_nascimento,
+    ds_senha,
+    ds_cpf
+)
+VALUES(
+    'Ricardinho Paraná',
+    '2000-11-13',
+    'manicomiopsicopata',
+    '123.456.789-10'
+)
 
 CREATE TABLE tb_instalacao (
 	id_cliente INT PRIMARY KEY,

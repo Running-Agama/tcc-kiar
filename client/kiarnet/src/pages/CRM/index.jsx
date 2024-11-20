@@ -6,7 +6,8 @@ import CardCrmClientes from '../../components/CardCrmClientes';
 import CrmTelaClienteSelecionado from '../../components/CrmTelaClienteSelecionado';
 import {MoonLoader} from 'react-spinners'
 import apiURL from '../../service/axios';
-import abrirCliente from '../../service/api/crm';
+import abrirCliente from '../../service/crm/crm';
+import { useLocation, useNavigate} from 'react-router-dom';
 
 export default function Crm() {
   const { handleSubmit, watch, register } = useForm({
@@ -21,7 +22,8 @@ export default function Crm() {
   const [modalAberto, setModalAberto] = useState(false);
   const [clienteSelecionado, setClienteSelecionado] = useState(null);
   const [carregando, setCarregando] = useState()
-  
+  const [verificandoToken, setVerificandoToken] = useState(null)
+  const navegar = useNavigate()
   async function consultarClientes() {
 
     setCarregando(true)
@@ -53,10 +55,21 @@ export default function Crm() {
   const nomeFiltro = watch().nome;
 
   useEffect(() => {
+    const token = sessionStorage.getItem('token')
+    
+    setVerificandoToken(true)
+
+    if(!token){
+      navegar('/')
+    }
+
+    setVerificandoToken(false)
     consultarClientes();
   }, []);
 
   useEffect(() => {
+
+
     if (!nomeFiltro && !cepFiltro) {
       setListaClientesFiltro(listaClientes);
       setTamanhoLista(listaClientes.length);
@@ -72,8 +85,12 @@ export default function Crm() {
   }, [cepFiltro, nomeFiltro, listaClientes]);
 
   return (
+
     <div className="conteudo-crm">
-      <header className="cabecalho-tecnico">
+
+      {!verificandoToken && 
+      <div>
+              <header className="cabecalho-tecnico">
         <a href="/">Voltar a página inicial</a>
         <h1>Área do técnico - {'{nome}'}</h1>
       </header>
@@ -124,10 +141,13 @@ export default function Crm() {
           </div>
         </section>
       </main>
+      </div>}
+
 
       {modalAberto && (
         <CrmTelaClienteSelecionado cliente={clienteSelecionado} fecharModal={fecharModal} />
       )}
     </div>
+    
   );
 }
