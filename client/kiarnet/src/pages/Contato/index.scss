@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     padding: 3rem 1rem;
-    background: linear-gradient(135deg, #9333EA, #CAA1E9);
+    background: linear-gradient(135deg, #ac30ff, #bc5bda);
     color: #fff;
     min-height: 100vh;
 
@@ -71,7 +71,7 @@
             }
 
             .btnEnviar {
-                background: linear-gradient(135deg, #4A148C, #9333EA);
+                background: linear-gradient(135deg, #ac30ff, #bc5bda);
                 color: #fff;
                 border: none;
                 padding: 0.8rem 2rem;
@@ -83,7 +83,7 @@
                 transition: background 0.3s, transform 0.2s;
 
                 &:hover {
-                    background: linear-gradient(135deg, #9333EA, #4A148C);
+                    background: linear-gradient(135deg, #ac30ff, #bc5bda);
                     transform: translateY(-3px);
                 }
 
@@ -114,7 +114,7 @@
         margin-top: 1rem;
 
         button {
-            background: linear-gradient(135deg, #9333EA, #4A148C);
+            background: linear-gradient(135deg, #ac30ff, #bc5bda);
             color: #fff;
             border: none;
             padding: 0.8rem 2rem;
@@ -126,7 +126,7 @@
             transition: background 0.3s, transform 0.2s;
 
             &:hover {
-                background: linear-gradient(135deg, #4A148C, #9333EA);
+                background: linear-gradient(135deg, #ac30ff, #bc5bda);
                 transform: translateY(-3px);
             }
 

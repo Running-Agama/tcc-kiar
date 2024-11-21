@@ -4,7 +4,6 @@ import { useForm, useFieldArray } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 import iconeVoltar from '../../images/icons/iconeVoltar/iconeVoltar.svg'
 import InputMask from 'react-input-mask'
-import validator from 'validator'
 import apiURL from '../../service/axios.js'
 
 export function Cadastro() {
@@ -86,13 +85,7 @@ export function Cadastro() {
   function verificarEmailConfirmacao() {
 
     //validator identifica se é email ou não, mas não executa o set error
-    if (!validator.isEmail(emailFatura)) {
 
-      setError("emailfatura", {
-        type: "manual",
-        message: "Formato de email invalido"
-      })
-    }
     if (emailFatura !== confirmacaoEmailFatura) {
       setError("emailfatura", {
         type: "manual",
