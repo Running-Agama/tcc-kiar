@@ -1,5 +1,5 @@
 import './index.scss';
-
+import logoSvg from '../../assets/curvalogo.svg'
 export default function Landing() {
     return (
         <div className="mae">
@@ -18,7 +18,7 @@ export default function Landing() {
         Bem Vindo A <span className="dart">DART</span><br />
         <span>Technologies</span>
     </h1>
-    <img className="curva-logo" src="/images/curvalogo.png" alt="Logo da curva" />
+    <img className="curva-logo" src={logoSvg} alt="Logo da curva" />
     <p>Uma empresa de tecnologia própria para o seu negócio!</p>
 </div>
 
