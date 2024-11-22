@@ -3,6 +3,7 @@ import enviarEmail from "../utils/enviarEmail.js"
 
 export default async function registrarClienteService(corpo){
     const resposta = await clientesRepository.cadastrarCliente(corpo)
-    enviarEmail(corpo.email)
+    const email = await enviarEmail(corpo.email)
+    console.log('passou aqui')
     return resposta
 }
