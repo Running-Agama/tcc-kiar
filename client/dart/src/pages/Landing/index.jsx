@@ -6,10 +6,10 @@ export default function Landing() {
         <header className="cabecalho">
             <img src="/images/logodart.webp" alt="Logo Dart" className="logo" />
             <nav className="links">
-                <a href="#home">HOME</a>
-                <a href="#avaliações">AVALIAÇÕES</a>
-                <a href="#sobre-nos">SOBRE NÓS</a>
-                <a href="#contato">CONTATO</a>
+                <a href="#home">Home</a>
+                <a href="#avaliações">Coments</a>
+                <a href="#sobre-nos">About us</a>
+                <a href="#contato">Contact</a>
             </nav>
         </header>
     
@@ -64,22 +64,22 @@ export default function Landing() {
     
     <div className="cards">
         <div className="card">
-            <img src="/images/IMGcerebro.webp" alt="" />
+            <img src="/images/ImgCerebro.webp" alt="" />
             <h1>Experiência</h1>
             <p>Contratar-nos significa contar com profissionais experientes e um sistema de gerenciamento simplificado, garantindo que seus projetos sejam entregues no prazo com a ajuda de um time talentoso.</p>
         </div>
         <div className="card">
-            <img src="/images/IMGpessoas.webp" alt="" />
+            <img src="/images/ImgPessoas.webp" alt="" />
             <h1>Equipe Dedicada</h1>
             <p>Temos equipes dedicadas: desenvolvedores web focam no design, enquanto nossa equipe de design gráfico cuida das imagens para garantir o sucesso do seu site.</p>
         </div>
         <div className="card">
-            <img src="/images/IMGrelogio.webp" alt="" />
+            <img src="/images/ImgRelogio.webp" alt="" />
             <h1>Tempo de resposta rápido</h1>
             <p>Nosso objetivo é entregar soluções de qualidade dentro dos prazos, mantendo os clientes informados sobre o progresso e alinhados com sua visão.</p>
         </div>
         <div className="card">
-            <img src="/images/IMGticket.webp" alt="" />
+            <img src="/images/ImgTicket.webp" alt="" />
             <h1>Preços competitivos</h1>
             <p>Oferecemos preços competitivos sem comprometer a qualidade, atendendo às demandas dos clientes com alta eficiência.</p>
         </div>
