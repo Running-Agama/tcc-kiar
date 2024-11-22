@@ -38,9 +38,13 @@ A sua confirmação de plano foi um sucesso e agora você está oficialmente na 
 Em breve, você vai perceber que:
 
 Seus vídeos em HD vão carregar tão rápido que vai achar que está em uma outra galáxia.
+
 As páginas vão abrir mais rápido que um click no botão de “play” no seu streaming favorito.
+
 E, claro, sua conexão vai ser mais estável que uma mesa de café com 4 pés (sem aquele balanço chato). ☕👌
-Fique tranquilo, estamos aqui para garantir que sua experiência seja super tranquila. Se tiver qualquer dúvida, ou se alguém te oferecer Wi-Fi grátis e duvidoso (sabe como é...), lembre-se que você tem o melhor! 😎</p>`// plain text body
+
+Fique tranquilo, estamos aqui para garantir que sua experiência seja super tranquila. Se tiver qualquer dúvida, ou se alguém te oferecer Wi-Fi grátis e duvidoso (sabe como é...), lembre-se que você tem o melhor! 😎</p> 
+<img src: "https://img.freepik.com/fotos-gratis/lindo-macaco-passando-tempo-na-natureza_23-2150754411.jpg"/>` // plain text body
               };
             console.log('')
               transporter.sendMail(mailOptions, (err, info) => {
