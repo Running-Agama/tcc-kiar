@@ -1,6 +1,7 @@
 import nodemailer from 'nodemailer'
 import 'dotenv/config'
 export default async function enviarEmail(destinatario){
+    console.log('oi eu passei aqui oiiiii')
     let transporter = nodemailer.createTransport({ 
         service: 'gmail', 
         auth: { 
