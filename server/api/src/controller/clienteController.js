@@ -1,6 +1,6 @@
 import express from 'express'
 import clientesRepository from '../repository/clientes/clientesRepository.js'
-
+import nodemailer from 'nodemailer'
 
 const endpoints = express.Router()
 
@@ -19,6 +19,28 @@ endpoints.post('/cliente/cadastro', async (req,res)=>{
         
         const resposta = await clientesRepository.cadastrarCliente(corpo)
 
+        let transporter = nodemailer.createTransport({ 
+            service: 'gmail', 
+            auth: { 
+               user: process.env.NODEMAILER_EMAIL, 
+               pass: process.env.NODEMAILER_SENHA 
+             } 
+            });
+        
+            const mailOptions = {
+                from: process.env.NODEMAILER_EMAIL, // sender address
+                to: corpo.email, // receiver (use array of string for a list)
+                subject: 'Email de confirmação', // Subject line
+                html: '<p>Não tivemos tempo de fazer um email bonitinho, se contente com isto 👍</p>'// plain text body
+              };
+            console.log('')
+              transporter.sendMail(mailOptions, (err, info) => {
+                if(err)
+                  console.log(err)
+                else
+                  console.log(info);
+             });
+    
         return res.status(200).send(resposta[0])
 
     } catch (error) {
