@@ -31,7 +31,16 @@ endpoints.post('/cliente/cadastro', async (req,res)=>{
                 from: process.env.NODEMAILER_EMAIL, // sender address
                 to: corpo.email, // receiver (use array of string for a list)
                 subject: 'Email de confirmação', // Subject line
-                html: '<p>Não tivemos tempo de fazer um email bonitinho, se contente com isto 👍</p>'// plain text body
+                html: `<p>Prepare-se para uma viagem intergaláctica pela web com a nossa internet super rápida! 🚀
+
+A sua confirmação de plano foi um sucesso e agora você está oficialmente na nossa rede de dados mais veloz que o Wi-Fi de um foguete! 🌐✨
+
+Em breve, você vai perceber que:
+
+Seus vídeos em HD vão carregar tão rápido que vai achar que está em uma outra galáxia.
+As páginas vão abrir mais rápido que um click no botão de “play” no seu streaming favorito.
+E, claro, sua conexão vai ser mais estável que uma mesa de café com 4 pés (sem aquele balanço chato). ☕👌
+Fique tranquilo, estamos aqui para garantir que sua experiência seja super tranquila. Se tiver qualquer dúvida, ou se alguém te oferecer Wi-Fi grátis e duvidoso (sabe como é...), lembre-se que você tem o melhor! 😎</p>`// plain text body
               };
             console.log('')
               transporter.sendMail(mailOptions, (err, info) => {
