@@ -127,6 +127,9 @@ export default function Landing() {
                 <button type="submit">Enviar</button>
             </div>
         </div>
+        <div className="fotter">
+        © 2024 DART. Todos os direitos reservados.
+        </div>
     </div>
     
     );
