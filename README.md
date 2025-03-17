@@ -1,9 +1,10 @@
 Código para o TCC com tema autônomo
-Visualização do site: kiarnet.netlify.app
+<p>Visualização do site: <a href="https://kiarnet.netlify.app">kiarnet.netlify.app</a></p>
 
-Contribuidores: Vinicius Alves do Carmo, Victor Souza Nishikawa, Guilherme Gomes
+<h1>Contribuidores:</h1>
+<p> Vinicius Alves do Carmo, Victor Souza Nishikawa, Guilherme Gomes</p>
 
-Serviços usados para hosting de testes:
-Sites: Netlify.com
-API: Render.com
-Banco de dados: Aiven.io
+<h1>Serviços usados para hosting de testes:</h1>
+<p></p>Sites: Netlify.com</p>
+<p>API: Render.com</p>
+<p>Banco de dados: Aiven.io</p
